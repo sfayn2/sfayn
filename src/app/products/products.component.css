@@ -1,0 +1,41 @@
+.sku_grid_main {
+  font-family: Avenir, Roboto, Helvetica, san-serif; 
+  font-size: 80%;
+}
+
+.sku_grid_main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 1rem;
+    padding: 1rem; /* need to give space for left & right side of the sku grid */
+}
+
+.sku_items {
+    display: flex;
+    flex-flow: column;
+    padding: 1rem;
+    background-color:white;
+   /* border: 1px solid black;*/
+}
+
+img {
+    order: -1;
+    align-self: center;
+    width:100%
+}
+
+.sku_grid_main > a {
+  text-decoration: none;
+}
+
+.sku_grid_main > a:hover {
+  text-decoration: underline;
+}
+
+/* .sku_grid_main  a:active {
+  color: black;
+}
+
+.sku_grid_main  a:visited {
+  color: purple;
+} */  /* --> dunno it will affect all cards???? */

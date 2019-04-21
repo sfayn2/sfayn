@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body {
+  margin: 0;  
+  background-color:#F0F0F0;
+  }
+
+.app-navbar {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:2;
+}
