@@ -1,5 +1,8 @@
 # Sfayn
 
+![image](https://user-images.githubusercontent.com/3206118/56470244-c07f5680-6476-11e9-8edd-491e33062d07.png)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## Development server
