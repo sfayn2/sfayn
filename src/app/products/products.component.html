@@ -1,6 +1,7 @@
- <div class="sku_grid_main">
+
+<div class="products-grid-main">
      <ng-container *ngFor="let p of prod$">
-         <div class="sku_items mat-elevation-z4">
+         <div class="products-grid-items mat-elevation-z0">
            <a href="#">{{p.title | slice:0:35}}...</a>
            <ng-container *ngFor="let w of p.warehouse">
                <h1><strong>${{w.price}}</strong></h1>
@@ -12,7 +13,7 @@
           <div>{{p.color}}</div>
 
           <ng-container *ngFor="let img of p.originalImg">
-            <img src="{{img.originalImg}}" alt="{{p.title}}">
+            <img [src]="img.originalImg" [alt]="p.title">
           </ng-container>
 
           <div fxLayout="row" fxLayoutAlign="space-around center" >
@@ -24,4 +25,6 @@
    </ng-container>
  </div>
 
+
+  
 

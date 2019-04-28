@@ -1,18 +1,30 @@
 
-        <mat-toolbar color="primary" class="app-navbar mat-elevation-z6">
-            <span class="display-1">Sfayn</span>
-           
-             <!-- This fills the remaining space of the current row -->
-            <span class="example-fill-remaining-space"></span>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="push" [(opened)]="opened" > <!-- mode change to over when in mobile -->
+    <app-products-search></app-products-search>
+  </mat-sidenav>
+  <mat-sidenav-content>
+             
+            <div class="app-layout">
+            <header class="app-header">
+                    <mat-toolbar color="primary" class="app-navbar mat-elevation-z6" fxLayout="row" fxLayoutAlign="start center"> 
+                            <div fxFlex="5"><button mat-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button></div>
+                            <div fxFlex="30">Sfayn</div>
+                            <div fxFlex="60" fxLayoutAlign="end center"><button mat-button ><mat-icon>search</mat-icon></button></div>
+                            <div fxFlex="5"><button mat-button ><mat-icon>shopping_cart</mat-icon></button></div>
+                     </mat-toolbar>
+            </header>
 
-            <span class="button">
-           <!-- <button mat-button >Features</button>
-            <button mat-button >Docs</button>
-            <button mat-button >Blogs</button> -->
-            </span>
-        </mat-toolbar>
 
-        <br/><br/><br/><br/>
+            <main class="app-main">
+               <router-outlet></router-outlet>
+               <app-products></app-products>
+            </main>
 
-<router-outlet></router-outlet>
-<app-products>Zup!</app-products>
+
+            <footer class="app-footer">
+                Footer
+            </footer>    
+            </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

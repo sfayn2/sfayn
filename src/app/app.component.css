@@ -1,4 +1,75 @@
 
-html, body {
-    padding:0;
+
+
+.app-layout {
+    margin:0;
+    display: grid;
+    grid-template-rows: 60px auto 60px;
+    grid-template-areas: "header header"
+                         "main main"
+                         "footer footer";
+}
+
+.app-header {
+    grid-area: header;
+}
+
+.app-main {
+    grid-area: main;
+    height:100%;
+}
+
+
+.app-footer{
+    grid-area: footer;
+}
+
+
+.app-navbar {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:2;
+}
+
+.app-navbar {
+    color: #fff;
+}
+
+mat-sidenav {
+  width: 250px;
+} 
+
+
+.app-navbar-layout {
+    margin:0;
+    display: grid;
+    grid-template-rows: 10px auto 15px 15px;
+    grid-template-areas: "menu title search cart";
+
+}
+
+.app-navbar-layout-menu {
+    grid-area: menu;
+}
+
+.app-navbar-layout-title {
+    grid-area: title;
+}
+
+.app-navbar-layout-search {
+    grid-area: search;
+}
+
+.app-navbar-layout-cart {
+    grid-area: cart;
+}
+
+
+.docs-navbar-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 16px;
 }

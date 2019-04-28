@@ -1,0 +1,55 @@
+<form [formGroup]="searchForm" (ngSubmit)="submit()">
+
+  <mat-expansion-panel class="mat-elevation-z0" expanded="true">
+    <mat-expansion-panel-header>
+      Category
+    </mat-expansion-panel-header>
+
+    <div fxLayout="column">
+     <ng-container formArrayName="productCategory" *ngFor="let _ of searchForm.controls.productCategory.controls; let i = index">
+         <div><mat-checkbox [formControlName]="i">{{productCategory[i]}}</mat-checkbox> </div>
+          </ng-container>
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="mat-elevation-z0" expanded="true">
+    <mat-expansion-panel-header>
+        Warehouse
+    </mat-expansion-panel-header>
+            <div fxLayout="column">
+             <ng-container formArrayName="productWarehouse" *ngFor="let _ of searchForm.controls.productWarehouse.controls; let i = index">
+                 <div><mat-checkbox [formControlName]="i">{{productWarehouse[i]}}</mat-checkbox> </div>
+             </ng-container> 
+            </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="mat-elevation-z0" expanded="true">
+    <mat-expansion-panel-header>
+        Price
+    </mat-expansion-panel-header>
+    <mat-form-field>
+            <input matInput placeholder="Lowest Price">
+    </mat-form-field>    
+    <mat-form-field>
+            <input matInput placeholder="Highest Price">
+    </mat-form-field>    
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="mat-elevation-z0">
+    <mat-expansion-panel-header>
+        Stocks
+    </mat-expansion-panel-header>
+    <mat-form-field>
+            <input matInput placeholder="Lowest Stocks">
+    </mat-form-field>    
+    <mat-form-field>
+            <input matInput placeholder="Highest Price">
+    </mat-form-field>    
+
+
+  </mat-expansion-panel>
+
+</form>

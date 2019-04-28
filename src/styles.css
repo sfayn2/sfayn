@@ -5,15 +5,12 @@
 *, *:before, *:after {
   box-sizing: border-box; }
 
-body {
+html, body {
   margin: 0;  
+  padding: 0;
   background-color:#F0F0F0;
+
+font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+
   }
 
-.app-navbar {
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index:2;
-}

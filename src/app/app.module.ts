@@ -13,12 +13,19 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import {MaterialModule} from './material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProductsSearchComponent } from './products-search/products-search.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductsSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +35,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     MaterialModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
