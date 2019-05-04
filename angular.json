@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles1.scss",
               "src/styles.css"
             ],
             "scripts": [],
@@ -80,6 +81,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "src/styles1.scss",
               "src/styles.css"
             ],
             "scripts": [],
@@ -132,5 +134,10 @@
       }
     }
   },
-  "defaultProject": "sfayn"
+  "defaultProject": "sfayn",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

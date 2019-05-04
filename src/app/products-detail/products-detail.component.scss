@@ -1,0 +1,48 @@
+/* pdgrid --> products -detail grid */
+
+.products-detail-grid {
+    display:grid;
+    grid-template-columns:  1fr 2fr;
+    grid-template-areas: "img title"
+                         "desc desc" ; 
+    grid-gap: 1rem; 
+}
+
+.products-detail-grid-items > div {
+    display: flex;
+    flex-flow: row;
+    padding-bottom: 1.5rem;
+    
+}
+
+.products-detail-title {
+    grid-area: title;
+    @extend .products-detail-grid-items;
+    div {
+        flex:0 1 auto;
+        div:last-child  {
+            padding-left:2rem;
+        } 
+    }
+}
+
+.products-detail-desc {
+    grid-area: desc;
+    padding:1rem;
+}
+
+.products-detail-img {
+    grid-area: img;
+    padding:1rem;
+    @extend .products-detail-grid-items;
+    align-items: center;
+    justify-content: center;
+    img {
+        flex:0 1 auto;
+        width: 400px;
+    }
+} 
+
+
+
+

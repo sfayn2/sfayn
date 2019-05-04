@@ -1,0 +1,42 @@
+
+
+<section class="products-detail-grid" *ngIf="prod$">
+    <div class="products-detail-img">
+        <ng-container *ngFor="let p of prod$.descImg.edges">
+            <img [src]="p.node.descImg" />
+        </ng-container>    
+    </div>
+    <div class="products-detail-title" >
+        <h2>{{prod$.title}}</h2>
+                <ng-container *ngFor="let w of prod$.warehouse.edges">
+                    <h1> USD: {{w.node.price}} </h1>
+                </ng-container>    
+        <div>
+            <div>color:</div>
+            <div>{{prod$.color}}</div>
+        </div>
+        <div>
+            <div>size:</div>
+            <div>{{prod$.size}}</div>
+        </div>
+        <div>
+            <div>quantity:</div>
+            <div><mat-slider min="1" max="5" step="1" #qty value="1"></mat-slider>{{qty.value}} of # (stocks)</div>
+        </div>
+        <div>
+            <div>warehouse:</div>
+            <div *ngFor="let w of prod$.warehouse.edges">{{w.node.warehouse}} </div>
+        </div>
+        <div>
+            <div>goodstate:</div>
+            <div *ngFor="let w of prod$.warehouse.edges">{{w.node.goodsState}} </div>
+        </div>
+        <div>
+             <button mat-raised-button color="accent">Add to Cart</button>
+         </div>    
+    </div>
+    <div class="products-detail-desc">
+        <div [innerHTML]="prod$.goodsDesc"></div>
+    </div>
+</section>
+

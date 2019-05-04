@@ -31,17 +31,13 @@ export class ProductsSearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm.valueChanges.subscribe(x => console.log(x))
-  
   }
 
   submit() {
     // do something
   }
 
-  moreCategory() {
-    this.catLimit = this.productCategory.length;
-    console.log(this.productCategory.length);
-  }
+
 
 
 }

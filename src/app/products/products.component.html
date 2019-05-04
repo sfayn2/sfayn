@@ -3,8 +3,8 @@
      <ng-container *ngFor="let p of prod$">
          <div class="products-grid-items mat-elevation-z0">
            <a href="#">{{p.title | slice:0:35}}...</a>
-           <ng-container *ngFor="let w of p.warehouse">
-               <h1><strong>${{w.price}}</strong></h1>
+           <ng-container *ngFor="let w of p.warehouse.edges">
+               <h1><strong>${{w.node.price}}</strong></h1>
                <div>{{w.goodsState }}</div>
            </ng-container>
 
@@ -12,8 +12,8 @@
           <!-- <div>{{p.parentId}}</div>-->
           <div>{{p.color}}</div>
 
-          <ng-container *ngFor="let img of p.originalImg">
-            <img [src]="img.originalImg" [alt]="p.title">
+          <ng-container *ngFor="let img of p.originalImg.edges">
+            <img [src]="img.node.originalImg" [alt]="p.title">
           </ng-container>
 
           <div fxLayout="row" fxLayoutAlign="space-around center" >

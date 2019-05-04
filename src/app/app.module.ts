@@ -18,6 +18,7 @@ import { ProductsSearchComponent } from './products-search/products-search.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductsDetailComponent } from './products-detail/products-detail.component';
 
 
 
@@ -26,6 +27,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     ProductsComponent,
     ProductsSearchComponent,
+    ProductsDetailComponent,
   ],
   imports: [
     BrowserModule,

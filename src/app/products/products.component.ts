@@ -7,23 +7,53 @@ import { Apollo } from 'apollo-angular';
 
 import gql from 'graphql-tag';
 
+//const prodsQuery = gql`
+//        {
+//            allProducts {
+//                    sku
+//                    title
+//                    parentId
+//                    color
+//                    originalImg {
+//                        originalImg
+//                    }
+//                    warehouse {
+//                        warehouse
+//                        price
+//                        goodsState
+//                    }
+//                  }
+//        }
+//`;
 const prodsQuery = gql`
-        {
-            allProducts {
-                    sku
-                    title
-                    parentId
-                    color
-                    originalImg {
-                        originalImg
-                    }
-                    warehouse {
-                        warehouse
-                        price
-                        goodsState
-                    }
-                  }
+{
+allProducts {
+   edges {
+     node {
+       sku
+      title
+      parentId
+      color
+      originalImg {
+        edges {
+          node {
+            originalImg
+          }
         }
+      }
+      warehouse {
+        edges {
+          node {
+            warehouse
+            price
+            goodsState
+          }
+        }
+      }
+     }
+   }
+ }
+ }
 `;
 
 @Component({
@@ -43,11 +73,11 @@ export class ProductsComponent implements OnInit {
         //this.ps.getProd().subscribe(res => this.ps.sharedProdObjSrc$.next(res));
         //this.ps.sharedProdObj$.subscribe(res => this.prod$ = res);
      this.qrySubscription = this.apollo.watchQuery<any>({ query: prodsQuery  })
-         .valueChanges.subscribe(res => { 
-            console.log(res.data.allProducts);
-            this.prod$ = res.data.allProducts; 
-            return this.prod$;
-        });
+         .valueChanges
+         .pipe(
+            map(res => res.data.allProducts.edges.map(res1 => res1.node) )
+         )
+         .subscribe(res => this.prod$ = res);
 
         }
 
