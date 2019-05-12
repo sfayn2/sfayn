@@ -7,53 +7,45 @@ import { Apollo } from 'apollo-angular';
 
 import gql from 'graphql-tag';
 
-//const prodsQuery = gql`
-//        {
-//            allProducts {
-//                    sku
-//                    title
-//                    parentId
-//                    color
-//                    originalImg {
-//                        originalImg
-//                    }
-//                    warehouse {
-//                        warehouse
-//                        price
-//                        goodsState
-//                    }
-//                  }
-//        }
-//`;
+
 const prodsQuery = gql`
 {
-allProducts {
-   edges {
-     node {
-       sku
-      title
-      parentId
-      color
-      originalImg {
-        edges {
-          node {
-            originalImg
+ allProductparents {
+    edges {
+      node {
+        id
+        parent2product(first: 1) {
+          edges {
+            node {
+              id
+              sku
+              title
+              parentId
+              color
+              originalImg(first: 1) {
+                edges {
+                  node {
+                    originalImg
+                  }
+                }
+              }
+              warehouse(first: 1) {
+                edges {
+                  node {
+                    warehouse
+                    price
+                    goodsState
+                    goodsNumber
+                  }
+                }
+              }
+            }
           }
         }
       }
-      warehouse {
-        edges {
-          node {
-            warehouse
-            price
-            goodsState
-          }
-        }
-      }
-     }
-   }
- }
- }
+    } 
+  }
+}
 `;
 
 @Component({
@@ -74,11 +66,12 @@ export class ProductsComponent implements OnInit {
         //this.ps.sharedProdObj$.subscribe(res => this.prod$ = res);
      this.qrySubscription = this.apollo.watchQuery<any>({ query: prodsQuery  })
          .valueChanges
-         .pipe(
-            map(res => res.data.allProducts.edges.map(res1 => res1.node) )
-         )
-         .subscribe(res => this.prod$ = res);
-
+          .pipe(
+            map(res => res.data.allProductparents.edges.map(res1 => res1.node) )
+          )
+          .subscribe(res => { this.prod$ = res
+                console.log(res);
+          });
         }
 
   ngOnDestroy() {

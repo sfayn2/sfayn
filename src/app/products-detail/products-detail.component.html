@@ -1,10 +1,17 @@
 
+                <div class="products-detail-container"> <!-- TODO: styling app-container only use for detail -->
 
 <section class="products-detail-grid" *ngIf="prod$">
     <div class="products-detail-img">
-        <ng-container *ngFor="let p of prod$.descImg.edges">
-            <img [src]="p.node.descImg" />
-        </ng-container>    
+            <img *ngIf="main_pic" [src]="main_pic" />
+            <ng-container *ngFor="let p of prod$.originalImg.edges.slice(0,1)" >
+                <img *ngIf="!main_pic" [src]="p.node.originalImg"/>
+            </ng-container>    
+        <div class="products-detail-img-slide" >
+            <ng-container *ngFor="let p of prod$.originalImg.edges">
+                <img [src]="p.node.originalImg" (mouseover)="setMainPic(p.node.originalImg)"/>
+            </ng-container>    
+        </div>
     </div>
     <div class="products-detail-title" >
         <h2>{{prod$.title}}</h2>
@@ -13,15 +20,21 @@
                 </ng-container>    
         <div>
             <div>color:</div>
-            <div>{{prod$.color}}</div>
-        </div>
-        <div>
-            <div>size:</div>
-            <div>{{prod$.size}}</div>
+            <div>
+                <div>
+
+                    <mat-button-toggle-group>
+                        <mat-button-toggle value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >{{p.node.color}}</mat-button-toggle>
+</mat-button-toggle-group>
+                    
+                </div>
+            </div>    
         </div>
         <div>
             <div>quantity:</div>
-            <div><mat-slider min="1" max="5" step="1" #qty value="1"></mat-slider>{{qty.value}} of # (stocks)</div>
+                <ng-container *ngFor="let w of prod$.warehouse.edges">
+                    <div><mat-slider min="0" max="5" step="1" #qty value="1"></mat-slider>{{qty.value}} of {{w.node.goodsNumber}} (stocks)</div>
+            </ng-container>
         </div>
         <div>
             <div>warehouse:</div>
@@ -40,3 +53,4 @@
     </div>
 </section>
 
+                </div>

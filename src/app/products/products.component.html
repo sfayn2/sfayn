@@ -1,19 +1,17 @@
 
+
 <div class="products-grid-main">
-     <ng-container *ngFor="let p of prod$">
-         <div class="products-grid-items mat-elevation-z0">
-           <a href="#">{{p.title | slice:0:35}}...</a>
-           <ng-container *ngFor="let w of p.warehouse.edges">
+    <ng-container *ngFor="let parent of prod$">
+         <div class="products-grid-items mat-elevation-z0" *ngFor="let product of parent.parent2product.edges">
+             <a routerLink="/pd/{{product.node.id}}">{{product.node.title | slice:0:35}}...</a>
+           <ng-container *ngFor="let w of product.node.warehouse.edges">
                <h1><strong>${{w.node.price}}</strong></h1>
-               <div>{{w.goodsState }}</div>
+               <div>{{w.node.goodsState }}</div>
+               <div>Stocks:{{w.node.goodsNumber }}</div>
            </ng-container>
 
-          <div>{{p.sku}}</div>
-          <!-- <div>{{p.parentId}}</div>-->
-          <div>{{p.color}}</div>
-
-          <ng-container *ngFor="let img of p.originalImg.edges">
-            <img [src]="img.node.originalImg" [alt]="p.title">
+          <ng-container *ngFor="let img of product.node.originalImg.edges">
+            <img [src]="img.node.originalImg" [alt]="product.node.title">
           </ng-container>
 
           <div fxLayout="row" fxLayoutAlign="space-around center" >
@@ -21,10 +19,9 @@
               <div fxFlex fxLayoutAlign="end"><mat-icon>star_border</mat-icon></div>
               <div>0 Sold</div>
           </div>
-         </div>
-   </ng-container>
- </div>
 
 
-  
+         </div>   
+    </ng-container>
+</div>
 
