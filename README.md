@@ -1,6 +1,12 @@
 # Sfayn
 
-![image](https://user-images.githubusercontent.com/3206118/56470244-c07f5680-6476-11e9-8edd-491e33062d07.png)
+![image](https://user-images.githubusercontent.com/3206118/57579337-22a70680-74cd-11e9-8d12-2dcfc5d01bc9.png)
+
+
+![image](https://user-images.githubusercontent.com/3206118/57579340-3ce0e480-74cd-11e9-9471-5c29b6468668.png)
+
+![image](https://user-images.githubusercontent.com/3206118/57579349-4ec28780-74cd-11e9-81bd-92d9d5234924.png)
+
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
