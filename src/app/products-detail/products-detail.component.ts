@@ -72,6 +72,7 @@ export class ProductsDetailComponent implements OnInit {
   ngOnInit() {
        
         this.route.params.subscribe(routeParams => {
+            this.main_pic = null; //reset every call
 	    this.loadProductDetail(routeParams.id);
 	});
    
