@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import gql from 'graphql-tag';
 
@@ -68,24 +67,26 @@ export class ProductsDetailComponent implements OnInit {
   private qrySubscription: Subscription;
   constructor(private apollo: Apollo,
               private route: ActivatedRoute,
-              private location: Location) { }
+              ) { }
  
   ngOnInit() {
        
-        //this.ps.getProd().subscribe(res => this.ps.sharedProdObjSrc$.next(res));
-        //this.ps.sharedProdObj$.subscribe(res => this.prod$ = res);
+        this.route.params.subscribe(routeParams => {
+	    this.loadProductDetail(routeParams.id);
+	});
+   
+    }
+
+   loadProductDetail(id) {
         this.qrySubscription = this.apollo.watchQuery<any>({ query: prodsQuery, 
-            variables: { "id": this.route.snapshot.paramMap.get('id')  }  })
+            variables: { "id": id }  })
          .valueChanges
          .subscribe(res => this.prod$ = res.data.product);
-
-
-
-        }
+   }
 
   ngOnDestroy() {
     this.qrySubscription.unsubscribe();
-    }
+  }
 
 
     setMainPic(x) {
@@ -100,5 +101,6 @@ export class ProductsDetailComponent implements OnInit {
             return false;    
         }
     }
+
 
 }

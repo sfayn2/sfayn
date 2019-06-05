@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
-import { map, tap  } from 'rxjs/operators';
+import { map, tap, filter  } from 'rxjs/operators';
 
 import gql from 'graphql-tag';
 
@@ -53,7 +53,6 @@ export class ProductService {
 sharedProdObjSrc$ = new BehaviorSubject(null);
 sharedProdObj$ = this.sharedProdObjSrc$.asObservable();
 
-fProd = [];
 constructor(private apollo: Apollo) { }
 
     getProd(): Observable<any> {
@@ -64,7 +63,7 @@ constructor(private apollo: Apollo) { }
              .pipe(
                 map(res => res.data.allProductparents.edges),
                 map(res => res.map(r => r.node.parent2product.edges ) ),
-                map(res => res.filter( r => r.length > 0 ))
+                filter(res => res.length > 0)
               )
         }
 
