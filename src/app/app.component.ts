@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MenuService } from './menu.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'sfayn';
   opened: boolean = true;
+  constructor(private ms: MenuService) { }
+  //  ngOnInit() {
+  // this.ms.sharedMenuSrc$.next({"menu": true, 
+  // "arrow_back": false });
+  //}
 }

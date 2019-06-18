@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
+import { MenuService } from '../menu.service';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -67,6 +68,7 @@ export class ProductsDetailComponent implements OnInit {
   private qrySubscription: Subscription;
   constructor(private apollo: Apollo,
               private route: ActivatedRoute,
+              private ms: MenuService
               ) { }
  
   ngOnInit() {
@@ -75,6 +77,9 @@ export class ProductsDetailComponent implements OnInit {
             this.main_pic = null; //reset every call
 	    this.loadProductDetail(routeParams.id);
 	});
+        
+        this.ms.sharedMenuSrc$.next({"menu": false, 
+                                        "arrow_back": true });
    
     }
 

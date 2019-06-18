@@ -1,6 +1,9 @@
+
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { ProductService } from '../product.service';
+import { Subscription } from 'rxjs';
+import { QUERY_PRODUCTS } from '../fragments';
+
 
 @Component({
   selector: 'app-products-search',
@@ -8,36 +11,47 @@ import { map, tap, switchMap } from 'rxjs/operators';
   styleUrls: ['./products-search.component.css']
 })
 export class ProductsSearchComponent implements OnInit {
-  catLimit = 5;
-  wareLimit = 5;
-  searchForm: FormGroup;
-  //productCategory = ["All Categories", "Tablets & Accessories"];
-  productCategory = ["All Categories", "Tablets & Accessories", "Phones & Accessories", "Computer & Office", "Consumer Electronics", "Toys & Hobbies", "Home & Garden", "Sports & Entertainment", "Automobiles & Motorcycles", "Watches", "Lights & Lighting", "Women's Clothing", "Men's Clothing", "Bags", "Shoes", "Beauty & Health", "Mother & Kids", "Clothing Accessories", "Jewelry", "Original Design-Women's Clothing"];
 
-  productWarehouse = ["CN-1", "US-1", "US-2", "ES-1", "US-3", "CN-8", "HK-4", "CN-5", "US-4", "RU-2", "UK-3", "FR-1", "AU-1", "CN-9", "CN-7"]
+  aCat1: any; // all category level1
+  aCat2: any;
+  aCat3: any;
+  sCat: string; // selected category
+  private subscribe1: Subscription;
+  private subscribe2: Subscription;
 
 
-  constructor(private fb: FormBuilder) {
-    // Create a FormControl for each available product category, initialize them as unchecked, and put them in an array
-    const formControlsCategory = this.productCategory.map(control => new FormControl(false));
-    const formControlsWarehouse = this.productWarehouse.map(control => new FormControl(false));
-  
-    // Simply add the list of FormControls to the FormGroup as a FormArray
-    this.searchForm = this.fb.group({
-      productCategory: new FormArray(formControlsCategory),
-      productWarehouse: new FormArray(formControlsWarehouse),
-    });
-  }
+  constructor(private ps: ProductService) {}
 
   ngOnInit() {
-    this.searchForm.valueChanges.subscribe(x => console.log(x))
+    this.subscribe1 = this.ps.getCat().subscribe(res => {
+            console.log(res.level1.edges);
+            this.aCat1 = res.level1.edges;
+            this.aCat2 = res.level2.edges;
+            this.aCat3 = res.level3.edges;
+        });
   }
 
-  submit() {
-    // do something
+  searchCategory(id: number) {
+    //console.log(this.aCat2);
+    //console.log(this.aCat2.map(res => res.node).filter(res => res.parentId == id))
+    //console.log(this.aCat2.map(res => res.node).filter(res => res.parentId == id).map(res => res.catId))
+    let catId2 = this.aCat2.map(res => res.node).filter(res => res.parentId == id).map(res => res.catId)
+    let catId3 = [];
+    for (let x of catId2) {
+        //console.log(this.aCat3.map(res => res.node).filter(res => res.parentId == x).map(res => res.catId))
+        catId3.push(...this.aCat3.map(res => res.node).filter(res => res.parentId == x).map(res => res.catId))
+    }
+    console.log(catId3.join());
+        let qry = {
+            query: QUERY_PRODUCTS,
+            variables: { "catId" : catId3.join() }
+        };
+     this.subscribe2 = this.ps.getProd(qry).subscribe(res => this.ps.sharedProdObjSrc$.next(res));
   }
 
-
-
+  ngOnDestroy() {
+     this.subscribe1.unsubscribe();
+     this.subscribe2.unsubscribe();
+  }
 
 }

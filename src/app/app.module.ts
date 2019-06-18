@@ -9,6 +9,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { ProductService } from './product.service';
+import { MenuService } from './menu.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import {MaterialModule} from './material-module';
@@ -42,7 +43,7 @@ import { ProductsDetailComponent } from './products-detail/products-detail.compo
     BrowserAnimationsModule,
     NoopAnimationsModule
   ],
-  providers: [ProductService],
+  providers: [ProductService, MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -1,44 +1,35 @@
 <div class="products-search-container">
-    <form [formGroup]="searchForm" (ngSubmit)="submit()">
+
+    <mat-accordion>
+
+  <mat-expansion-panel [class.mat-expansion-panel]="false">
+    <mat-expansion-panel-header>
+        Category
+    </mat-expansion-panel-header>
+
+
         <mat-nav-list>
-            <h3 mat-subheader>Category</h3>
-         <mat-list-item formArrayName="productCategory" *ngFor="let _ of searchForm.controls.productCategory.controls; let i = index">
-             <p mat-line> <mat-checkbox [formControlName]="i">{{productCategory[i]}}</mat-checkbox> </p>
-         </mat-list-item>
-           <mat-divider></mat-divider>
-
-         <mat-list-item formArrayName="productWarehouse" *ngFor="let _ of searchForm.controls.productWarehouse.controls; let i = index">
-             <p mat-line><mat-checkbox [formControlName]="i">{{productWarehouse[i]}}</mat-checkbox> </p>
-         </mat-list-item> 
-
-     <mat-divider></mat-divider>
-            <h3 mat-subheader>Price</h3>
-        <mat-list-item>
-        <mat-form-field>
-                <input matInput placeholder="Lowest Price">
-        </mat-form-field>    
-        </mat-list-item>
-        <mat-list-item>
-        <mat-form-field>
-                <input matInput placeholder="Highest Price">
-        </mat-form-field>    
-        </mat-list-item>
-
-
-     <mat-divider></mat-divider>
-            <h3 mat-subheader>Stocks</h3>
-        <mat-list-item>
-        <mat-form-field>
-                <input matInput placeholder="Lowest Stocks">
-        </mat-form-field>    
-        </mat-list-item>
-        <mat-list-item>
-        <mat-form-field>
-                <input matInput placeholder="Highest Stocks">
-        </mat-form-field>    
-        </mat-list-item>
-
-
+          <mat-list-item *ngFor="let c of aCat1">
+             <button mat-icon-button (click)="searchCategory(c.node.catId)">
+                 {{c.node.catName}}
+             </button>
+          </mat-list-item>
         </mat-nav-list>
-    </form>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [class.mat-expansion-panel]="false">
+    <mat-expansion-panel-header>
+      Warehouse
+    </mat-expansion-panel-header>
+
+    This the expansion 2 content
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+Search: <strong>{{sCat}}</strong>
+
 </div>
