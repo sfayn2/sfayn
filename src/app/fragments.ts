@@ -111,7 +111,7 @@ export const PRODUCTS_SEARCH_CATEGORY_LIST_QUERY = gql`
     }
   }
 }
-
+${categoryInfo}
 `;
 
 export const PRODUCTS_DETAIL_QUERY = gql`
