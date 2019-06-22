@@ -1,7 +1,9 @@
 
 
 <div class="products-grid-main">
-    <ng-container *ngFor="let parent of prod$">
+
+    <ng-container *ngFor="let parent of ps.sharedProdObj$ | async">
+
          <div class="products-grid-items mat-elevation-z0" *ngFor="let product of parent">
              <a routerLink="/pd/{{product.node.id}}">{{product.node.title | slice:0:35}}...</a>
            <ng-container *ngFor="let w of product.node.warehouse.edges">

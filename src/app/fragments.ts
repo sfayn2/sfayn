@@ -45,7 +45,7 @@ const parent2productInfo = gql`
     ${warehouseInfo}
 `;
 
-export const QUERY_PRODUCTS = gql`
+export const PRODUCTS_SEARCH_CATEGORY_QUERY = gql`
     query SearchProductByCategory($first: Int = 1, $catId: String!) 
         {
             allProductparents{
@@ -63,7 +63,7 @@ export const QUERY_PRODUCTS = gql`
      ${parent2productInfo}
 `;
 
-export const QUERY_ALL_PRODUCTS = gql`
+export const PRODUCTS_QUERY = gql`
     query SearchProductByCategory($first: Int = 1) 
         {
             allProductparents{
@@ -82,7 +82,7 @@ export const QUERY_ALL_PRODUCTS = gql`
 `;
 
 
-export const QUERY_CATEGORY = gql`
+export const PRODUCTS_SEARCH_CATEGORY_LIST_QUERY = gql`
 {
   level1: allProductcategory (level: 1) {
     edges {
@@ -117,3 +117,36 @@ export const QUERY_CATEGORY = gql`
 }
 
 `;
+
+export const PRODUCTS_DETAIL_QUERY = gql`
+query SelectedProduct($id: ID!, $first: Int = 1) {
+  product (id: $id) {
+    sku
+    title
+    color
+    size
+    goodsDesc
+    parentSn {
+      parent2product {
+          edges {
+                ...parent2productInfo
+          }
+      }
+    }
+    warehouse {
+        edges {
+            ...warehouseInfo                  
+        }
+    }
+     originalImg {
+        edges {
+            ...originalImgInfo   
+        }
+    }
+  }
+}
+${parent2productInfo}
+${warehouseInfo}
+${originalImgInfo}
+`;
+

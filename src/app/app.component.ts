@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuService } from './menu.service';
+import { Component } from '@angular/core';
+import { Event, Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,21 @@ import { MenuService } from './menu.service';
 })
 export class AppComponent {
   title = 'sfayn';
-  opened: boolean = true;
-  constructor(private ms: MenuService) { }
-  //  ngOnInit() {
-  // this.ms.sharedMenuSrc$.next({"menu": true, 
-  // "arrow_back": false });
-  //}
+  opened: boolean = false;
+  showLoading = true;
+  menu = {};
+  constructor(private _router: Router) { 
+    this._router.events.subscribe((routerEvent: Event) => {
+        if (routerEvent instanceof NavigationStart) {
+            this.showLoading = true;
+        }            
+        if (routerEvent instanceof NavigationEnd) {
+            setTimeout( ()=>{
+                this.showLoading = false;
+            }, 500)
+        }            
+        //        this.menu = {"menu": true, "arrow_back": false};
+
+    })
+  }
 }

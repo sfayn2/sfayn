@@ -1,4 +1,3 @@
-
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="push" [(opened)]="opened" > <!-- mode change to over when in mobile -->
     <app-products-search></app-products-search>
@@ -7,14 +6,12 @@
             <div class="app-layout">
             <header class="app-header">
                     <mat-toolbar color="primary" class="app-navbar mat-elevation-z6" fxLayout="row" fxLayoutAlign="start center"> 
-                            <ng-container *ngIf="ms.sharedMenu$ | async; let menu">
                                 <div *ngIf="menu.menu" fxFlex="5">
                                     <button mat-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
                                 </div>
                                 <div *ngIf="menu.arrow_back" fxFlex="5">
                                     <button mat-button routerLink="/pl"> <mat-icon>arrow_back</mat-icon></button>
                                 </div>
-                            </ng-container>
                             <div fxFlex="30">Sfayn</div>
                             <div fxFlex="60" fxLayoutAlign="end center"><button mat-button ><mat-icon>search</mat-icon></button></div>
                             <div fxFlex="5"><button mat-button ><mat-icon>shopping_cart</mat-icon></button></div>
@@ -23,7 +20,8 @@
 
 
             <main class="app-main">
-                  <router-outlet ></router-outlet>
+                  <div style="width:100%; position:absolute; top:30vh" *ngIf="showLoading"><mat-spinner style="margin:0 auto; z-index:1"></mat-spinner></div>
+                  <router-outlet></router-outlet>
             </main>
 
 

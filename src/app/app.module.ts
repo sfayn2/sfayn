@@ -9,7 +9,6 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { ProductService } from './product.service';
-import { MenuService } from './menu.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import {MaterialModule} from './material-module';
@@ -18,7 +17,7 @@ import { ProductsSearchComponent } from './products-search/products-search.compo
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //this will stop all animations only use for optimization where u dont want to animate
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
 
 
@@ -32,18 +31,17 @@ import { ProductsDetailComponent } from './products-detail/products-detail.compo
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     AppRoutingModule,
     ApolloModule,
     HttpLinkModule,
     HttpClientModule,
-    MaterialModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    NoopAnimationsModule
   ],
-  providers: [ProductService, MenuService],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

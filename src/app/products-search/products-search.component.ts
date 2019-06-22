@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
-import { QUERY_PRODUCTS } from '../fragments';
+import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '../fragments';
 
 
 @Component({
@@ -43,10 +43,10 @@ export class ProductsSearchComponent implements OnInit {
     }
     console.log(catId3.join());
         let qry = {
-            query: QUERY_PRODUCTS,
+            query: PRODUCTS_SEARCH_CATEGORY_QUERY,
             variables: { "catId" : catId3.join() }
         };
-     this.subscribe2 = this.ps.getProd(qry).subscribe(res => this.ps.sharedProdObjSrc$.next(res));
+        this.subscribe2 = this.ps.getProd(qry).subscribe(res => this.ps.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
   }
 
   ngOnDestroy() {

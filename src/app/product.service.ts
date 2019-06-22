@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { map, tap, filter  } from 'rxjs/operators';
 
-import { QUERY_CATEGORY, QUERY_PRODUCTS, QUERY_ALL_PRODUCTS } from './fragments';
+import { PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, PRODUCTS_QUERY } from './fragments';
 
 
 
@@ -37,7 +37,7 @@ constructor(private apollo: Apollo) { }
         };
 
     getCat(): Observable<any> {
-        return this.apollo.watchQuery<any>({ query: QUERY_CATEGORY }).valueChanges
+        return this.apollo.watchQuery<any>({ query: PRODUCTS_SEARCH_CATEGORY_LIST_QUERY }).valueChanges
                  .pipe(
                     map(res => res.data ),
                     //  map(res => res.map(r => r.node.catName ) )
