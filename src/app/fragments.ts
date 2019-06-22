@@ -82,36 +82,32 @@ export const PRODUCTS_QUERY = gql`
 `;
 
 
+const categoryInfo = gql`
+    fragment categoryInfo on ProductCategoryNodeEdge {
+     node {
+        catName
+        parentId
+        catId
+        level
+      }
+    }
+`;
+
 export const PRODUCTS_SEARCH_CATEGORY_LIST_QUERY = gql`
 {
   level1: allProductcategory (level: 1) {
     edges {
-      node {
-        catName
-        parentId
-        catId
-        level
-      }
+        ...categoryInfo
     }
   }
   level2: allProductcategory (level: 2) {
     edges {
-      node {        
-        catId
-        catName
-        level
-        parentId
-      }
+        ...categoryInfo
     }
   }
   level3: allProductcategory (level: 3) {
     edges {
-      node {
-        catId
-        catName
-        level
-        parentId
-      }
+        ...categoryInfo
     }
   }
 }
