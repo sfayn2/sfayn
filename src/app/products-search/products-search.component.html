@@ -9,10 +9,17 @@
 
 
         <mat-nav-list>
-          <mat-list-item *ngFor="let c of aCat1">
-             <button mat-icon-button (click)="searchCategory(c.node.catId)">
-                 {{c.node.catName}}
-             </button>
+          <mat-list-item *ngFor="let c of listOfCategoryCount">
+              <ng-container *ngIf="c.catCount>0">
+                 <button mat-icon-button (click)="searchCategory(c.level3CatId)" >
+                     {{c.catName}} (<strong>{{c.catCount}}</strong>)
+                 </button>
+              </ng-container>
+              <ng-container *ngIf="c.catCount==0">
+                 <button mat-icon-button >
+                     {{c.catName}} 
+                 </button>
+              </ng-container>
           </mat-list-item>
         </mat-nav-list>
 

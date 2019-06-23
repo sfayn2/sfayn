@@ -17,7 +17,7 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
   prod$: any;
   main_pic: string;
 
-  private qrySubscription: Subscription;
+  private _subscription: Subscription;
   constructor(private _apollo: Apollo,
               private _route: ActivatedRoute,
               private _parent: AppComponent
@@ -43,11 +43,11 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
             query: PRODUCTS_DETAIL_QUERY,
             variables: { "id" : id }
         };
-        this.qrySubscription = this._apollo.watchQuery<any>(qry).valueChanges.subscribe(res => this.prod$ = res.data.product);
+        this._subscription = this._apollo.watchQuery<any>(qry).valueChanges.subscribe(res => this.prod$ = res.data.product);
    }
 
   ngOnDestroy() {
-    this.qrySubscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
 

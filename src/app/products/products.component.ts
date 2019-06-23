@@ -12,19 +12,20 @@ import { AppComponent } from '../app.component';
 })
 export class ProductsComponent implements OnInit {
 
-  prod$: any;
-  private subscribe1: Subscription;
+  private _subscription: Subscription;
  
-  constructor(private ps: ProductService,
+  constructor(private productService: ProductService,
               private _parent: AppComponent) { }
 
   ngOnInit() {
 
-        let qry = {
-            query: PRODUCTS_QUERY
-        };
-        this.subscribe1 = this.ps.getProd(qry).subscribe(res => this.ps.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
-      
+        if (!this.productService.sharedProdObjSrc$.value) { // execute only for the first time?
+                let qry = {
+                    query: PRODUCTS_QUERY
+                };
+                this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
+
+        }
   }
 
 
@@ -36,7 +37,9 @@ export class ProductsComponent implements OnInit {
 
         
   ngOnDestroy() {
-     this.subscribe1.unsubscribe();
+    if (this._subscription) {
+        this._subscription.unsubscribe();
+    }
   }
 
 
