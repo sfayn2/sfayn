@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '../fragments';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -14,14 +15,15 @@ export class ProductsSearchComponent implements OnInit {
 
   sCat: string; // selected category
   listOfCategoryCount: any[] = [];
-  private _subscribe1: Subscription;
-  private _subscribe2: Subscription;
+  private _subscription1: Subscription;
+  private _subscription2: Subscription;
 
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,
+              private _parent: AppComponent) {}
 
   ngOnInit() {
-    this._subscribe1 = this.productService.getCat().subscribe(res => {
+    this._subscription1 = this.productService.getCat().subscribe(res => {
             let categorySrc1 = res.level1.edges;
             let categorySrc2 = res.level2.edges;
             let categorySrc3 = res.level3.edges;
@@ -43,7 +45,7 @@ export class ProductsSearchComponent implements OnInit {
                         variables: { "catId" : listOfCategoryId3.join() }
                         };
 
-                    this._subscribe2 = this.productService.getProd(qry).subscribe(res => {
+                    this._subscription2 = this.productService.getProd(qry).subscribe(res => {
                         let tmp = {};
                         tmp["catId"] = c.node.catId;
                         tmp["catName"] = c.node.catName;
@@ -63,12 +65,13 @@ export class ProductsSearchComponent implements OnInit {
             query: PRODUCTS_SEARCH_CATEGORY_QUERY,
             variables: { "catId" : id }
         };
-        this._subscribe2 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
+        this._subscription3 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
+        this._parent.opened = false;
   }
 
   ngOnDestroy() {
-     this._subscribe1.unsubscribe();
-     this._subscribe2.unsubscribe();
+     this._subscription1.unsubscribe();
+     this._subscription2.unsubscribe();
   }
 
 }
