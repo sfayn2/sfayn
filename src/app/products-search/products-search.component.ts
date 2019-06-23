@@ -65,7 +65,7 @@ export class ProductsSearchComponent implements OnInit {
             query: PRODUCTS_SEARCH_CATEGORY_QUERY,
             variables: { "catId" : id }
         };
-        this._subscription3 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
+        this._subscription1 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
         this._parent.opened = false;
   }
 
