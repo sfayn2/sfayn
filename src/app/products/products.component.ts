@@ -19,13 +19,13 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
 
-        if (!this.productService.sharedProdObjSrc$.value) { // execute only for the first time?
-                let qry = {
-                    query: PRODUCTS_QUERY
-                };
-                this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
+  //  if (!this.productService.sharedProdObjSrc$.value) { // execute only for the first time?
+  //              let qry = {
+  //                  query: PRODUCTS_QUERY
+  //              };
+  //              this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
 
-        }
+  //       }
   }
 
 
@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit {
         // to avoid Expression has changed after it was checked when parent variable is sta]able
         // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
         Promise.resolve(null).then(() => this._parent.menu = {"menu": true, "arrow_back": false} );
+        this._parent.opened = true;
   }
 
         

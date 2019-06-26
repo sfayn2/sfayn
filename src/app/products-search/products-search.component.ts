@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '../fragments';
-import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -13,14 +12,11 @@ import { AppComponent } from '../app.component';
 })
 export class ProductsSearchComponent implements OnInit {
 
-  sCat: string; // selected category
   listOfCategoryCount: any[] = [];
   private _subscription1: Subscription;
   private _subscription2: Subscription;
 
-
-  constructor(private productService: ProductService,
-              private _parent: AppComponent) {}
+  constructor(private productService: ProductService){}
 
   ngOnInit() {
     this._subscription1 = this.productService.getCat().subscribe(res => {
@@ -60,13 +56,12 @@ export class ProductsSearchComponent implements OnInit {
   }
 
 
-  searchCategory(id: number) {
+  searchCategory(id: number, catName: string) {
         let qry = {
             query: PRODUCTS_SEARCH_CATEGORY_QUERY,
             variables: { "catId" : id }
         };
         this._subscription1 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
-        this._parent.opened = false;
   }
 
   ngOnDestroy() {

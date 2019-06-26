@@ -28,6 +28,7 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
             this.main_pic = null; //reset every call
 	    this.loadProductDetail(routeParams.id);
 	});
+        this._parent.opened = false; // hide sidebar
         
    
     }

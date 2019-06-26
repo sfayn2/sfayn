@@ -1,26 +1,29 @@
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="push" [(opened)]="opened" > <!-- mode change to over when in mobile -->
+<mat-sidenav-container fullscreen scrollable>
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" > <!-- mode change to over when in mobile -->
     <app-products-search></app-products-search>
   </mat-sidenav>
   <mat-sidenav-content>
             <div class="app-layout">
             <header class="app-header">
                     <mat-toolbar color="primary" class="app-navbar mat-elevation-z6" fxLayout="row" fxLayoutAlign="start center"> 
-                                <div *ngIf="menu.menu" fxFlex="5">
+                                <div *ngIf="menu.menu">
                                     <button mat-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
                                 </div>
-                                <div *ngIf="menu.arrow_back" fxFlex="5">
+                                <div *ngIf="menu.arrow_back" >
                                     <button mat-button routerLink="/pl"> <mat-icon>arrow_back</mat-icon></button>
                                 </div>
-                            <div fxFlex="30">Sfayn</div>
-                            <div fxFlex="60" fxLayoutAlign="end center"><button mat-button ><mat-icon>search</mat-icon></button></div>
-                            <div fxFlex="5"><button mat-button ><mat-icon>shopping_cart</mat-icon></button></div>
-                     </mat-toolbar>
+                            <div>Sfayn</div>
+                            <div fxLayoutAlign="end center" style="width:100%">
+                                <div><button mat-button ><mat-icon>search</mat-icon></button></div>
+                                <div><button mat-button ><mat-icon>shopping_cart</mat-icon></button></div>
+                                <div><button mat-button ><mat-icon>account_circle</mat-icon></button></div>
+                                <div><button mat-button ><mat-icon>person_add</mat-icon></button></div>
+                            </div> 
+                    </mat-toolbar>
             </header>
 
 
             <main class="app-main">
-                  <div style="width:100%; position:absolute; top:30vh" *ngIf="showLoading"><mat-spinner style="margin:0 auto; z-index:1"></mat-spinner></div>
                   <router-outlet></router-outlet>
             </main>
 

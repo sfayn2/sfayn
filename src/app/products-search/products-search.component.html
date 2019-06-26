@@ -2,7 +2,7 @@
 
     <mat-accordion>
 
-  <mat-expansion-panel [class.mat-expansion-panel]="false">
+  <mat-expansion-panel [class.mat-expansion-panel]="false" [expanded]="false">
     <mat-expansion-panel-header>
         Category
     </mat-expansion-panel-header>
@@ -11,7 +11,7 @@
         <mat-nav-list>
           <mat-list-item *ngFor="let c of listOfCategoryCount">
               <ng-container *ngIf="c.catCount>0">
-                 <button mat-icon-button (click)="searchCategory(c.level3CatId)" >
+                 <button mat-icon-button (click)="searchCategory(c.level3CatId, c.catName)" >
                      {{c.catName}} (<strong>{{c.catCount}}</strong>)
                  </button>
               </ng-container>
@@ -25,7 +25,7 @@
 
   </mat-expansion-panel>
 
-  <mat-expansion-panel [class.mat-expansion-panel]="false">
+  <mat-expansion-panel [class.mat-expansion-panel]="false" >
     <mat-expansion-panel-header>
       Warehouse
     </mat-expansion-panel-header>
@@ -37,6 +37,5 @@
 </mat-accordion>
 
 
-Search: <strong>{{sCat}}</strong>
 
 </div>
