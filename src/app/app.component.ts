@@ -4,6 +4,12 @@ import { ProductService } from './product.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_QUERY } from './fragments';
 
+import { LoginComponent } from './login/login.component';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,8 +21,12 @@ export class AppComponent implements OnInit {
   // showLoading = true;
   menu = {};
   private _subscription: Subscription;
+  username: string;
+  password: string;
   constructor(private _router: Router,
-              private productService: ProductService) { 
+              private productService: ProductService,
+              private dialog: MatDialog) { 
+
 
     //   this._router.events.subscribe((routerEvent: Event) => {
     //  if (routerEvent instanceof NavigationStart) {
@@ -43,6 +53,18 @@ export class AppComponent implements OnInit {
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '400px',
+      height: '350px',
+      data: {username: "", password: ""}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        console.log(`The dialog was closed ${result.password}`);
+    });
   }
 
 }

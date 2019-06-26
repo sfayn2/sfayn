@@ -1,0 +1,16 @@
+<div fxLayout="column" style="padding:10px">
+
+<h2 fxLayoutAlign="start center" mat-dialog-title>Login</h2>
+<div fxLayout="column" fxLayoutAlign="start center" mat-dialog-content >
+  <mat-form-field style="width:100%">
+    <input matInput [(ngModel)]="data.username" placeholder="Username" style="width:100%">
+  </mat-form-field>
+  <mat-form-field style="width:100%">
+    <input matInput type="password" [(ngModel)]="data.password" placeholder="Password" style="width:100%">
+  </mat-form-field>
+</div>
+<div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions style="padding-top:10px">
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
+</div>

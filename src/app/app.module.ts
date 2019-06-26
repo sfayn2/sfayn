@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //this will stop all animations only use for optimization where u dont want to animate
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -28,6 +29,7 @@ import { ProductsDetailComponent } from './products-detail/products-detail.compo
     ProductsComponent,
     ProductsSearchComponent,
     ProductsDetailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { ProductsDetailComponent } from './products-detail/products-detail.compo
     FormsModule,
     ReactiveFormsModule,
   ],
+  entryComponents: [LoginComponent],
   providers: [ProductService],
   bootstrap: [AppComponent]
 })
