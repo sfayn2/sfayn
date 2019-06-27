@@ -1,13 +1,14 @@
 .products-grid-main {
- /* font-family: Avenir, Roboto, Helvetica, san-serif; 
-  font-size: 80%; */
+   /* font-family: Avenir, Roboto, Helvetica, san-serif; */
+    font-size: 95%; 
+    background-color:#ecebeb;
 }
 
 .products-grid-main {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 180px));
-    grid-gap: 1rem;
-    padding: 1rem; /* need to give space for left & right side of the sku grid */
+    grid-template-columns: repeat(auto-fit, minmax(190px, 190px));
+    grid-gap: .5rem;
+    padding: .5rem; /* need to give space for left & right side of the sku grid */
 }
 
 .products-grid-items {

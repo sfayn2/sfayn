@@ -17,7 +17,7 @@
 .app-main {
     grid-area: main;
     height:100%; 
-    background-color:#F0F0F0;
+    background-color:#ecebeb; 
 }
 
 
@@ -28,11 +28,11 @@
 
 
 .app-navbar {
-/*    position:fixed;
+    position:fixed;
     top:0;
     left:0;
     right:0;
-    z-index:2; */
+    z-index:2; 
 }
 
 .app-navbar {
