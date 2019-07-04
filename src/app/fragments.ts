@@ -146,3 +146,19 @@ ${warehouseInfo}
 ${originalImgInfo}
 `;
 
+
+export const TOKEN_AUTH_MUTATION = gql`
+    mutation Login($username: String!, $password: String!) {
+      tokenAuth(username: $username, password: $password) {
+        token
+      }
+    }
+`;
+
+export const VERIFY_TOKEN_MUTATION = gql`
+    mutation VerifyToken($token: String!) {
+      verifyToken(token: $token) {
+        payload
+      }
+    }
+`;

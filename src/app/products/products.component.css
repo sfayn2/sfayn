@@ -6,7 +6,8 @@
 
 .products-grid-main {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 190px));
+    /*grid-template-columns: repeat(auto-fit, minmax(190px, 190px)); */
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     grid-gap: .5rem;
     padding: .5rem; /* need to give space for left & right side of the sku grid */
 }

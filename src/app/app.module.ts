@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, BottomSheetSubMenu } from './app.component';
 import { ProductsComponent } from './products/products.component';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { ProductService } from './product.service';
+import { AuthService } from './auth.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import {MaterialModule} from './material-module';
@@ -30,6 +31,7 @@ import { LoginComponent } from './login/login.component';
     ProductsSearchComponent,
     ProductsDetailComponent,
     LoginComponent,
+    BottomSheetSubMenu
   ],
   imports: [
     BrowserModule,
@@ -43,8 +45,8 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [LoginComponent],
-  providers: [ProductService],
+  entryComponents: [LoginComponent, BottomSheetSubMenu],
+  providers: [ProductService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

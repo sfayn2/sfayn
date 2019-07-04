@@ -18,14 +18,7 @@ sharedProdObj$ = this.sharedProdObjSrc$.asObservable();
 
 constructor(private apollo: Apollo) { }
 
-//getProd(cat: string = "648,579,709,348,562,1919,1959"): Observable<any> {
     getProd(qry): Observable<any> {
-
-        //        let qry = {
-        //  query: QUERY_PRODUCTS,
-        //  variables: { "catId": "648"}
-        // };
-
 
         return this.apollo.watchQuery<any>(qry)
              .valueChanges

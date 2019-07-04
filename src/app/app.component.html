@@ -9,10 +9,20 @@
                                 </div>
                             <div>Sfayn</div>
                             <div fxLayoutAlign="end center" style="width:100%">
-                                <div><button mat-button ><mat-icon>search</mat-icon></button></div>
-                                <div><button mat-button ><mat-icon>shopping_cart</mat-icon></button></div>
-                                <div><button mat-button (click)="openDialog()"><mat-icon>account_circle</mat-icon></button></div>
-                                <div><button mat-button ><mat-icon>person_add</mat-icon></button></div>
+                                <div><button mat-button (click)="openBottomSheet()"><mat-icon>more_horiz</mat-icon></button>
+                                
+                                    <mat-menu #submenu="matMenu">
+                                        <button mat-menu-item ><mat-icon>search</mat-icon>Search</button>
+                                        <button mat-menu-item (click)="loginDialog()"><mat-icon>shopping_cart</mat-icon>Checkout?</button>
+                                    <ng-container *ngIf="authService.lStorage('currentUser')">
+                                        <button mat-menu-item (click)="authService.logout()"><mat-icon>exit_to_app</mat-icon>Logout</button>
+                                    </ng-container>
+                                    <ng-container *ngIf="!authService.lStorage('currentUser')">
+                                        <button mat-menu-item><mat-icon>account_circle</mat-icon>Sign Up</button>
+                                    </ng-container>
+                                    </mat-menu>
+                                
+                                </div>
                             </div> 
                     </mat-toolbar>
             </header>

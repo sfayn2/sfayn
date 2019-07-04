@@ -28,7 +28,6 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
             this.main_pic = null; //reset every call
 	    this.loadProductDetail(routeParams.id);
 	});
-        this._parent.opened = false; // hide sidebar
         
    
     }
@@ -36,7 +35,10 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         // to avoid Expression has changed after it was checked when parent variable is sta]able
         // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
-        Promise.resolve(null).then(() => this._parent.menu = {"menu": false, "arrow_back": true} );
+        Promise.resolve(null).then(() =>  { 
+            this._parent.menu = {"menu": false, "arrow_back": true} 
+            this._parent.opened = false; // hide sidebar
+        });
     }
 
    loadProductDetail(id) {

@@ -1,12 +1,9 @@
 import { Component, OnInit  } from '@angular/core';
-import { Event, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { ProductService } from './product.service';
+import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_QUERY } from './fragments';
-
-import { LoginComponent } from './login/login.component';
-
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 
 
@@ -18,28 +15,13 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 export class AppComponent implements OnInit {
   title = 'sfayn';
   opened: boolean = true;
-  // showLoading = true;
   menu = {};
   private _subscription: Subscription;
-  username: string;
-  password: string;
-  constructor(private _router: Router,
+  constructor(private authService: AuthService,
               private productService: ProductService,
-              private dialog: MatDialog) { 
+              private _bottomSheet: MatBottomSheet) { 
 
 
-    //   this._router.events.subscribe((routerEvent: Event) => {
-    //  if (routerEvent instanceof NavigationStart) {
-    //       this.showLoading = true;
-    //  }            
-    //  if (routerEvent instanceof NavigationEnd) {
-    //      setTimeout( ()=>{
-    //          this.showLoading = false;
-    //      }, 500)
-    //  }            
-        //        this.menu = {"menu": true, "arrow_back": false};
-
-        // })
   }
 
   ngOnInit() {
@@ -55,16 +37,54 @@ export class AppComponent implements OnInit {
     this._subscription.unsubscribe();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(LoginComponent, {
-      width: '400px',
-      height: '350px',
-      data: {username: "", password: ""}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-        console.log(`The dialog was closed ${result.password}`);
-    });
+  openBottomSheet(): void {
+    this._bottomSheet.open(BottomSheetSubMenu);
+  }
+
+
+
+}
+
+
+@Component({
+  selector: 'bottom-sheet-submenu',
+  template: `
+        <mat-nav-list>
+  <a mat-list-item (click)="openLink($event)">
+    <mat-icon mat-list-icon>search</mat-icon>
+    <span mat-line>Search</span>
+  </a>
+
+ <a mat-list-item (click)="loginDialog()">
+    <mat-icon mat-list-icon>shopping_cart</mat-icon>
+    <span mat-line>Checkout</span>
+ </a>
+
+ <ng-container *ngIf="authService.lStorage('currentUser')">
+      <a mat-list-item (click)="authService.logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <span mat-line>Logout</span>
+      </a>
+ </ng-container>
+
+ <ng-container *ngIf="!authService.lStorage('currentUser')">
+  <a mat-list-item (click)="openLink($event)">
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <span mat-line>Signup</span>
+  </a>
+ </ng-container>
+</mat-nav-list>
+  `,
+})
+
+export class BottomSheetSubMenu {
+        constructor(private authService: AuthService,
+                    private _bottomSheetRef: MatBottomSheetRef<BottomSheetSubMenu>) {}
+
+  openLink(event: MouseEvent): void {
+    this._bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 
 }
