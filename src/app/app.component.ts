@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_QUERY } from './fragments';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -56,9 +56,9 @@ export class AppComponent implements OnInit {
     <span mat-line>Search</span>
   </a>
 
- <a mat-list-item (click)="loginDialog()">
+ <a mat-list-item (click)="gotoCart($event)">
     <mat-icon mat-list-icon>shopping_cart</mat-icon>
-    <span mat-line>Checkout</span>
+    <span mat-line>Shopping Cart</span>
  </a>
 
  <ng-container *ngIf="authService.lStorage('currentUser')">
@@ -80,11 +80,18 @@ export class AppComponent implements OnInit {
 
 export class BottomSheetSubMenu {
         constructor(private authService: AuthService,
+                    private router: Router,
                     private _bottomSheetRef: MatBottomSheetRef<BottomSheetSubMenu>) {}
 
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
+  }
+
+  gotoCart(event: MouseEvent): void {
+    this._bottomSheetRef.dismiss();
+    event.preventDefault();
+    this.router.navigate(["/cart"]);
   }
 
 }

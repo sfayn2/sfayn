@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //this will stop all animations only use for optimization where u dont want to animate
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
 import { LoginComponent } from './login/login.component';
+import { ProductsCartComponent } from './products-cart/products-cart.component';
 
 
 
@@ -31,7 +32,8 @@ import { LoginComponent } from './login/login.component';
     ProductsSearchComponent,
     ProductsDetailComponent,
     LoginComponent,
-    BottomSheetSubMenu
+    BottomSheetSubMenu,
+    ProductsCartComponent
   ],
   imports: [
     BrowserModule,
