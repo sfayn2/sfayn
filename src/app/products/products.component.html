@@ -4,23 +4,24 @@
 
     <ng-container *ngFor="let parent of productService.sharedProdObj$ | async">
 
-         <div class="products-grid-items mat-elevation-z0" *ngFor="let product of parent">
-             <a routerLink="/pd/{{product.node.id}}">{{product.node.title | slice:0:35}}...</a>
+         <div routerLink="/pd/{{product.node.id}}" class="products-grid-items mat-elevation-z0" *ngFor="let product of parent">
+             <br/>
+             <div matTooltip="{{product.node.title}}" class="mat-subheading-1">{{product.node.title | slice:0:30}}...</div>
            <ng-container *ngFor="let w of product.node.warehouse.edges">
-               <h1><strong>${{w.node.price}}</strong></h1>
-               <div>{{w.node.goodsState }}</div>
-               <div>Stocks:{{w.node.goodsNumber }}</div>
+               <div class="mat-headline"><strong>${{w.node.price}}</strong></div>
+               <div class="mat-body-1">{{w.node.goodsState }}</div>
+               <div class="mat-body-1">Stocks:{{w.node.goodsNumber }}</div>
            </ng-container>
 
           <ng-container *ngFor="let img of product.node.originalImg.edges">
             <img [src]="img.node.originalImg" [alt]="product.node.title">
           </ng-container>
 
-          <div fxLayout="row" fxLayoutAlign="space-around center" >
-              <div fxFlex><mat-icon>favorite_border</mat-icon></div>
-              <div fxFlex fxLayoutAlign="end"><mat-icon>star_border</mat-icon></div>
-              <div>0 Sold</div>
-          </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" >
+              <div class="mat-small" fxFlex><mat-icon style="font-size:18px">favorite_border</mat-icon></div>
+              <div class="mat-small" fxFlex fxLayoutAlign="end"><mat-icon style="font-size:18px">star_border</mat-icon></div>
+              <div class="mat-small">0 Sold</div>
+        </div> 
 
 
          </div>   

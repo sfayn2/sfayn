@@ -1,7 +1,7 @@
 
                 <div class="products-detail-container"> <!-- TODO: styling app-container only use for detail -->
 
-<section class="products-detail-grid" *ngIf="prod$">
+<section class="products-detail-grid mat-subheading-2" *ngIf="prod$">
     <div class="products-detail-img">
             <img *ngIf="main_pic" [src]="main_pic" />
             <ng-container *ngFor="let p of prod$.originalImg.edges.slice(0,1)" >
@@ -14,23 +14,18 @@
         </div>
     </div>
     <div class="products-detail-title" >
-        <h2>{{prod$.title}}</h2>
-                <ng-container *ngFor="let w of prod$.warehouse.edges">
-                    <h1> USD: {{w.node.price}} </h1>
-                </ng-container>    
-        <div>
+        <div class="mat-title" style="margin-bottom:0" >{{prod$.title}}</div>
+        <ng-container *ngFor="let w of prod$.warehouse.edges">
+            <div class="mat-display-1" style="margin-bottom:0"> USD: {{w.node.price}} </div>
+        </ng-container>    
+    <div>
             <div>color:</div>
             <div>
-                <div>
-
-
                     <mat-button-toggle-group>
                         <mat-button-toggle routerLink="/pd/{{p.node.id}}" value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >
                              {{p.node.color}} 
                         </mat-button-toggle>
                     </mat-button-toggle-group>
-                    
-                </div>
             </div>    
         </div>
         <div>
@@ -51,8 +46,8 @@
              <button mat-raised-button color="accent">Add to Cart</button>
          </div>    
     </div>
-    <div class="products-detail-desc">
-        <div [innerHTML]="prod$.goodsDesc"></div>
+    <div class="products-detail-desc" >
+        <p [innerHTML]="prod$.goodsDesc"></p>
     </div>
 </section>
 
