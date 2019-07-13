@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent, BottomSheetSubMenu } from './app.component';
+import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
@@ -32,7 +32,6 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
     ProductsSearchComponent,
     ProductsDetailComponent,
     LoginComponent,
-    BottomSheetSubMenu,
     ProductsCartComponent
   ],
   imports: [
@@ -47,7 +46,7 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [LoginComponent, BottomSheetSubMenu],
+  entryComponents: [LoginComponent],
   providers: [ProductService, AuthService],
   bootstrap: [AppComponent]
 })

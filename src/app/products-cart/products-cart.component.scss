@@ -1,5 +1,5 @@
 
-.products-cart-container {
+.products-cart-grid-main {
     background-color: white;
     padding: 0.5rem;
     margin: 1rem;
@@ -9,3 +9,25 @@
   font-size: 30px;
 }
 
+.products-cart-grid-main {
+    display:grid;
+    grid-template-columns:  0.5fr 3fr;
+    grid-template-areas: "img title";
+    grid-gap: 1rem; 
+}
+
+.products-cart-grid-img {
+    grid-area: img;
+    padding:.5rem;
+}
+
+.products-cart-grid-title {
+    grid-area: title;
+    padding:.5rem;
+}
+
+
+mat-form-field {
+    width: 150px; 
+    text-align: center;
+}

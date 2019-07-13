@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 
 import { PRODUCTS_DETAIL_QUERY } from '../fragments';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-products-detail',
@@ -16,11 +17,13 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
 
   prod$: any;
   main_pic: string;
+  quantity: number = 1;
 
   private _subscription: Subscription;
   constructor(private _apollo: Apollo,
               private _route: ActivatedRoute,
-              private _parent: AppComponent
+              private _parent: AppComponent,
+              private _productService: ProductService
               ) { }
  
   ngOnInit() {
@@ -64,6 +67,27 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
             return true;
         } else {
             return false;    
+        }
+    }
+
+    addCart(arg_user, arg_prod, arg_qty): void {
+        this._subscription = this._productService.addCart(arg_user, arg_prod, arg_qty).subscribe(res => {
+            console.log(res);     
+        }, (err) => {
+            console.log(arg_user, arg_prod, arg_qty);
+            console.log(err);
+        });
+    }
+
+    addQty() {
+    if (this.quantity <= 10 ) { //add limit first
+            this.quantity = this.quantity + 1;
+        }
+    }
+
+    minusQty() {
+        if (this.quantity > 1) {
+            this.quantity = this.quantity - 1;
         }
     }
 

@@ -1,10 +1,47 @@
 <div class="products-cart-container">
+
     <div fxLayout="column" fxLayoutAlign="center center">
-        <div>
-            <div class="mat-title">Your cart is empty</div>
-        </div>
-        <div>
-            <button mat-raised-button color="accent" (click)="goProdList()">Start Shopping</button>
-        </div>
+        <ng-container *ngIf="!shopCart$">
+            <div *ngIf="!shopCart$">
+                <div class="mat-subheading-2">Your cart is empty</div>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" routerLink="/pl">Start Shopping</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="shopCart$">
+
+                <div *ngFor="let sc of shopCart$ " style="width:100%">
+                    <div class="products-cart-grid-main">
+                        <div class="products-cart-grid-img">
+                          <ng-container *ngFor="let img of sc.node.product.originalImg.edges" >
+                              <img [src]="img.node.originalImg" style="width:150px;object-fit: cover"/>
+                          </ng-container>
+                        </div>
+                        <div class="products-cart-grid-title">
+                                <div class="mat-subheading-1"> {{sc.node.product.title}} </div>
+                        
+                                    <div>
+                                        quantity:
+                                            
+                                            <mat-form-field>
+                                            <button matPrefix mat-icon-button style="font-size:28px" (click)="minusQty()"> <mat-icon>remove_circle_outline</mat-icon></button>
+                                                
+                                                <input matInput [value]="sc.node.quantity" readonly /> 
+                                            
+                                            <button matSuffix mat-icon-button style="font-size:28px" (click)="addQty()"> <mat-icon>add_circle_outline</mat-icon></button>
+                                            </mat-form-field>
+                                    </div> 
+                                    <div>
+            <div *ngFor="let w of sc.node.product.warehouse.edges">available stocks: {{w.node.goodsNumber}} </div>
+                                    </div>
+            <div *ngFor="let w of sc.node.product.warehouse.edges">$ {{w.node.price}} </div>
+                        </div>
+                     </div>
+                </div>
+            <div>
+                <button mat-raised-button color="accent" routerLink="/pl">Checkout</button>
+            </div>
+        </ng-container>
     </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { Router } from '@angular/router';
+import { SHOPPING_CART_QUERY } from '../fragments';
+import { Subscription } from 'rxjs';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-products-cart',
@@ -9,12 +11,26 @@ import { Router } from '@angular/router';
 })
 export class ProductsCartComponent implements OnInit, AfterViewInit {
 
+  shopCart$: any;
+  private _subscription: Subscription;
   constructor(private _parent: AppComponent,
-              private router: Router
-                ) { }
+              private _productService: ProductService,
+              ) { }
+
 
 
   ngOnInit() {
+        let qry = {
+            query: SHOPPING_CART_QUERY,
+            variables: { "user" : 1 }
+        };
+        this._subscription = this._productService.getShopCart(qry).subscribe(res =>  { 
+                
+                    console.log(res);
+                    this.shopCart$ = res;
+                    return res;
+            });
+  
   }
 
   ngAfterViewInit() {
@@ -24,10 +40,12 @@ export class ProductsCartComponent implements OnInit, AfterViewInit {
             this._parent.menu = {"menu": false, "arrow_back": true} 
             this._parent.opened = false; // hide sidebar
         });
-    }
+  }
 
- goProdList(): void {
-    this.router.navigate(["/pl"]);
- }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
+
 
 }

@@ -5,12 +5,12 @@
                                     <button mat-icon-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
                                 </div>
                                 <div *ngIf="menu.arrow_back" >
-                                    <button mat-icon-button routerLink="/pl"> <mat-icon>arrow_back</mat-icon></button>
+                                    <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
                                 </div>
-                                <div>Sfayn Store</div>
+                                <div><button mat-button routerLink="/pl"><h1 class="mat-headline">Sfayn Store</h1></button></div>
                             <div class="app-navbar-right-menu" fxLayoutAlign="end center">
                                 <div><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
-                                <div><button mat-icon-button (click)="gotoCart()" ><mat-icon>shopping_cart</mat-icon></button></div>
+                                <div><button mat-icon-button routerLink="/cart" ><mat-icon>shopping_cart</mat-icon></button></div>
                            <!--     <div *ngIf="!authService.lStorage('currentUser')"><button mat-button><mat-icon>person_add_disabled</mat-icon></button></div>
                            <div *ngIf="authService.lStorage('currentUser')"><button mat-button (click)="authService.logout()" ><mat-icon>exit_to_app</mat-icon></button></div> -->
                                 <!--

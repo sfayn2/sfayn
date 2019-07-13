@@ -1,10 +1,9 @@
 import { Component, OnInit  } from '@angular/core';
+import { Location } from '@angular/common';
 import { ProductService } from './product.service';
 import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
 import { PRODUCTS_QUERY } from './fragments';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,8 +18,7 @@ export class AppComponent implements OnInit {
   private _subscription: Subscription;
   constructor(private authService: AuthService,
               private productService: ProductService,
-              private router: Router,
-              private _bottomSheet: MatBottomSheet) { 
+              private _location: Location) {
 
 
   }
@@ -39,64 +37,8 @@ export class AppComponent implements OnInit {
   }
 
 
-  openBottomSheet(): void {
-    this._bottomSheet.open(BottomSheetSubMenu);
-  }
-
-  gotoCart(): void {
-    this.router.navigate(["/cart"]);
-  }
 
 
 
 }
 
-
-@Component({
-  selector: 'bottom-sheet-submenu',
-  template: `
-        <mat-nav-list>
-  <a mat-list-item (click)="openLink($event)">
-    <mat-icon mat-list-icon>search</mat-icon>
-    <span mat-line>Search</span>
-  </a>
-
- <a mat-list-item (click)="gotoCart($event)">
-    <mat-icon mat-list-icon>shopping_cart</mat-icon>
-    <span mat-line>Shopping Cart</span>
- </a>
-
- <ng-container *ngIf="authService.lStorage('currentUser')">
-      <a mat-list-item (click)="authService.logout()">
-        <mat-icon mat-list-icon>exit_to_app</mat-icon>
-        <span mat-line>Logout</span>
-      </a>
- </ng-container>
-
- <ng-container *ngIf="!authService.lStorage('currentUser')">
-  <a mat-list-item (click)="openLink($event)">
-    <mat-icon mat-list-icon>account_circle</mat-icon>
-    <span mat-line>Signup</span>
-  </a>
- </ng-container>
-</mat-nav-list>
-  `,
-})
-
-export class BottomSheetSubMenu {
-        constructor(private authService: AuthService,
-                    private router: Router,
-                    private _bottomSheetRef: MatBottomSheetRef<BottomSheetSubMenu>) {}
-
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-
-  gotoCart(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-    this.router.navigate(["/cart"]);
-  }
-
-}

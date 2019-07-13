@@ -162,3 +162,53 @@ export const VERIFY_TOKEN_MUTATION = gql`
       }
     }
 `;
+
+export const SHOPPING_CART_MUTATION = gql`
+    mutation NewShopCart($user: ID!, $prod: ID!, $qty: ID!) {
+      shoppingCart(user: $user, product: $prod, quantity: $qty) {
+        shoppingCart {
+          product {
+            sku
+            dateCreated
+          }
+        }
+      }
+    }
+`
+
+export const SHOPPING_CART_QUERY = gql`
+    query ShopCartPerUser($user: ID!) {
+      allShoppingCart(user_Id: $user){
+        edges {
+          node {
+            quantity
+            product {
+              sku
+              title
+              color
+              warehouse {
+                edges {
+                  node {
+                    goodsNumber
+                    price
+                  }
+                }
+              }
+              originalImg(first: 1) {
+                edges {
+                  node {
+                    originalImg
+                  }
+                }
+              }
+            }
+            user {
+              id
+              username
+              email
+            }
+          }
+        }
+      }
+    }
+`
