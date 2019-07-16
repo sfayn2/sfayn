@@ -191,6 +191,7 @@ export const SHOPPING_CART_QUERY = gql`
                   node {
                     goodsNumber
                     price
+                    warehouse
                   }
                 }
               }

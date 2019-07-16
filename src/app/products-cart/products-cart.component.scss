@@ -1,9 +1,4 @@
 
-.products-cart-grid-main {
-    background-color: white;
-    padding: 0.5rem;
-    margin: 1rem;
-}
 
 .mat-icon {
   font-size: 30px;
@@ -11,21 +6,86 @@
 
 .products-cart-grid-main {
     display:grid;
-    grid-template-columns:  0.5fr 3fr;
-    grid-template-areas: "img title";
-    grid-gap: 1rem; 
+    grid-template-columns:  25px 150px 1fr;
+    grid-template-areas: "select img details"; 
+  /*  grid-gap: 1rem; */  
+    margin: 1rem;
+    padding: 0.5rem; 
+    background-color: white;
+}
+
+.products-cart-grid-select {
+   grid-area: select;
+   align-self: center;
 }
 
 .products-cart-grid-img {
     grid-area: img;
-    padding:.5rem;
+    padding:0.5rem;
 }
 
-.products-cart-grid-title {
-    grid-area: title;
-    padding:.5rem;
+.products-cart-grid-warehouse {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "warehouse-select";
+    margin: 1rem;
+    padding: 0.5rem; 
 }
 
+.products-cart-grid-warehouse-select {
+    grid-area: warehouse-select;
+}
+
+
+.products-cart-grid-details {
+    grid-area: details; 
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1.5fr 1fr .5fr;
+    grid-template-areas: "product color uprice quantity totalprice actions";
+    align-items: center;
+
+    .mat-subheading-2 {
+        margin:0; 
+    }
+}
+
+.products-cart-grid-details-product {
+    grid-area: product;
+}
+.products-cart-grid-details-color {
+    grid-area: color;
+    justify-self: center;
+}
+.products-cart-grid-details-uprice {
+    grid-area: uprice;
+    justify-self: center;
+}
+.products-cart-grid-details-quantity {
+    grid-area: quantity;
+    justify-self: center;
+}
+.products-cart-grid-details-totalprice {
+    grid-area: totalprice;
+    justify-self: center;
+}
+.products-cart-grid-details-actions {
+    grid-area: actions;
+    justify-self: end;
+}
+
+.products-cart-grid-checkout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px;
+    grid-template-areas: "checkout";
+    margin: 1rem;
+    padding: 0.5rem; 
+    background-color: white;
+}
+
+.products-cart-grid-checkout-checkout {
+    grid-area: checkout;
+}
 
 mat-form-field {
     width: 150px; 
