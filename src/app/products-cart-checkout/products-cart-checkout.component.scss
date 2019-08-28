@@ -1,0 +1,23 @@
+
+.products-cart-checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "voucher"
+                         "checkout";
+    background-color: white;
+    padding: 1rem; 
+}
+
+.products-cart-checkout-voucher {
+    grid-area: voucher; 
+    justify-self: end;
+    padding: 0.5rem;
+}
+
+.products-cart-checkout-checkout {
+    grid-area: checkout;
+    justify-self: end;
+    padding: 0.5rem;
+}
+

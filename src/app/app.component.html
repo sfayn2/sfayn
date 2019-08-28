@@ -7,10 +7,12 @@
                                 <div *ngIf="menu.arrow_back" >
                                     <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
                                 </div>
-                                <div><button mat-button routerLink="/pl"><h1 class="mat-headline">Sfayn Store</h1></button></div>
+                                <!-- https://stackoverflow.com/questions/41694018/angular2-unset-outlets-with-routerlink -->
+                                <div><button mat-button [routerLink]="[{ outlets: {primary: 'pl', aux: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
                             <div class="app-navbar-right-menu" fxLayoutAlign="end center">
                                 <div><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
-                                <div><button mat-icon-button routerLink="/cart" ><mat-icon>shopping_cart</mat-icon></button></div>
+                                <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
+                                <div><button mat-icon-button [routerLink]="[{ outlets: { primary: 'pc', aux: 'pcc' }}]" ><mat-icon>shopping_cart</mat-icon></button></div>
                            <!--     <div *ngIf="!authService.lStorage('currentUser')"><button mat-button><mat-icon>person_add_disabled</mat-icon></button></div>
                            <div *ngIf="authService.lStorage('currentUser')"><button mat-button (click)="authService.logout()" ><mat-icon>exit_to_app</mat-icon></button></div> -->
                                 <!--
@@ -28,24 +30,24 @@
                                     </mat-menu>
                                 
                                 </div> -->
-                            </div> 
-                    </mat-toolbar>
-            </header>
+                            </div>
+                    </mat-toolbar> </header> 
 
+            <main class="app-main"> 
+                <mat-sidenav-container> 
+                     <mat-sidenav #sidenav mode="side" [(opened)]="opened" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
+                        <app-products-search></app-products-search>
+                     </mat-sidenav>
 
-            <main class="app-main">
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
-    <app-products-search></app-products-search>
-  </mat-sidenav>
-  <mat-sidenav-content>
-                  <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+                     <mat-sidenav-content>
+                          <router-outlet></router-outlet>
+                     </mat-sidenav-content>
+                </mat-sidenav-container>
             </main>
 
-
+         <div class="app-sticky" >
+                <router-outlet name="aux"></router-outlet> 
+         </div> 
             <footer class="app-footer">
                 Footer
             </footer>    
-            </div>

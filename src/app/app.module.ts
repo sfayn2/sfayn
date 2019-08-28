@@ -22,6 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //t
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
 import { LoginComponent } from './login/login.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
+import { ProductsCartCheckoutComponent } from './products-cart-checkout/products-cart-checkout.component';
 
 
 
@@ -32,7 +33,8 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
     ProductsSearchComponent,
     ProductsDetailComponent,
     LoginComponent,
-    ProductsCartComponent
+    ProductsCartComponent,
+    ProductsCartCheckoutComponent
   ],
   imports: [
     BrowserModule,

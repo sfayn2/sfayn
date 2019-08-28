@@ -2,16 +2,32 @@
 
 
 .app-layout {
+    background-color:#ecebeb; 
     margin:0;
     display: grid;
-    grid-template-rows: 60px auto 60px;
+    grid-template-rows: 60px auto auto 60px;
     grid-template-areas: "header header"
                          "main main"
+                         "sticky sticky"
                          "footer footer";
 }
 
 .app-header {
     grid-area: header;
+}
+
+.app-sticky {
+    grid-area: sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    height: fit-content;
+    margin: 1rem;
+}
+
+.app-products {
+    grid-area: products;
+    height: 300px;
 }
 
 .app-main {
@@ -32,7 +48,7 @@
     top:0;
     left:0;
     right:0;
-    z-index:2; 
+    z-index:2;  
 }
 
 .app-navbar {

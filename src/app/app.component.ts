@@ -1,8 +1,7 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component  } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProductService } from './product.service';
 import { AuthService } from './auth.service';
-import { Subscription } from 'rxjs';
 import { PRODUCTS_QUERY } from './fragments';
 
 
@@ -11,7 +10,7 @@ import { PRODUCTS_QUERY } from './fragments';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'sfayn';
   opened: boolean = true;
   menu = {};
@@ -29,14 +28,12 @@ export class AppComponent implements OnInit {
     };
     this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
 
-  
+
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
   }
-
-
 
 
 
