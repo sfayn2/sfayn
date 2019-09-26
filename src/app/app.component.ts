@@ -29,22 +29,24 @@ export class AppComponent {
 	      private productsGQLService: ProductsGQLService,
 	      private apollo: Apollo) {
 
-                 apollo
-                  .watchQuery<any>({
-		    query: gql`query {
-                                    Nav @client {
-                                        id
-                                        menu
-                                        arrow_back
-                                        side_bar
-					component
-                                        __typename
-                                    }
-                               }`,
-                  })
-                  .valueChanges.pipe(
-                    map(res => res.data.Nav ),
-                  ).subscribe(res => this.menu$ = res);
+            apollo
+                .watchQuery<any>({
+                    query: gql`query {
+                        Nav @client {
+                            id
+                            menu
+                            arrow_back
+                            side_bar
+                            component
+                            __typename
+                    }
+                }`,
+            })
+            .valueChanges
+            .pipe(
+               map(res => res.data.Nav 
+            ),
+            ).subscribe(res => this.menu$ = res);
 
 
 

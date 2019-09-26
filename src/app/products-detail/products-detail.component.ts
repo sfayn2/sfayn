@@ -15,8 +15,8 @@ const GET_PRODUCT_DETAIL = gql`
   	    sku
   	    parentId
   	    color
-            goodsDesc
-	    ...parentSn2ProductInfo
+        goodsDesc
+	      ...parentSn2ProductInfo
   	    originalImg {
     	        edges {
       	            ...originalImgInfo   
@@ -69,9 +69,9 @@ export class ProductsDetailComponent implements OnInit {
 		  data: { 
 		    	side_bar: false,
 		    	menu: false,
-                    	arrow_back: true,
-                        component: 'ProductsDetailComponent',
-			__typename: 'Nav'
+        	arrow_back: true,
+          component: 'ProductsDetailComponent',
+			    __typename: 'Nav'
 		  }, 
 	     })
       
@@ -80,8 +80,8 @@ export class ProductsDetailComponent implements OnInit {
   ngOnInit() {
 
         this._route.params.subscribe(routeParams => {
-            this.main_pic = null; //reset every call
-	    this.loadProductDetail(routeParams.id);
+        this.main_pic = null; //reset every call
+	      this.loadProductDetail(routeParams.id);
 	});
    
     }
@@ -90,11 +90,11 @@ export class ProductsDetailComponent implements OnInit {
    loadProductDetail(id) {
 
 	     this.prod$ = this.apollo.getClient().readFragment({
-		  id: `ProductNode:${id}`,
-		  fragment: GET_PRODUCT_DETAIL,
-                  //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
-                  fragmentName: "ProductDetail", 
-		  } );
+		         id: `ProductNode:${id}`,
+		         fragment: GET_PRODUCT_DETAIL,
+             //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
+             fragmentName: "ProductDetail", 
+		    });
 
                 console.log(this.prod$);
    }

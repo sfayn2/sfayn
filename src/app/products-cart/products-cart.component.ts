@@ -69,17 +69,17 @@ export class ProductsCartComponent implements OnInit {
               private apollo: Apollo
               ) {
 
-	     apollo.getClient().writeFragment({
-		  id: 'Nav:1',
-		  fragment: GET_NAV,
-		  data: { 
-		    	side_bar: false,
-		    	menu: false,
-                    	arrow_back: true,
-                        component: 'ProductsCartComponent',
-			__typename: 'Nav'
-		  }, 
-	     })
+        apollo.getClient().writeFragment({
+            id: 'Nav:1',
+            fragment: GET_NAV,
+            data: { 
+                side_bar: false,
+                menu: false,
+                arrow_back: true,
+                component: 'ProductsCartComponent',
+                __typename: 'Nav'
+            }, 
+        })
 
  }
 

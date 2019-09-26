@@ -36,17 +36,17 @@ export class ProductsComponent implements OnInit {
  
   constructor(private apollo: Apollo) {
 
-	     apollo.getClient().writeFragment({
-		  id: 'Nav:1',
-		  fragment: GET_NAV,
-		  data: { 
-		    	side_bar: true,
-		    	menu: true,
-                    	arrow_back: false,
-                        component: 'ProductsComponent',
-			__typename: 'Nav'
-		  }, 
-	     })
+        apollo.getClient().writeFragment({
+              id: 'Nav:1',
+              fragment: GET_NAV,
+              data: { 
+                    side_bar: true,
+                    menu: true,
+                    arrow_back: false,
+                    component: 'ProductsComponent',
+                    __typename: 'Nav'
+              }, 
+         })
  }
 
   ngOnInit() {
