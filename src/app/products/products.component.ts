@@ -1,9 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
-import { PRODUCTS_QUERY } from '../fragments';
-import { AppComponent } from '../app.component';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+const GET_PRODUCT_LIST = gql`
+    query GetALLProductListResolver {
+        allProductslist @client {
+            allProductparents 
+            id
+            __typename
+            }
+    }`;
+
+const GET_NAV = gql`
+    fragment myNav on Nav {
+          arrow_back
+          side_bar
+          menu
+          component
+    }
+
+`;
+
 
 @Component({
   selector: 'app-products',
@@ -12,35 +30,38 @@ import { AppComponent } from '../app.component';
 })
 export class ProductsComponent implements OnInit {
 
-  private _subscription: Subscription;
+  subscription: Subscription;
+  product$: any ;
+  loading: boolean = true;
  
-  constructor(private productService: ProductService,
-              private _parent: AppComponent) { }
+  constructor(private apollo: Apollo) {
+
+	     apollo.getClient().writeFragment({
+		  id: 'Nav:1',
+		  fragment: GET_NAV,
+		  data: { 
+		    	side_bar: true,
+		    	menu: true,
+                    	arrow_back: false,
+                        component: 'ProductsComponent',
+			__typename: 'Nav'
+		  }, 
+	     })
+ }
 
   ngOnInit() {
+     this.subscription = this.apollo.watchQuery<any>({
+        query: GET_PRODUCT_LIST
+     }).valueChanges
+     .subscribe(({ data, loading }) => {
+        this.loading = loading; //hide progress
+        this.product$ = data.allProductslist.allProductparents.edges;
+     });
 
-  //  if (!this.productService.sharedProdObjSrc$.value) { // execute only for the first time?
-  //              let qry = {
-  //                  query: PRODUCTS_QUERY
-  //              };
-  //              this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
-
-  //       }
   }
 
-
-  ngAfterViewInit() {
-        // to avoid Expression has changed after it was checked when parent variable is sta]able
-        // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
-        Promise.resolve(null).then(() => this._parent.menu = {"menu": true, "arrow_back": false} );
-        this._parent.opened = true;
-  }
-
-        
   ngOnDestroy() {
-    if (this._subscription) {
-        this._subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
 

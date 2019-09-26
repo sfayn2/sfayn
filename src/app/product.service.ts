@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { map, tap, filter  } from 'rxjs/operators';
 
-import { PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, PRODUCTS_QUERY, SHOPPING_CART_MUTATION } from './fragments';
+import { PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, SHOPPING_CART_MUTATION } from './fragments';
 
 
 
@@ -15,23 +15,13 @@ export class ProductService {
 sharedProdObjSrc$ = new BehaviorSubject(null);
 sharedProdObj$ = this.sharedProdObjSrc$.asObservable();
 
-
+shopcartTotalAmount : number = 0.00; // decided to add here . to share this in other component?
 
 constructor(private apollo: Apollo) { }
 
-    getProd(qry): Observable<any> {
-
-        return this.apollo.watchQuery<any>(qry)
-             .valueChanges
-             .pipe(
-                map(res => res.data.allProductparents.edges),
-                map(res => res.map(r => r.node.parent2product.edges ) ),
-                filter(res => res.length > 0)
-              )
-        };
 
     getCat(): Observable<any> {
-        return this.apollo.watchQuery<any>({ query: PRODUCTS_SEARCH_CATEGORY_LIST_QUERY }).valueChanges
+        return this.apollo.query<any>({ query: PRODUCTS_SEARCH_CATEGORY_LIST_QUERY })
                  .pipe(
                     map(res => res.data ),
                     //  map(res => res.map(r => r.node.catName ) )
@@ -50,14 +40,5 @@ constructor(private apollo: Apollo) { }
     
     }
 
-    getShopCart(qry): Observable<any> {
-
-        return this.apollo.watchQuery<any>(qry)
-             .valueChanges
-             .pipe(
-                map(res => res.data.allShoppingCart.edges)
-                )
-                
-    };
 
 }

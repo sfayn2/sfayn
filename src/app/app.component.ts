@@ -2,7 +2,12 @@ import { Component  } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProductService } from './product.service';
 import { AuthService } from './auth.service';
-import { PRODUCTS_QUERY } from './fragments';
+import { Subscription, Observable } from 'rxjs';
+import { Apollo } from 'apollo-angular';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router'
+import gql from 'graphql-tag';
+import { ProductsGQLService } from './products-graphql.service';
 
 
 @Component({
@@ -13,27 +18,55 @@ import { PRODUCTS_QUERY } from './fragments';
 export class AppComponent {
   title = 'sfayn';
   opened: boolean = true;
-  menu = {};
+  //menu = {};
+  menu$: Subscription;
+  dataLoaded: boolean = false;
   private _subscription: Subscription;
   constructor(private authService: AuthService,
               private productService: ProductService,
-              private _location: Location) {
+              private _location: Location,
+	      private router: Router,
+	      private productsGQLService: ProductsGQLService,
+	      private apollo: Apollo) {
+
+                 apollo
+                  .watchQuery<any>({
+		    query: gql`query {
+                                    Nav @client {
+                                        id
+                                        menu
+                                        arrow_back
+                                        side_bar
+					component
+                                        __typename
+                                    }
+                               }`,
+                  })
+                  .valueChanges.pipe(
+                    map(res => res.data.Nav ),
+                  ).subscribe(res => this.menu$ = res);
+
 
 
   }
 
   ngOnInit() {
-    let qry = {
-        query: PRODUCTS_QUERY
-    };
-    this._subscription = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter( r => r.length > 0)));
 
+    this.productsGQLService.watch()
+	    .valueChanges
+	    .pipe(
+		map(res => {
+                    console.log("late na duma dating", res)
+                    this.dataLoaded = true;
+                                return "tapos";
+                    
+                })
+	    ).subscribe();
+
+   
 
   }
 
-  ngOnDestroy() {
-    this._subscription.unsubscribe();
-  }
 
 
 

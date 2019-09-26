@@ -1,12 +1,8 @@
-<div class="products-cart-checkout-grid mat-elevation-z1">
+<div class="products-cart-checkout-grid mat-elevation-z1" >
     <div class="products-cart-checkout-voucher">
-        <form>
-          <mat-form-field>
-              <input matInput placeholder="Enter vouchers" >
-                </mat-form-field>
-        </form>
+         Total Amount: <span class="mat-display-1">${{ productService.shopcartTotalAmount  }}</span>
     </div>
-    <div class="products-cart-checkout-checkout">
-    <button mat-raised-button color="accent">Checkout</button>
+    <div class="products-cart-checkout-checkout" >
+         <button mat-raised-button color="accent">Checkout</button>
     </div>
 </div>

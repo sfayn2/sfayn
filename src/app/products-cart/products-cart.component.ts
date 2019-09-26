@@ -1,50 +1,150 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { SHOPPING_CART_QUERY } from '../fragments';
+import { warehouseInfo, originalImgInfo } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+
+const GET_SHOP_CART = gql`
+    query ShopCartPerUser($uid: ID!) {
+      allShoppingCart(user_Id: $uid ){
+        edges {
+          node {
+            id
+            quantity
+            product {
+              id
+              sku
+              title
+              color
+              warehouse {
+                edges {
+                    ...warehouseInfo
+                }
+              }
+              originalImg(first: 1) {
+                edges {
+                    ...originalImgInfo
+                }
+              }
+            }
+            user {
+              id
+              username
+              email
+            }
+          }
+        }
+      }
+    }
+    ${originalImgInfo}
+    ${warehouseInfo}
+`
+
+
+const GET_NAV = gql`
+    fragment myNav on Nav {
+          arrow_back
+          side_bar
+          menu
+          component
+    }
+
+`;
 
 @Component({
   selector: 'app-products-cart',
   templateUrl: './products-cart.component.html',
   styleUrls: ['./products-cart.component.scss']
 })
-export class ProductsCartComponent implements OnInit, AfterViewInit {
+export class ProductsCartComponent implements OnInit {
 
-  shopCart$: any;
-  private _subscription: Subscription;
-  constructor(private _parent: AppComponent,
-              private _productService: ProductService,
-              ) { }
+  selectedProducts: string[] = [];
+  loading: boolean = true;
+  cart$: any;
+  private subscription: Subscription;
+  constructor(private _productService: ProductService,
+              private apollo: Apollo
+              ) {
+
+	     apollo.getClient().writeFragment({
+		  id: 'Nav:1',
+		  fragment: GET_NAV,
+		  data: { 
+		    	side_bar: false,
+		    	menu: false,
+                    	arrow_back: true,
+                        component: 'ProductsCartComponent',
+			__typename: 'Nav'
+		  }, 
+	     })
+
+ }
+
 
 
 
   ngOnInit() {
-        let qry = {
-            query: SHOPPING_CART_QUERY,
-            variables: { "user" : 1 }
-        };
-        this._subscription = this._productService.getShopCart(qry).subscribe(res =>  { 
-                
-                    console.log(res);
-                    this.shopCart$ = res;
-                    return res;
-            });
+
+     this.subscription = this.apollo.watchQuery({
+          query: GET_SHOP_CART,
+          variables: { 
+            uid: 1 
+          }
+     })
+     .valueChanges.subscribe( ({data, loading }) => { 
+        this.loading = loading;
+        let res1 = data.allShoppingCart.edges
+
+        // patch to add checked variable
+        for (let itemCount in res1) {
+            console.log(res1[itemCount].node);    
+            res1[itemCount].node = Object.assign({"checked": false}, res1[itemCount].node);
+        }
+    
+        this.cart$ = res1;
+     })
+
+
+     this._productService.shopcartTotalAmount = 0.0; // dont know how to share this in aux component?
   
   }
 
-  ngAfterViewInit() {
-        // to avoid Expression has changed after it was checked when parent variable is sta]able
-        // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
-        Promise.resolve(null).then(() =>  { 
-            this._parent.menu = {"menu": false, "arrow_back": true} 
-            this._parent.opened = false; // hide sidebar
-        });
+
+  selectProduct(e, productSku, totalPrice) {
+
+      if (e.checked) {
+        this.selectedProducts.push(productSku);
+        this._productService.shopcartTotalAmount += totalPrice;
+      } else {
+        this.selectedProducts = this.selectedProducts.filter(x => x != productSku);       
+        this._productService.shopcartTotalAmount -= totalPrice;
+       }
+        console.log(e.checked, productSku, this.selectedProducts, this._productService.shopcartTotalAmount);
   }
 
+  selectAll(e) {
+      if (e.checked) {
+        for (let sc of this.cart$) {
+           this.selectedProducts.push(sc.node.product.sku);
+           this._productService.shopcartTotalAmount += sc.node.totalPrice;
+           sc.node.product.checked = e.checked;
+        }
+      } else {
+          
+            this.selectedProducts = [];
+            this._productService.shopcartTotalAmount = 0.0;
+            for (let sc of this.cart$) {
+                sc.node.product.checked = e.checked;
+            }
+          
+          }
+  }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 

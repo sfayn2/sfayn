@@ -1,59 +1,108 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Apollo } from 'apollo-angular';
-
+import { Component, OnInit } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { AppComponent } from '../app.component';
-
-import { PRODUCTS_DETAIL_QUERY } from '../fragments';
+import { Apollo } from 'apollo-angular';
 import { ProductService } from '../product.service';
+import { parentSn2ProductInfo, parent2productInfo, originalImgInfo, warehouseInfo } from '../fragments';
+import gql from 'graphql-tag';
+
+
+const GET_PRODUCT_DETAIL = gql`
+    fragment ProductDetail on ProductNode {
+  	    id
+  	    title
+  	    sku
+  	    parentId
+  	    color
+            goodsDesc
+	    ...parentSn2ProductInfo
+  	    originalImg {
+    	        edges {
+      	            ...originalImgInfo   
+    	        }
+  	    }
+  	    warehouse {
+    	        edges {
+      	            ...warehouseInfo                  
+    	        }
+  	    }
+    }
+    ${originalImgInfo}
+    ${warehouseInfo}
+    ${parentSn2ProductInfo}
+`;
+
+
+const GET_NAV = gql`
+    fragment myNav on Nav {
+          arrow_back
+          side_bar
+          menu
+          component
+    }
+
+`;
 
 @Component({
   selector: 'app-products-detail',
   templateUrl: './products-detail.component.html',
   styleUrls: ['./products-detail.component.scss']
 })
-export class ProductsDetailComponent implements OnInit, AfterViewInit {
+export class ProductsDetailComponent implements OnInit {
 
   prod$: any;
   main_pic: string;
   quantity: number = 1;
 
-  private _subscription: Subscription;
-  constructor(private _apollo: Apollo,
+  products$: Observable<any>;
+
+  private subscription: Subscription;
+  constructor(private apollo: Apollo,
               private _route: ActivatedRoute,
-              private _parent: AppComponent,
               private _productService: ProductService
-              ) { }
+              ) {
+
+	     apollo.getClient().writeFragment({
+		  id: 'Nav:1',
+		  fragment: GET_NAV,
+		  data: { 
+		    	side_bar: false,
+		    	menu: false,
+                    	arrow_back: true,
+                        component: 'ProductsDetailComponent',
+			__typename: 'Nav'
+		  }, 
+	     })
+      
+      }
  
   ngOnInit() {
+
         this._route.params.subscribe(routeParams => {
             this.main_pic = null; //reset every call
 	    this.loadProductDetail(routeParams.id);
 	});
-        
    
     }
 
-    ngAfterViewInit() {
-        // to avoid Expression has changed after it was checked when parent variable is sta]able
-        // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
-        Promise.resolve(null).then(() =>  { 
-            this._parent.menu = {"menu": false, "arrow_back": true} 
-            this._parent.opened = false; // hide sidebar
-        });
-    }
 
    loadProductDetail(id) {
-        let qry = {
-            query: PRODUCTS_DETAIL_QUERY,
-            variables: { "id" : id }
-        };
-        this._subscription = this._apollo.watchQuery<any>(qry).valueChanges.subscribe(res => this.prod$ = res.data.product);
+
+	     this.prod$ = this.apollo.getClient().readFragment({
+		  id: `ProductNode:${id}`,
+		  fragment: GET_PRODUCT_DETAIL,
+                  //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
+                  fragmentName: "ProductDetail", 
+		  } );
+
+                console.log(this.prod$);
    }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+      if (this.subscription) {
+         this.subscription.unsubscribe();
+     }
   }
 
 
@@ -71,7 +120,7 @@ export class ProductsDetailComponent implements OnInit, AfterViewInit {
     }
 
     addCart(arg_user, arg_prod, arg_qty): void {
-        this._subscription = this._productService.addCart(arg_user, arg_prod, arg_qty).subscribe(res => {
+        this.subscription = this._productService.addCart(arg_user, arg_prod, arg_qty).subscribe(res => {
             console.log(res);     
         }, (err) => {
             console.log(arg_user, arg_prod, arg_qty);

@@ -1,10 +1,10 @@
-            <div class="app-layout">
+         <div class="app-layout">
             <header class="app-header">
                     <mat-toolbar color="primary" class="app-navbar mat-elevation-z6" fxLayout="row" fxLayoutAlign="start center"> 
-                                <div *ngIf="menu.menu">
+                                <div *ngIf="menu$?.menu">
                                     <button mat-icon-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
                                 </div>
-                                <div *ngIf="menu.arrow_back" >
+                                <div *ngIf="menu$?.arrow_back" >
                                     <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
                                 </div>
                                 <!-- https://stackoverflow.com/questions/41694018/angular2-unset-outlets-with-routerlink -->
@@ -35,12 +35,12 @@
 
             <main class="app-main"> 
                 <mat-sidenav-container> 
-                     <mat-sidenav #sidenav mode="side" [(opened)]="opened" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
+                     <mat-sidenav #sidenav mode="side" [(opened)]="menu$.side_bar" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
                         <app-products-search></app-products-search>
                      </mat-sidenav>
 
                      <mat-sidenav-content>
-                          <router-outlet></router-outlet>
+                          <router-outlet *ngIf="dataLoaded"></router-outlet>
                      </mat-sidenav-content>
                 </mat-sidenav-container>
             </main>

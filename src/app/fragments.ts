@@ -2,17 +2,19 @@
 import gql from 'graphql-tag';
 
 
-const originalImgInfo = gql`
+export const originalImgInfo = gql`
     fragment originalImgInfo on ProductOriginalImgNodeEdge {
         node {
+            id
   	    originalImg
          }
     }
 `;
 
-const warehouseInfo = gql`
+export const warehouseInfo = gql`
     fragment warehouseInfo on ProductWarehouseNodeEdge {
         node {
+            id
             warehouse
             price
             goodsState
@@ -21,7 +23,21 @@ const warehouseInfo = gql`
     }
 `;
 
-const parent2productInfo = gql`
+export const parentSn2ProductInfo = gql`
+fragment parentSn2ProductInfo on ProductNode {
+  parentSn {
+    parent2product {
+      edges {
+        node {
+          id
+          color          
+        }
+      }
+    }
+  }
+}`;
+
+export const parent2productInfo = gql`
     fragment parent2productInfo on ProductNodeEdge {
         node {
   	    id
@@ -29,12 +45,14 @@ const parent2productInfo = gql`
   	    sku
   	    parentId
   	    color
-  	    originalImg (first: $first) {
+            goodsDesc
+	    ...parentSn2ProductInfo
+  	    originalImg {
     	        edges {
       	            ...originalImgInfo   
     	        }
   	    }
-  	    warehouse (first: $first) {
+  	    warehouse {
     	        edges {
       	            ...warehouseInfo                  
     	        }
@@ -43,6 +61,7 @@ const parent2productInfo = gql`
     }
     ${originalImgInfo}
     ${warehouseInfo}
+    ${parentSn2ProductInfo}
 `;
 
 export const PRODUCTS_SEARCH_CATEGORY_QUERY = gql`
@@ -63,24 +82,24 @@ export const PRODUCTS_SEARCH_CATEGORY_QUERY = gql`
      ${parent2productInfo}
 `;
 
-export const PRODUCTS_QUERY = gql`
-    query SearchProductByCategory($first: Int = 1) 
-        {
-            allProductparents{
-                edges {
-                  node {
-                    parent2product (first: $first) {
-                      edges {
-                            ...parent2productInfo
-                      }
-                    }
-                  }
-                }
-            }
-     }
-     ${parent2productInfo}
-`;
-
+//export const PRODUCTS_QUERY = gql`
+//    query ProductQuery($first: Int = 1) 
+//        {
+//            allProductparents{
+//                edges {
+//                  node {
+//                    parent2product (first: $first) {
+//                      edges {
+//                            ...parent2productInfo
+//                      }
+//                    }
+//                  }
+//                }
+//            }
+//     }
+//     ${parent2productInfo}
+//`;
+//
 
 const categoryInfo = gql`
     fragment categoryInfo on ProductCategoryNodeEdge {
@@ -114,37 +133,37 @@ export const PRODUCTS_SEARCH_CATEGORY_LIST_QUERY = gql`
 ${categoryInfo}
 `;
 
-export const PRODUCTS_DETAIL_QUERY = gql`
-query SelectedProduct($id: ID!, $first: Int = 1) {
-  product (id: $id) {
-    sku
-    title
-    color
-    size
-    goodsDesc
-    parentSn {
-      parent2product {
-          edges {
-                ...parent2productInfo
-          }
-      }
-    }
-    warehouse {
-        edges {
-            ...warehouseInfo                  
-        }
-    }
-     originalImg {
-        edges {
-            ...originalImgInfo   
-        }
-    }
-  }
-}
-${parent2productInfo}
-${warehouseInfo}
-${originalImgInfo}
-`;
+//export const PRODUCTS_DETAIL_QUERY = gql`
+//query SelectedProduct($id: ID!, $first: Int = 1) {
+//  product (id: $id) {
+//    sku
+//    title
+//    color
+//    size
+//    goodsDesc
+//    parentSn {
+//      parent2product {
+//          edges {
+//                ...parent2productInfo
+//          }
+//      }
+//    }
+//    warehouse {
+//        edges {
+//            ...warehouseInfo                  
+//        }
+//    }
+//     originalImg {
+//        edges {
+//            ...originalImgInfo   
+//        }
+//    }
+//  }
+//}
+//${parent2productInfo}
+//${warehouseInfo}
+//${originalImgInfo}
+//`;
 
 
 export const TOKEN_AUTH_MUTATION = gql`
@@ -176,40 +195,60 @@ export const SHOPPING_CART_MUTATION = gql`
     }
 `
 
-export const SHOPPING_CART_QUERY = gql`
-    query ShopCartPerUser($user: ID!) {
-      allShoppingCart(user_Id: $user){
-        edges {
-          node {
-            quantity
-            product {
-              sku
-              title
-              color
-              warehouse {
+//export const SHOPPING_CART_QUERY = gql`
+//    query ShopCartPerUser($user: ID!) {
+//      allShoppingCart(user_Id: $user){
+//        edges {
+//          node {
+//            quantity
+//            product {
+//              sku
+//              title
+//              color
+//              warehouse {
+//                edges {
+//                  node {
+//                    goodsNumber
+//                    price
+//                    warehouse
+//                  }
+//                }
+//              }
+//              originalImg(first: 1) {
+//                edges {
+//                  node {
+//                    originalImg
+//                  }
+//                }
+//              }
+//            }
+//            user {
+//              id
+//              username
+//              email
+//            }
+//          }
+//        }
+//      }
+//    }
+//`
+export const GET_ALL_PRODUCTS = gql`
+    query GetProductList 
+        {
+            allProductparents{
                 edges {
                   node {
-                    goodsNumber
-                    price
-                    warehouse
+                    id
+                    parent2product {
+                      edges {
+                            ...parent2productInfo
+                      }
+                    }
                   }
                 }
-              }
-              originalImg(first: 1) {
-                edges {
-                  node {
-                    originalImg
-                  }
-                }
-              }
             }
-            user {
-              id
-              username
-              email
-            }
-          }
-        }
-      }
-    }
-`
+     }
+     ${parent2productInfo}
+`;
+
+

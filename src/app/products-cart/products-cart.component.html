@@ -1,7 +1,7 @@
 
 <div class="products-cart-grid-main">
                         <div class="products-cart-grid-select">
-                            <mat-checkbox></mat-checkbox>
+                            <mat-checkbox (change)="selectAll($event)"></mat-checkbox>
                         </div>
                         <div class="products-cart-grid-img" >
                         </div>
@@ -22,10 +22,10 @@
 </div>
 
 
-        <ng-container *ngFor="let sc of shopCart$">
+        <ng-container *ngFor="let sc of cart$">
             <div class="products-cart-grid-main" >
                         <div class="products-cart-grid-select">
-                            <mat-checkbox></mat-checkbox>
+                            <mat-checkbox [(ngModel)]="sc.node.product.checked" (change)="selectProduct($event, sc.node.product.sku, sc.node.totalPrice)"></mat-checkbox>
                         </div>
                         <div class="products-cart-grid-img" >
                           <ng-container *ngFor="let img of sc.node.product.originalImg.edges" >
@@ -37,22 +37,22 @@
                                 <div fxFlex class="mat-subheading-1"> {{sc.node.product.title}} </div>
                             </div>
                             <div class="products-cart-grid-details-color"><span class="mat-body-1">{{sc.node.product.color}}</span>
-                                    <button mat-icon-button><mat-icon>arrow_drop_down</mat-icon></button>
+                                    <!--<button mat-icon-button><mat-icon>arrow_drop_down</mat-icon></button> -->
                                 </div>
                                 <div class="mat-body-1 products-cart-grid-details-uprice" *ngFor="let w of sc.node.product.warehouse.edges">${{w.node.price}}</div>
                                 <div class="products-cart-grid-details-quantity">
                                                 <mat-form-field>
-                                                <button matPrefix mat-icon-button style="font-size:28px" (click)="minusQty()"> <mat-icon>remove_circle_outline</mat-icon></button>
+                                                <button  matPrefix mat-icon-button  (click)="minusQty()"> <mat-icon>remove</mat-icon></button>
                                                     
-                                                    <input matInput [value]="sc.node.quantity" readonly /> 
+                                                    <input matInput [value]="sc.node.quantity" /> 
                                                 
-                                                <button matSuffix mat-icon-button style="font-size:28px" (click)="addQty()"> <mat-icon>add_circle_outline</mat-icon></button>
+                                                <button matSuffix mat-icon-button (click)="addQty()"> <mat-icon>add</mat-icon></button>
                                                 </mat-form-field>
                                         <div fxLayout="row" fxLayoutAlign="center start" class="mat-small">
                 <div *ngFor="let w of sc.node.product.warehouse.edges">Available Stocks: {{w.node.goodsNumber}} </div>
                                         </div>
                                         </div> 
-                                        <div class="mat-title products-cart-grid-details-totalprice" *ngFor="let w of sc.node.product.warehouse.edges"><strong>${{w.node.price}}</strong></div>
+                                        <div class="mat-subheading-2 products-cart-grid-details-totalprice" >${{sc.node.totalPrice}}</div>
                                         <div class="products-cart-grid-details-actions">
                                             <button mat-button >Remove</button>
                                         </div>
