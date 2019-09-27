@@ -64,6 +64,40 @@ export const parent2productInfo = gql`
     ${parentSn2ProductInfo}
 `;
 
+export const shopcartInfo = gql`
+    fragment shopcartInfo on ShoppingCartNodeConnection {
+        edges {
+          node {
+            id
+            quantity
+            product {
+              id
+              sku
+              title
+              color
+              warehouse {
+                edges {
+                    ...warehouseInfo
+                }
+              }
+              originalImg(first: 1) {
+                edges {
+                    ...originalImgInfo
+                }
+              }
+            }
+            user {
+              id
+              username
+              email
+            }
+        }
+      }
+    }
+    ${originalImgInfo}
+    ${warehouseInfo}
+`;
+
 export const PRODUCTS_SEARCH_CATEGORY_QUERY = gql`
     query SearchProductByCategory($first: Int = 1, $catId: String!) 
         {

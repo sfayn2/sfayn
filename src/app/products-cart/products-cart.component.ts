@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { warehouseInfo, originalImgInfo } from '../fragments';
+import { shopcartInfo } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
 import { Apollo } from 'apollo-angular';
@@ -10,37 +10,10 @@ import gql from 'graphql-tag';
 const GET_SHOP_CART = gql`
     query ShopCartPerUser($uid: ID!) {
       allShoppingCart(user_Id: $uid ){
-        edges {
-          node {
-            id
-            quantity
-            product {
-              id
-              sku
-              title
-              color
-              warehouse {
-                edges {
-                    ...warehouseInfo
-                }
-              }
-              originalImg(first: 1) {
-                edges {
-                    ...originalImgInfo
-                }
-              }
-            }
-            user {
-              id
-              username
-              email
-            }
-          }
-        }
+            ...shopcartInfo
       }
     }
-    ${originalImgInfo}
-    ${warehouseInfo}
+    ${shopcartInfo}
 `
 
 
@@ -64,6 +37,7 @@ export class ProductsCartComponent implements OnInit {
   selectedProducts: string[] = [];
   loading: boolean = true;
   cart$: any;
+  cart1$: any;
   private subscription: Subscription;
   constructor(private _productService: ProductService,
               private apollo: Apollo
@@ -96,9 +70,9 @@ export class ProductsCartComponent implements OnInit {
      })
      .valueChanges.subscribe( ({data, loading }) => { 
         this.loading = loading;
-        let res1 = data.allShoppingCart.edges
+        let res1 = data.allShoppingCart.edges;
 
-        // patch to add checked variable
+        // patch to add checked variable TODO: to remove
         for (let itemCount in res1) {
             console.log(res1[itemCount].node);    
             res1[itemCount].node = Object.assign({"checked": false}, res1[itemCount].node);
@@ -108,9 +82,11 @@ export class ProductsCartComponent implements OnInit {
      })
 
 
+
      this._productService.shopcartTotalAmount = 0.0; // dont know how to share this in aux component?
   
   }
+
 
 
   selectProduct(e, productSku, totalPrice) {
