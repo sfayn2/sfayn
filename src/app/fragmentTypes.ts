@@ -1,4 +1,4 @@
-{
+export const introspectionQueryResultData = {
   "__schema": {
     "queryType": {
       "name": "Query"

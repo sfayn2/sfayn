@@ -1,43 +1,60 @@
 import {NgModule} from '@angular/core';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import {  IntrospectionFragmentMatcher, InMemoryCache } from 'apollo-cache-inmemory';
 import { GET_ALL_PRODUCTS } from './fragments';
 import { typeDefs } from './schema.graphql';
-import { persistCache } from 'apollo-cache-persist';
+import { introspectionQueryResultData } from './fragmentTypes';
+import gql from 'graphql-tag';
 
 
 const uri = 'http://192.168.1.120:4000/graphql/'; // <-- add the URL of the GraphQL server here
 export function createApollo(httpLink: HttpLink) {
 
-    const cache = new InMemoryCache({
-        cacheRedirects: {
-                Query: {
-                          book: () => {
-                              console.log('click resolver')
-                              return Date.now()
-                          }
-                       }
-        }
-        })
-     cache.writeData({
-        data: {
-           Nav : {
-                id: 1,
-                menu: true,
-                arrow_back: false,
-                side_bar: true,
-                component: "AppComponent",
-                __typename: "Nav" 
-           }
-         }
-      });
-     console.log("app module first?")
+    const fragmentMatcher = new IntrospectionFragmentMatcher({
+          introspectionQueryResultData
+    });
 
-//    persistCache({cache, storage: window.localStorage});
+    const cache = new InMemoryCache({ fragmentMatcher })
+    cache.writeData({
+    data: {
+       Nav : {
+            id: 1,
+            menu: true,
+            arrow_back: false,
+            side_bar: true,
+            component: "AppComponent",
+            __typename: "Nav" 
+       }
+     }
+    });
 
     const resolvers: any = { // strange in order this to work need to provide typeDef :(
       Query: {
+        allShopCartWithChecked: (_, variables, { cache }) => {
+               const cacheRes = cache.readFragment({
+                        id: `$ROOT_QUERY.allShoppingCart({"user_Id":1})`,
+                        fragment: gql`
+                             fragment shopCart on ShoppingCartNodeConnection  {
+                                     edges {
+                                         node {
+                                             id
+                                             quantity
+                                             __typename
+                                         }
+                                     }
+                             }`
+                })
+
+                // patch to add checked variable
+                for (let itemCount in cacheRes.edges) {
+                    console.log(cacheRes.edges[itemCount].node);    
+                    cacheRes.edges[itemCount].node = Object.assign(cacheRes.edges[itemCount].node, {"checked": false});
+                }
+               console.log('final cacheRes', cacheRes);
+            return { ...cacheRes, __typename: "ShopCartWithCheckedResolver"}
+        
+        },
         // (START) allProductlist
         allProductslist: (_, variables, { cache }) => {
           const cacheProd = cache.readQuery({query: GET_ALL_PRODUCTS})
@@ -85,7 +102,7 @@ export function createApollo(httpLink: HttpLink) {
   return {
     link: httpLink.create({uri}),
     cache,
-    typeDefs,
+    typeDefs, //if u comment this. Apollo GQL will look for server data & not in cache ?
     resolvers
   };
 }

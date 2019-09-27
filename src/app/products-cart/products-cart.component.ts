@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { warehouseInfo, originalImgInfo } from '../fragments';
+import { shopcartInfo } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
 import { Apollo } from 'apollo-angular';
@@ -10,37 +10,10 @@ import gql from 'graphql-tag';
 const GET_SHOP_CART = gql`
     query ShopCartPerUser($uid: ID!) {
       allShoppingCart(user_Id: $uid ){
-        edges {
-          node {
-            id
-            quantity
-            product {
-              id
-              sku
-              title
-              color
-              warehouse {
-                edges {
-                    ...warehouseInfo
-                }
-              }
-              originalImg(first: 1) {
-                edges {
-                    ...originalImgInfo
-                }
-              }
-            }
-            user {
-              id
-              username
-              email
-            }
-          }
-        }
+            ...shopcartInfo
       }
     }
-    ${originalImgInfo}
-    ${warehouseInfo}
+    ${shopcartInfo}
 `
 
 
@@ -64,6 +37,7 @@ export class ProductsCartComponent implements OnInit {
   selectedProducts: string[] = [];
   loading: boolean = true;
   cart$: any;
+  cart1$: any;
   private subscription: Subscription;
   constructor(private _productService: ProductService,
               private apollo: Apollo
@@ -96,7 +70,7 @@ export class ProductsCartComponent implements OnInit {
      })
      .valueChanges.subscribe( ({data, loading }) => { 
         this.loading = loading;
-        let res1 = data.allShoppingCart.edges
+        let res1 = data.allShoppingCart.edges;
 
         // patch to add checked variable
         for (let itemCount in res1) {
@@ -108,9 +82,60 @@ export class ProductsCartComponent implements OnInit {
      })
 
 
+
      this._productService.shopcartTotalAmount = 0.0; // dont know how to share this in aux component?
   
   }
+
+
+  shopNow(){
+      
+      
+               console.log("Nung nangyayari?1111")
+               this.cart1$ = this.apollo.getClient().readFragment({
+                        //id: `allShoppingCart({"user_Id":1})`,
+                        id: `$ROOT_QUERY.allShoppingCart({"user_Id":1})`,
+                        fragment: gql`
+                         fragment cartSelected2 on ShoppingCartNodeConnection  {
+                             edges {
+                                 node {
+                                     id
+                                     quantity
+                                     __typename
+                                 }
+                             }
+                         }
+                        `
+                    })
+
+               this.apollo.getClient().readFragment({
+                        //id: `allShoppingCart({"user_Id":1})`,
+                        id: `$ROOT_QUERY.allShoppingCart({"user_Id":1})`,
+                        fragment: gql`
+                         fragment shopCart on ShoppingCartNode  {
+                                     id
+                                     quantity
+                                     __typename
+                         }
+                        `
+                    })
+
+               this.apollo.getClient().writeFragment({
+                        //id: `allShoppingCart({"user_Id":1})`,
+                        id: `$ROOT_QUERY.allShoppingCart({"user_Id":1})`,
+                        fragment: gql`
+                         fragment shopCart on ShoppingCartNode  {
+                                selected 
+                         }
+                        `,
+                        data: { selected: false, __typename: "ShoppingCartNode" }
+                    })
+
+               console.log('Read fragment ShoppingCartNode', this.cart1$)
+               console.log("Nung nangyayari?")
+      
+      
+      }
 
 
   selectProduct(e, productSku, totalPrice) {
