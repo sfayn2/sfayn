@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
 import {  IntrospectionFragmentMatcher, InMemoryCache } from 'apollo-cache-inmemory';
-import { GET_ALL_PRODUCTS } from './fragments';
+import { GET_ALL_PRODUCTS, GET_SHOP_CART } from './fragments';
 import { typeDefs } from './schema.graphql';
 import { introspectionQueryResultData } from './fragmentTypes';
 import gql from 'graphql-tag';
@@ -29,22 +29,15 @@ export function createApollo(httpLink: HttpLink) {
      }
     });
 
+
     const resolvers: any = { // strange in order this to work need to provide typeDef :(
       Query: {
-        allShopCartWithChecked: (_, variables, { cache }) => {
-               const cacheRes = cache.readFragment({
-                        id: `$ROOT_QUERY.allShoppingCart({"user_Id":1})`,
-                        fragment: gql`
-                             fragment shopCart on ShoppingCartNodeConnection  {
-                                     edges {
-                                         node {
-                                             id
-                                             quantity
-                                             __typename
-                                         }
-                                     }
-                             }`
+        allShopCartAddChecked: (_, variables, { cache }) => {
+               const cacheRes = cache.readQuery({
+                        variables: { uid: 1 },
+                        query: GET_SHOP_CART
                 })
+               console.log('final cacheRes', cacheRes.edges);
 
                 // patch to add checked variable
                 for (let itemCount in cacheRes.edges) {
@@ -52,7 +45,7 @@ export function createApollo(httpLink: HttpLink) {
                     cacheRes.edges[itemCount].node = Object.assign(cacheRes.edges[itemCount].node, {"checked": false});
                 }
                console.log('final cacheRes', cacheRes);
-            return { ...cacheRes, __typename: "ShopCartWithCheckedResolver"}
+            return { ...cacheRes, __typename: "ShopCartAddCheckedResolver"}
         
         },
         // (START) allProductlist

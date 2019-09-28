@@ -2,26 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-
-const GET_PRODUCT_LIST = gql`
-    query GetALLProductListResolver {
-        allProductslist @client {
-            allProductparents 
-            id
-            __typename
-            }
-    }`;
-
-const GET_NAV = gql`
-    fragment myNav on Nav {
-          arrow_back
-          side_bar
-          menu
-          component
-    }
-
-`;
-
+import { GET_NAV, GET_PRODUCT_LIST } from '../fragments';
 
 @Component({
   selector: 'app-products',

@@ -7,6 +7,7 @@ export const originalImgInfo = gql`
         node {
             id
   	    originalImg
+            __typename
          }
     }
 `;
@@ -19,6 +20,7 @@ export const warehouseInfo = gql`
             price
             goodsState
             goodsNumber
+            __typename
         }
     }
 `;
@@ -70,11 +72,13 @@ export const shopcartInfo = gql`
           node {
             id
             quantity
+            __typename
             product {
               id
               sku
               title
               color
+              __typename
               warehouse {
                 edges {
                     ...warehouseInfo
@@ -90,6 +94,7 @@ export const shopcartInfo = gql`
               id
               username
               email
+              __typename
             }
         }
       }
@@ -286,3 +291,64 @@ export const GET_ALL_PRODUCTS = gql`
 `;
 
 
+export const GET_SHOP_CART = gql`
+    query ShopCartPerUser($uid: ID!) {
+      allShoppingCart(user_Id: $uid ){
+            ...shopcartInfo
+      }
+    }
+    ${shopcartInfo}
+`
+
+export const GET_NAV = gql`
+    fragment myNav on Nav {
+          arrow_back
+          side_bar
+          menu
+          component
+    }
+
+`;
+
+export const GET_PRODUCT_DETAIL = gql`
+    fragment ProductDetail on ProductNode {
+  	    id
+  	    title
+  	    sku
+  	    parentId
+  	    color
+        goodsDesc
+	      ...parentSn2ProductInfo
+  	    originalImg {
+    	        edges {
+      	            ...originalImgInfo   
+    	        }
+  	    }
+  	    warehouse {
+    	        edges {
+      	            ...warehouseInfo                  
+    	        }
+  	    }
+    }
+    ${originalImgInfo}
+    ${warehouseInfo}
+    ${parentSn2ProductInfo}
+`;
+
+export const GET_PRODUCT_LIST = gql`
+    query GetALLProductListResolver {
+        allProductslist @client {
+            allProductparents 
+            id
+            __typename
+            }
+    }`;
+
+
+export const GET_SHOP_CART_ADD_CHECKED = gql`
+    query GetAllShopCartAddChecked {
+          allShopCartAddChecked @client {
+             allShoppingCart
+              __typename   
+          }
+}`

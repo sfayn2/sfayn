@@ -4,45 +4,10 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { ProductService } from '../product.service';
-import { parentSn2ProductInfo, parent2productInfo, originalImgInfo, warehouseInfo } from '../fragments';
 import gql from 'graphql-tag';
+import { GET_NAV, GET_PRODUCT_DETAIL } from '../fragments';
 
 
-const GET_PRODUCT_DETAIL = gql`
-    fragment ProductDetail on ProductNode {
-  	    id
-  	    title
-  	    sku
-  	    parentId
-  	    color
-        goodsDesc
-	      ...parentSn2ProductInfo
-  	    originalImg {
-    	        edges {
-      	            ...originalImgInfo   
-    	        }
-  	    }
-  	    warehouse {
-    	        edges {
-      	            ...warehouseInfo                  
-    	        }
-  	    }
-    }
-    ${originalImgInfo}
-    ${warehouseInfo}
-    ${parentSn2ProductInfo}
-`;
-
-
-const GET_NAV = gql`
-    fragment myNav on Nav {
-          arrow_back
-          side_bar
-          menu
-          component
-    }
-
-`;
 
 @Component({
   selector: 'app-products-detail',

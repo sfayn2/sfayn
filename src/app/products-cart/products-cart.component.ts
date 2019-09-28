@@ -1,31 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { shopcartInfo } from '../fragments';
+import { GET_NAV, GET_SHOP_CART, GET_SHOP_CART_ADD_CHECKED } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-
-const GET_SHOP_CART = gql`
-    query ShopCartPerUser($uid: ID!) {
-      allShoppingCart(user_Id: $uid ){
-            ...shopcartInfo
-      }
-    }
-    ${shopcartInfo}
-`
-
-
-const GET_NAV = gql`
-    fragment myNav on Nav {
-          arrow_back
-          side_bar
-          menu
-          component
-    }
-
-`;
 
 @Component({
   selector: 'app-products-cart',
@@ -62,6 +42,7 @@ export class ProductsCartComponent implements OnInit {
 
   ngOnInit() {
 
+
      this.subscription = this.apollo.watchQuery({
           query: GET_SHOP_CART,
           variables: { 
@@ -70,17 +51,13 @@ export class ProductsCartComponent implements OnInit {
      })
      .valueChanges.subscribe( ({data, loading }) => { 
         this.loading = loading;
-        let res1 = data.allShoppingCart.edges;
+        
+        // add checked field in cache
+        this.apollo.getClient().query({
+            query: GET_SHOP_CART_ADD_CHECKED
+        }).then(res => this.cart$ = res.data.allShopCartAddChecked.allShoppingCart.edges)
 
-        // patch to add checked variable TODO: to remove
-        for (let itemCount in res1) {
-            console.log(res1[itemCount].node);    
-            res1[itemCount].node = Object.assign({"checked": false}, res1[itemCount].node);
-        }
-    
-        this.cart$ = res1;
      })
-
 
 
      this._productService.shopcartTotalAmount = 0.0; // dont know how to share this in aux component?
