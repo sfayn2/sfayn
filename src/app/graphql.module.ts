@@ -37,13 +37,8 @@ export function createApollo(httpLink: HttpLink) {
                         variables: { uid: 1 },
                         query: GET_SHOP_CART
                 })
-               console.log('final cacheRes', cacheRes.edges);
-
-                // patch to add checked variable
-                for (let itemCount in cacheRes.edges) {
-                    console.log(cacheRes.edges[itemCount].node);    
-                    cacheRes.edges[itemCount].node = Object.assign(cacheRes.edges[itemCount].node, {"checked": false});
-                }
+               console.log('final cacheRes', cacheRes.edges)
+               cacheRes.allShoppingCart.edges.map(x => Object.assign(x.node, {"checked": false}));
                console.log('final cacheRes', cacheRes);
             return { ...cacheRes, __typename: "ShopCartAddCheckedResolver"}
         
