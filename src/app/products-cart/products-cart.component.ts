@@ -42,7 +42,6 @@ export class ProductsCartComponent implements OnInit {
 
   ngOnInit() {
 
-
      this.subscription = this.apollo.watchQuery({
           query: GET_SHOP_CART,
           variables: { 
@@ -51,11 +50,9 @@ export class ProductsCartComponent implements OnInit {
      })
      .valueChanges.subscribe( ({data, loading }) => { 
         this.loading = loading;
-        
-        // add checked field in cache
-        this.apollo.getClient().query({
-            query: GET_SHOP_CART_ADD_CHECKED
-        }).then(res => this.cart$ = res.data.allShopCartAddChecked.allShoppingCart.edges)
+        console.log(data);
+	this.cart$ = null;
+//        this.cart$ = data.allShoppingCart.edges
 
      })
 

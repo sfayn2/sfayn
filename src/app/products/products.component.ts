@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
      }).valueChanges
      .subscribe(({ data, loading }) => {
         this.loading = loading; //hide progress
-        this.product$ = data.allProductslist.allProductparents.edges;
+	this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
      });
 
   }

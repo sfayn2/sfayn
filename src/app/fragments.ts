@@ -66,10 +66,9 @@ export const parent2productInfo = gql`
     ${parentSn2ProductInfo}
 `;
 
+
 export const shopcartInfo = gql`
-    fragment shopcartInfo on ShoppingCartNodeConnection {
-        edges {
-          node {
+    fragment shopcartInfo on ShoppingCartNode {
             id
             quantity
             __typename
@@ -97,8 +96,6 @@ export const shopcartInfo = gql`
               __typename
             }
         }
-      }
-    }
     ${originalImgInfo}
     ${warehouseInfo}
 `;
@@ -294,7 +291,12 @@ export const GET_ALL_PRODUCTS = gql`
 export const GET_SHOP_CART = gql`
     query ShopCartPerUser($uid: ID!) {
       allShoppingCart(user_Id: $uid ){
-            ...shopcartInfo
+          edges {
+              node {
+                checked @client(always:true)
+                ...shopcartInfo
+              }
+          }
       }
     }
     ${shopcartInfo}
@@ -336,13 +338,51 @@ export const GET_PRODUCT_DETAIL = gql`
 `;
 
 export const GET_PRODUCT_LIST = gql`
-    query GetALLProductListResolver {
-        allProductslist @client {
-            allProductparents 
-            id
-            __typename
-            }
-    }`;
+       query {
+	    allProductparents {
+	     edges {
+		node {
+		   id 
+		   __typename
+		   parent2product  {
+			edges @client(always:true) {
+			    node   {
+				id
+				title
+				sku
+				parentId
+				color
+				goodsDesc
+				 __typename
+				 originalImg {
+				   edges @client(always:true) {
+				    node {
+				      id
+				      originalImg
+				      __typename
+				    }
+				  }
+				}
+				warehouse {
+				  edges @client(always:true) {
+				    node {
+				      id
+				      goodsNumber
+				      goodsState
+				      price
+				      warehouse
+				      __typename
+				    }
+				  }
+				}
+			    }
+		       }
+		   }
+		} 
+	     }
+	    }
+
+	}`;
 
 
 export const GET_SHOP_CART_ADD_CHECKED = gql`

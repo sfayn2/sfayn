@@ -58,7 +58,6 @@ export class AppComponent {
 	    .valueChanges
 	    .pipe(
 		map(res => {
-                    console.log("late na duma dating", res)
                     this.dataLoaded = true;
                                 return "tapos";
                     
