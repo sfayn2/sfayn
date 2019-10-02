@@ -38,22 +38,24 @@ export class ProductsCartComponent implements OnInit {
  }
 
 
-
-
   ngOnInit() {
 
      this.subscription = this.apollo.watchQuery({
-          query: GET_SHOP_CART,
-          variables: { 
-            uid: 1 
-          }
+       query: GET_SHOP_CART,
+       variables: { 
+         uid: 1 
+       }
      })
-     .valueChanges.subscribe( ({data, loading }) => { 
-        this.loading = loading;
-        console.log(data);
-	this.cart$ = null;
-//        this.cart$ = data.allShoppingCart.edges
-
+     .valueChanges.subscribe(res => { 
+       this.apollo.getClient().query({
+         query: GET_SHOP_CART_ADD_CHECKED,
+         variables: { 
+           uid: 1 
+         }
+       }).then( ({data, loading}) => {
+         this.loading = loading;
+         this.cart$ = data.allShoppingCart.edges
+       })
      })
 
 

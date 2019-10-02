@@ -293,6 +293,19 @@ export const GET_SHOP_CART = gql`
       allShoppingCart(user_Id: $uid ){
           edges {
               node {
+                ...shopcartInfo
+              }
+          }
+      }
+    }
+    ${shopcartInfo}
+`
+
+export const GET_SHOP_CART_ADD_CHECKED = gql`
+    query ShopCartPerUserResolver($uid: ID!) {
+      allShoppingCart(user_Id: $uid ){
+          edges {
+              node {
                 checked @client(always:true)
                 ...shopcartInfo
               }
@@ -385,10 +398,10 @@ export const GET_PRODUCT_LIST = gql`
 	}`;
 
 
-export const GET_SHOP_CART_ADD_CHECKED = gql`
-    query GetAllShopCartAddChecked {
-          allShopCartAddChecked @client {
-             allShoppingCart
-              __typename   
-          }
-}`
+//export const GET_SHOP_CART_ADD_CHECKED = gql`
+//    query GetAllShopCartAddChecked {
+//          allShopCartAddChecked @client {
+//             allShoppingCart
+//              __typename   
+//          }
+//}`
