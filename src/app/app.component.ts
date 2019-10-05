@@ -17,7 +17,7 @@ export class AppComponent {
   opened: boolean = true;
   //menu = {};
   menu$: any;
-  dataLoaded: boolean = false;
+  loading: boolean = true;
   constructor(private productsGQLService: ProductsGQLService,
               private _location: Location,
 	            private apollo: Apollo) {
@@ -44,9 +44,9 @@ export class AppComponent {
 
     this.productsGQLService.watch()
     .valueChanges
-    .subscribe(res => {
-      this.dataLoaded = true;
-      console.log('loaded products', res)
+    .subscribe(({data, loading}) => {
+      this.loading = loading;
+      console.log('loaded products', data)
     });
 
   }

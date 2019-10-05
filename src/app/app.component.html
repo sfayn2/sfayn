@@ -40,7 +40,7 @@
                      </mat-sidenav>
 
                      <mat-sidenav-content>
-                          <router-outlet *ngIf="dataLoaded"></router-outlet>
+                          <router-outlet *ngIf="!loading"></router-outlet>
                      </mat-sidenav-content>
                 </mat-sidenav-container>
             </main>

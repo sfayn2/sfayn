@@ -24,7 +24,7 @@
         <ng-container *ngFor="let sc of cart$">
             <div class="products-cart-grid-main" >
                         <div class="products-cart-grid-select">
-                            <mat-checkbox [(ngModel)]="sc.node.checked" (change)="selectProduct($event, sc.node.product.sku, sc.node.totalPrice)"></mat-checkbox>
+                            <mat-checkbox [checked]="sc.node.checked" (change)="checkProduct($event, sc.node.id)"></mat-checkbox>
                         </div>
                         <div class="products-cart-grid-img" >
                           <ng-container *ngFor="let img of sc.node.product.originalImg.edges" >

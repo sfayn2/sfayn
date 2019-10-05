@@ -6,6 +6,7 @@ import { typeDefs } from './schema.graphql';
 import { introspectionQueryResultData } from './fragmentTypes';
 import { IResolvers } from 'graphql-tools';
 import { GET_RESOLVE_CART } from './fragments';
+import gql from 'graphql-tag'
 
 
 const uri = 'http://192.168.1.120:4000/graphql/'; // <-- add the URL of the GraphQL server here
@@ -65,32 +66,57 @@ export function createApollo(httpLink: HttpLink) {
     }, 
 
     Mutation: { //START mutation
-      toggleCheckedCart: (_, args, { cache }) => { // START checkedAllShopCart
+      calculateTotalAmount: (_, args, { cache }) => {
         const cacheCart = cache.readQuery({ 
           query: GET_RESOLVE_CART,
           variables: { uid: 1}
         });
 
-          // add checke
-        cacheCart.allShoppingCart.edges.map(res => Object.assign(res.node, {checked: args.checked } ))
-          
-          // add total Amount
+          // modify total Amount value
         let totalAmount = cacheCart.allShoppingCart.edges.filter(x => x.node.checked == true).map(res => { 
           return res.node.product.warehouse.edges.map(res2 => res2.node.price*res.node.quantity)
         }).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0) // default 0.0 if no array 
         cacheCart.allShoppingCart = Object.assign(cacheCart.allShoppingCart, {totalAmount: totalAmount })
         console.log('resolver', cacheCart.allShoppingCart)
-	  
+
         cache.writeQuery({ 
           query: GET_RESOLVE_CART, 
           variables: { uid: 1},
           data: cacheCart
         });
-	  return null
-	} // END checkedAllShopCart
+
+        return null
+
+      },
+      checkCartItem: (_, args, { cache, getCacheKey }) => {
+        const id = getCacheKey({ id: args.id, __typename: 'ShoppingCartNode' });
+        const fragment = gql`
+          fragment cartToChecked on ShoppingCartNode {
+            checked
+          }
+        `;
+        const cart = cache.readFragment({ fragment, id });
+        const data = { ...cart, checked: args.checked };
+        cache.writeFragment({ fragment, id, data });
+        return null;
+      },
+      toggleCheckedCart: (_, args, { cache }) => { // START toggleCheckedCart
+        const cacheCart = cache.readQuery({ 
+          query: GET_RESOLVE_CART,
+          variables: { uid: 1}
+        });
+
+        cacheCart.allShoppingCart.edges.map(res => Object.assign(res.node, {checked: args.checked } ))
+        cache.writeQuery({ 
+          query: GET_RESOLVE_CART, 
+          variables: { uid: 1},
+          data: cacheCart
+        });
+	      return null
+	    } // END toggleCheckedCart
     }, // END mutation
 
-    };
+  };
 
   
   return {

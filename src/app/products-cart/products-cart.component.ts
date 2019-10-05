@@ -78,8 +78,9 @@ export class ProductsCartComponent implements OnInit {
     this.apollo.mutate({
       mutation: gql`
         mutation {
-        toggleCheckedCart (id: 1, checked: ${e.checked}) @client 
-      }`,
+          toggleCheckedCart (id: 1, checked: ${e.checked}) @client 
+          calculateTotalAmount (id: 1, checked: ${e.checked}) @client 
+        }`,
     })
     .subscribe(res => {
       console.log('mutate check', res)
@@ -87,18 +88,19 @@ export class ProductsCartComponent implements OnInit {
 
   }
 
-//  selectProduct(e, productSku, totalPrice) {
-//
-//      if (e.checked) {
-//        this.selectedProducts.push(productSku);
-//        this._productService.shopcartTotalAmount += totalPrice;
-//      } else {
-//        this.selectedProducts = this.selectedProducts.filter(x => x != productSku);       
-//        this._productService.shopcartTotalAmount -= totalPrice;
-//       }
-//        console.log(e.checked, productSku, this.selectedProducts, this._productService.shopcartTotalAmount);
-//  }
-//
+  checkProduct(e, pid) {
+    this.apollo.mutate({
+      mutation: gql`
+       mutation {
+        checkCartItem (id: "${pid}", checked: ${e.checked}) @client 
+        calculateTotalAmount (id: 1, checked: ${e.checked}) @client 
+      }`,
+    })
+    .subscribe(res => {
+      console.log('mutate check product', res)
+    })
+
+  }
 
 
   ngOnDestroy() {
