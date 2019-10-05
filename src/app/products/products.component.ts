@@ -17,27 +17,36 @@ export class ProductsComponent implements OnInit {
  
   constructor(private apollo: Apollo) {
 
-        apollo.getClient().writeFragment({
-              id: 'Nav:1',
-              fragment: GET_NAV,
-              data: { 
-                    side_bar: true,
-                    menu: true,
-                    arrow_back: false,
-                    component: 'ProductsComponent',
-                    __typename: 'Nav'
-              }, 
-         })
+    apollo.getClient().writeFragment({
+        id: 'Nav:1',
+        fragment: GET_NAV,
+        data: { 
+        side_bar: true,
+        menu: true,
+        arrow_back: false,
+        component: 'ProductsComponent',
+        __typename: 'Nav'
+      }, 
+    })
+
  }
 
   ngOnInit() {
-     this.subscription = this.apollo.watchQuery<any>({
-        query: GET_PRODUCT_LIST
-     }).valueChanges
-     .subscribe(({ data, loading }) => {
-        this.loading = loading; //hide progress
-	this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
-     });
+  
+    this.getProducts();
+
+  }
+
+  getProducts() {
+
+    this.subscription = this.apollo.watchQuery<any>({
+      query: GET_PRODUCT_LIST
+    })
+    .valueChanges
+    .subscribe(({ data, loading }) => {
+      this.loading = loading; //hide progress
+      this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
+    });
 
   }
 

@@ -15,7 +15,6 @@ export class ProductService {
 sharedProdObjSrc$ = new BehaviorSubject(null);
 sharedProdObj$ = this.sharedProdObjSrc$.asObservable();
 
-shopcartTotalAmount : number = 0.00; // decided to add here . to share this in other component?
 
 constructor(private apollo: Apollo) { }
 

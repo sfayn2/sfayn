@@ -28,40 +28,41 @@ export class ProductsDetailComponent implements OnInit {
               private _productService: ProductService
               ) {
 
-	     apollo.getClient().writeFragment({
-		  id: 'Nav:1',
-		  fragment: GET_NAV,
-		  data: { 
-		    	side_bar: false,
-		    	menu: false,
-        	arrow_back: true,
-          component: 'ProductsDetailComponent',
-			    __typename: 'Nav'
-		  }, 
-	     })
+    apollo.getClient().writeFragment({
+        id: 'Nav:1',
+        fragment: GET_NAV,
+        data: { 
+        side_bar: false,
+        menu: false,
+        arrow_back: true,
+        component: 'ProductsDetailComponent',
+        __typename: 'Nav'
+      }, 
+    })
       
-      }
+  }
  
   ngOnInit() {
 
         this._route.params.subscribe(routeParams => {
         this.main_pic = null; //reset every call
-	      this.loadProductDetail(routeParams.id);
+	      this.getProductDetail(routeParams.id);
 	});
    
     }
 
 
-   loadProductDetail(id) {
+  getProductDetail(id) {
 
-	     this.prod$ = this.apollo.getClient().readFragment({
-		         id: `ProductNode:${id}`,
-		         fragment: GET_PRODUCT_DETAIL,
-             //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
-             fragmentName: "ProductDetail", 
-		    });
+    this.prod$ = this.apollo.getClient().readFragment({
+      id: `ProductNode:${id}`,
+      fragment: GET_PRODUCT_DETAIL,
+      //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
+      fragmentName: "ProductDetail", 
+    });
 
-                console.log(this.prod$);
+   console.log(this.prod$);
+
    }
 
   ngOnDestroy() {

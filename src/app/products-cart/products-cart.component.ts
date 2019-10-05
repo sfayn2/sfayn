@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { GET_NAV, GET_SHOP_CART, GET_SHOP_CART_ADD_CHECKED } from '../fragments';
+import { GET_NAV, GET_CART, GET_RESOLVE_CART } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
 import { Apollo } from 'apollo-angular';
@@ -17,83 +17,89 @@ export class ProductsCartComponent implements OnInit {
   selectedProducts: string[] = [];
   loading: boolean = true;
   cart$: any;
-  cart1$: any;
   private subscription: Subscription;
-  constructor(private _productService: ProductService,
-              private apollo: Apollo
-              ) {
 
-        apollo.getClient().writeFragment({
-            id: 'Nav:1',
-            fragment: GET_NAV,
-            data: { 
-                side_bar: false,
-                menu: false,
-                arrow_back: true,
-                component: 'ProductsCartComponent',
-                __typename: 'Nav'
-            }, 
-        })
+  constructor(private apollo: Apollo) {
+
+    apollo.getClient().writeFragment({
+        id: 'Nav:1',
+        fragment: GET_NAV,
+        data: { 
+        side_bar: false,
+        menu: false,
+        arrow_back: true,
+        component: 'ProductsCartComponent',
+        __typename: 'Nav'
+      }, 
+    })
 
  }
 
 
   ngOnInit() {
-
-     this.subscription = this.apollo.watchQuery({
-       query: GET_SHOP_CART,
-       variables: { 
-         uid: 1 
-       }
-     })
-     .valueChanges.subscribe(res => { 
-       this.apollo.getClient().query({
-         query: GET_SHOP_CART_ADD_CHECKED,
-         variables: { 
-           uid: 1 
-         }
-       }).then( ({data, loading}) => {
-         this.loading = loading;
-         this.cart$ = data.allShoppingCart.edges
-       })
-     })
-
-
-     this._productService.shopcartTotalAmount = 0.0; // dont know how to share this in aux component?
+  
+   this.getCart();	
   
   }
 
+  getCart() {
 
+    this.subscription = this.apollo.watchQuery<any>({
+      query: GET_CART,
+      variables: { 
+        uid: 1 
+      }
+    })
+    .valueChanges
+    .subscribe(res => { 
+      console.log('watching u?')
+      this.getResolveCart()
+    })
 
-  selectProduct(e, productSku, totalPrice) {
-
-      if (e.checked) {
-        this.selectedProducts.push(productSku);
-        this._productService.shopcartTotalAmount += totalPrice;
-      } else {
-        this.selectedProducts = this.selectedProducts.filter(x => x != productSku);       
-        this._productService.shopcartTotalAmount -= totalPrice;
-       }
-        console.log(e.checked, productSku, this.selectedProducts, this._productService.shopcartTotalAmount);
   }
 
-  selectAll(e) {
-      if (e.checked) {
-        for (let sc of this.cart$) {
-           this.selectedProducts.push(sc.node.product.sku);
-           this._productService.shopcartTotalAmount += sc.node.totalPrice;
-           sc.node.product.checked = e.checked;
-        }
-      } else {
-          
-            this.selectedProducts = [];
-            this._productService.shopcartTotalAmount = 0.0;
-            for (let sc of this.cart$) {
-                sc.node.product.checked = e.checked;
-            }
-          
-          }
+  getResolveCart() { // add extra field checked, qty, totalAmount in Shop cart cache
+    this.apollo.watchQuery<any>({
+      query: GET_RESOLVE_CART,
+      variables: { 
+        uid: 1 
+      }
+    })
+    .valueChanges
+    .subscribe( ({data, loading}) => {
+      console.log('watching me2?', data)
+      this.loading = loading;
+      this.cart$ = data.allShoppingCart.edges;
+    })
   }
+
+  checkAll(e) {
+
+    this.apollo.mutate({
+      mutation: gql`
+        mutation {
+        toggleCheckedCart (id: 1, checked: ${e.checked}) @client 
+      }`,
+    })
+    .subscribe(res => {
+      console.log('mutate check', res)
+    })
+
+  }
+
+//  selectProduct(e, productSku, totalPrice) {
+//
+//      if (e.checked) {
+//        this.selectedProducts.push(productSku);
+//        this._productService.shopcartTotalAmount += totalPrice;
+//      } else {
+//        this.selectedProducts = this.selectedProducts.filter(x => x != productSku);       
+//        this._productService.shopcartTotalAmount -= totalPrice;
+//       }
+//        console.log(e.checked, productSku, this.selectedProducts, this._productService.shopcartTotalAmount);
+//  }
+//
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

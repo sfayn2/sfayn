@@ -1,11 +1,8 @@
 import { Component  } from '@angular/core';
 import { Location } from '@angular/common';
-import { ProductService } from './product.service';
-import { AuthService } from './auth.service';
 import { Subscription, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router'
 import gql from 'graphql-tag';
 import { ProductsGQLService } from './products-graphql.service';
 
@@ -19,52 +16,38 @@ export class AppComponent {
   title = 'sfayn';
   opened: boolean = true;
   //menu = {};
-  menu$: Subscription;
+  menu$: any;
   dataLoaded: boolean = false;
-  private _subscription: Subscription;
-  constructor(private authService: AuthService,
-              private productService: ProductService,
+  constructor(private productsGQLService: ProductsGQLService,
               private _location: Location,
-	      private router: Router,
-	      private productsGQLService: ProductsGQLService,
-	      private apollo: Apollo) {
+	            private apollo: Apollo) {
 
-            apollo
-                .watchQuery<any>({
-                    query: gql`query {
-                        Nav @client {
-                            id
-                            menu
-                            arrow_back
-                            side_bar
-                            component
-                            __typename
-                    }
-                }`,
-            })
-            .valueChanges
-            .pipe(
-               map(res => res.data.Nav 
-            ),
-            ).subscribe(res => this.menu$ = res);
-
-
+    apollo.watchQuery<any>({
+      query: gql`query {
+          Nav @client {
+            id
+            menu
+            arrow_back
+            side_bar
+            component
+            __typename
+          }
+        }`,
+    })
+    .valueChanges
+    .pipe(map(res => res.data.Nav),
+    ).subscribe(res => this.menu$ = res);
 
   }
 
   ngOnInit() {
 
     this.productsGQLService.watch()
-	    .valueChanges
-	    .pipe(
-		map(res => {
-                    this.dataLoaded = true;
-                                return "tapos";
-                    
-                })
-	    ).subscribe();
-
-   
+    .valueChanges
+    .subscribe(res => {
+      this.dataLoaded = true;
+      console.log('loaded products', res)
+    });
 
   }
 
