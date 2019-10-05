@@ -65,28 +65,27 @@ export function createApollo(httpLink: HttpLink) {
     }, 
 
     Mutation: { //START mutation
-	toggleCheckedCart: (_, args, { cache }) => { // START checkedAllShopCart
-	  const cacheCart = cache.readQuery({ 
-	    query: GET_RESOLVE_CART,
-	    variables: { uid: 1}
-          });
+      toggleCheckedCart: (_, args, { cache }) => { // START checkedAllShopCart
+        const cacheCart = cache.readQuery({ 
+          query: GET_RESOLVE_CART,
+          variables: { uid: 1}
+        });
 
-          // add checked
-	  cacheCart.allShoppingCart.edges.map(res => Object.assign(res.node, {checked: args.checked } ))
+          // add checke
+        cacheCart.allShoppingCart.edges.map(res => Object.assign(res.node, {checked: args.checked } ))
           
           // add total Amount
-          let totalAmount = cacheCart.allShoppingCart.edges.filter(x => x.node.checked == true).map(res => { 
-            return res.node.product.warehouse.edges.map(res2 => res2.node.price*res.node.quantity)
-          }).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0) // default 0.0 if no array 
-          cacheCart.allShoppingCart = Object.assign(cacheCart.allShoppingCart, {totalAmount: totalAmount })
-          console.log('resolver', cacheCart.allShoppingCart)
+        let totalAmount = cacheCart.allShoppingCart.edges.filter(x => x.node.checked == true).map(res => { 
+          return res.node.product.warehouse.edges.map(res2 => res2.node.price*res.node.quantity)
+        }).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0) // default 0.0 if no array 
+        cacheCart.allShoppingCart = Object.assign(cacheCart.allShoppingCart, {totalAmount: totalAmount })
+        console.log('resolver', cacheCart.allShoppingCart)
 	  
-          
-          cache.writeQuery({ 
-	    query: GET_RESOLVE_CART, 
-	    variables: { uid: 1},
-            data: cacheCart
-          });
+        cache.writeQuery({ 
+          query: GET_RESOLVE_CART, 
+          variables: { uid: 1},
+          data: cacheCart
+        });
 	  return null
 	} // END checkedAllShopCart
     }, // END mutation
