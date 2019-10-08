@@ -71,6 +71,7 @@ export const shopcartInfo = gql`
   fragment shopcartInfo on ShoppingCartNode {
     id
     quantity
+    totalPrice
     __typename
     product {
         id

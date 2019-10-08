@@ -70,6 +70,7 @@ export class ProductsCartComponent implements OnInit {
       console.log('watching me2?', data)
       this.loading = loading;
       this.cart$ = data.allShoppingCart.edges;
+      this.calculateTotalAmount()
     })
   }
 
@@ -79,10 +80,10 @@ export class ProductsCartComponent implements OnInit {
       mutation: gql`
         mutation {
           toggleCheckedCart (id: 1, checked: ${e.checked}) @client 
-          calculateTotalAmount (id: 1, checked: ${e.checked}) @client 
         }`,
     })
     .subscribe(res => {
+     // this.calculateTotalAmount()
       console.log('mutate check', res)
     })
 
@@ -93,15 +94,48 @@ export class ProductsCartComponent implements OnInit {
       mutation: gql`
        mutation {
         checkCartItem (id: "${pid}", checked: ${e.checked}) @client 
-        calculateTotalAmount (id: 1, checked: ${e.checked}) @client 
       }`,
     })
     .subscribe(res => {
+      this.calculateTotalAmount()
       console.log('mutate check product', res)
     })
 
   }
 
+  calculateTotalAmount() {
+    this.apollo.mutate({
+      mutation: gql`
+       mutation {
+        calculateTotalAmount @client 
+      }`,
+    })
+    .subscribe(_ => {
+      console.log('mutate check product calculate total amount in products-cart', _)
+    })
+
+  }
+
+  updateQuantity(sku, val) {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation ShopCartPerUser($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
+          shoppingCart(user: $user, product: $sku, quantity: $qty, mode: $mode) {
+            shoppingCart {
+              dateModified
+            }
+          }
+        }
+      `,
+      variables: { user: 1, sku: sku, qty: val, mode: 1},
+      refetchQueries: [{
+        query: GET_CART,
+        variables: { 
+          uid: 1 
+        }
+      }]
+    }).subscribe()
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
