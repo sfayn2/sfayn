@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { ProductService } from '../product.service';
 import gql from 'graphql-tag';
-import { GET_NAV, GET_PRODUCT_DETAIL } from '../fragments';
+import { GET_NAV, GET_RESOLVE_CART, GET_PRODUCT_DETAIL } from '../fragments';
 
 
 
@@ -18,14 +16,11 @@ export class ProductsDetailComponent implements OnInit {
 
   prod$: any;
   main_pic: string;
-  quantity: number = 1;
-
-  products$: Observable<any>;
+  quantity: number = 1; //default
 
   private subscription: Subscription;
   constructor(private apollo: Apollo,
               private _route: ActivatedRoute,
-              private _productService: ProductService
               ) {
 
     apollo.getClient().writeFragment({
@@ -65,13 +60,6 @@ export class ProductsDetailComponent implements OnInit {
 
    }
 
-  ngOnDestroy() {
-      if (this.subscription) {
-         this.subscription.unsubscribe();
-     }
-  }
-
-
     setMainPic(x) {
         this.main_pic = x;
     }  
@@ -85,26 +73,31 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
-    addCart(arg_user, arg_prod, arg_qty): void {
-        this.subscription = this._productService.addCart(arg_user, arg_prod, arg_qty).subscribe(res => {
-            console.log(res);     
-        }, (err) => {
-            console.log(arg_user, arg_prod, arg_qty);
-            console.log(err);
-        });
-    }
+    addCart(user, sku, qty) {
 
-    addQty() {
-    if (this.quantity <= 10 ) { //add limit first
-            this.quantity = this.quantity + 1;
-        }
-    }
+      console.log(user, sku, qty)
 
-    minusQty() {
-        if (this.quantity > 1) {
-            this.quantity = this.quantity - 1;
-        }
-    }
+      this.apollo.mutate({
+          mutation: gql`
+            mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
+              shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
+                shoppingCart {
+                    dateCreated
+                }
+              }
+            }
+          `,
+          variables: { user: user, sku: sku, qty: qty },
+          refetchQueries: [{
+            query: GET_RESOLVE_CART,
+            variables: { 
+              uid: user
+            }
+          }]
+      }).subscribe(res => {
+          console.log('new cart', res)
+      })
 
+    }
 
 }

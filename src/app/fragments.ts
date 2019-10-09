@@ -223,12 +223,12 @@ export const GET_RESOLVE_CART = gql`
     allShoppingCart(user_Id: $uid ){
       edges {
         node {
-          checked @client
+          checked @client(always:true)
           ...shopcartInfo
         }
       __typename
       }
-      totalAmount @client
+      totalAmount @client(always:true)
       __typename
     }
   }

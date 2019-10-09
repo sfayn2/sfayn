@@ -35,10 +35,10 @@ export function createApollo(httpLink: HttpLink) {
 
   const resolvers: IResolvers = { 
     ShoppingCartNodeConnection: {
-      totalAmount: () => 0.0 
+      totalAmount: () => 0.0
     },
     ShoppingCartNode: {
-      checked: (parent) => false,
+      checked: () => false
     },
     ProductWarehouseNodeConnection: {
       edges: (parent) => {
@@ -67,23 +67,26 @@ export function createApollo(httpLink: HttpLink) {
 
     Mutation: { //START mutation
       calculateTotalAmount: (_, args, { cache }) => {
-        const cacheCart = cache.readQuery({ 
-          query: GET_RESOLVE_CART,
-          variables: { uid: 1}
-        });
+        const fragment = gql`
+              fragment cartTotalAmount on ShoppingCartNodeConnection {
+                edges {
+                  node {
+                    id
+                    __typename
+                    checked
+                    totalPrice
+                  }
+                }
+                totalAmount
+              }
+            `
+        const id = `$ROOT_QUERY.allShoppingCart({"user_Id":1})`
+        const cacheCart = cache.readFragment({ fragment, id });
+        
+        let totalAmount = cacheCart.edges.filter(r => r.node.checked == true).map(r => r.node.totalPrice).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0)
 
-          // modify total Amount value
-        let totalAmount = cacheCart.allShoppingCart.edges.filter(x => x.node.checked == true).map(res => { 
-          return res.node.product.warehouse.edges.map(res2 => res2.node.price*res.node.quantity)
-        }).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0) // default 0.0 if no array 
-        cacheCart.allShoppingCart = Object.assign(cacheCart.allShoppingCart, {totalAmount: totalAmount })
-        console.log('resolver', cacheCart.allShoppingCart)
-
-        cache.writeQuery({ 
-          query: GET_RESOLVE_CART, 
-          variables: { uid: 1},
-          data: cacheCart
-        });
+        const data = { ...cacheCart, totalAmount: totalAmount };
+        cache.writeFragment({ fragment, id, data });
 
         return null
 
