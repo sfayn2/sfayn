@@ -18,6 +18,8 @@ export class AppComponent {
   //menu = {};
   menu$: any;
   loading: boolean = true;
+  cartCount: number = 0 ;
+
   constructor(private productsGQLService: ProductsGQLService,
               private _location: Location,
 	            private apollo: Apollo) {
@@ -48,6 +50,28 @@ export class AppComponent {
       this.loading = loading;
       console.log('loaded products', data)
     });
+
+    this.apollo.watchQuery<any>({
+      query: gql`
+        query ShopCartPerUserResolver($uid: ID!) {
+          allShoppingCart(user_Id: $uid ){
+            edges {
+              node {
+                totalCount
+              }
+            }
+          }
+        }`,  
+      variables: { 
+        uid: 1 
+      }
+    })
+    .valueChanges
+    .subscribe( ({data, loading}) => {
+      console.log('watching total Count?', data.allShoppingCart.edges.map(r => r.node.totalCount )[0])
+      this.cartCount = data.allShoppingCart.edges.map(r => r.node.totalCount )[0]
+      
+    })
 
   }
 

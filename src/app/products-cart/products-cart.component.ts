@@ -17,7 +17,6 @@ export class ProductsCartComponent implements OnInit {
   selectedProducts: string[] = [];
   loading: boolean = true;
   cart$: any;
-  private subscription: Subscription;
 
   constructor(private apollo: Apollo) {
 
@@ -54,7 +53,7 @@ export class ProductsCartComponent implements OnInit {
       console.log('watching me2?', data)
       this.loading = loading;
       this.cart$ = data.allShoppingCart.edges;
-      this.calculateTotalAmount()
+      this.getTotalAmount()
     })
   }
 
@@ -81,25 +80,24 @@ export class ProductsCartComponent implements OnInit {
       }`,
     })
     .subscribe(res => {
-      this.calculateTotalAmount()
+      this.getTotalAmount()
       console.log('mutate check product', res)
     })
 
   }
 
-  calculateTotalAmount() {
+  getTotalAmount() {
     this.apollo.mutate({
       mutation: gql`
        mutation {
-        calculateTotalAmount @client 
+        getTotalAmount @client 
       }`,
     })
     .subscribe(_ => {
-      console.log('mutate check product calculate total amount in products-cart', _)
+      console.log('mutate getTotalAmount in products-cart', _)
     })
 
   }
-
 
 
   updateQuantity(sku, val) {

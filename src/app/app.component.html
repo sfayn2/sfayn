@@ -12,7 +12,7 @@
                             <div class="app-navbar-right-menu" fxLayoutAlign="end center">
                                 <div><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
                                 <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
-                                <div><button mat-icon-button [routerLink]="[{ outlets: { primary: 'pc', aux: 'pcc' }}]" ><mat-icon>shopping_cart</mat-icon></button></div>
+                                <div><button mat-icon-button [routerLink]="[{ outlets: { primary: 'pc', aux: 'pcc' }}]" ><mat-icon [matBadge]="cartCount" [matBadgeHidden]="!cartCount" matBadgeColor="accent" matBadgeSize="small">shopping_cart</mat-icon></button></div>
                            <!--     <div *ngIf="!authService.lStorage('currentUser')"><button mat-button><mat-icon>person_add_disabled</mat-icon></button></div>
                            <div *ngIf="authService.lStorage('currentUser')"><button mat-button (click)="authService.logout()" ><mat-icon>exit_to_app</mat-icon></button></div> -->
                                 <!--

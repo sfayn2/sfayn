@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag'
-import { GET_NAV, GET_CART, GET_RESOLVE_CART } from '../fragments';
+import { GET_NAV, GET_RESOLVE_CART } from '../fragments';
 
 @Component({
   selector: 'app-products-cart-checkout',

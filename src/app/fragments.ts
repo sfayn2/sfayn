@@ -72,6 +72,7 @@ export const shopcartInfo = gql`
     id
     quantity
     totalPrice
+    totalCount
     dateCreated
     dateModified
     __typename

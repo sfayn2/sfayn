@@ -66,9 +66,9 @@ export function createApollo(httpLink: HttpLink) {
     }, 
 
     Mutation: { //START mutation
-      calculateTotalAmount: (_, args, { cache }) => {
+      getTotalAmount: (_, args, { cache }) => {
         const fragment = gql`
-              fragment cartTotalAmount on ShoppingCartNodeConnection {
+              fragment getTotalAmount on ShoppingCartNodeConnection {
                 edges {
                   node {
                     id
