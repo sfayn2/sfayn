@@ -72,6 +72,8 @@ export const shopcartInfo = gql`
     id
     quantity
     totalPrice
+    dateCreated
+    dateModified
     __typename
     product {
         id
@@ -202,21 +204,6 @@ export const GET_ALL_PRODUCTS = gql`
      ${parent2productInfo}
 `;
 
-
-export const GET_CART = gql`
-  query ShopCartPerUser($uid: ID!) {
-    allShoppingCart(user_Id: $uid ){
-      edges {
-        node {
-          ...shopcartInfo
-        }
-        __typename
-      }
-      __typename
-    }
-  }
-  ${shopcartInfo}
-`
 
 export const GET_RESOLVE_CART = gql`
   query ShopCartPerUserResolver($uid: ID!) {

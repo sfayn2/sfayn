@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { GET_NAV, GET_CART, GET_RESOLVE_CART } from '../fragments';
+import { GET_NAV, GET_RESOLVE_CART } from '../fragments';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product.service';
 import { Apollo } from 'apollo-angular';
@@ -38,24 +38,8 @@ export class ProductsCartComponent implements OnInit {
 
   ngOnInit() {
   
-   this.getCart();	
+   this.getResolveCart()
   
-  }
-
-  getCart() {
-
-    this.subscription = this.apollo.watchQuery<any>({
-      query: GET_CART,
-      variables: { 
-        uid: 1 
-      }
-    })
-    .valueChanges
-    .subscribe(res => { 
-      console.log('watching u?')
-      this.getResolveCart()
-    })
-
   }
 
   getResolveCart() { // add extra field checked, qty, totalAmount in Shop cart cache
@@ -131,7 +115,7 @@ export class ProductsCartComponent implements OnInit {
       `,
       variables: { user: 1, sku: sku, qty: val, mode: 1},
       refetchQueries: [{
-        query: GET_CART,
+        query: GET_RESOLVE_CART,
         variables: { 
           uid: 1 
         }
@@ -139,9 +123,6 @@ export class ProductsCartComponent implements OnInit {
     }).subscribe()
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
 
 }

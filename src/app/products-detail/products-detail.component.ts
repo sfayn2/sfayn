@@ -18,7 +18,6 @@ export class ProductsDetailComponent implements OnInit {
   main_pic: string;
   quantity: number = 1; //default
 
-  private subscription: Subscription;
   constructor(private apollo: Apollo,
               private _route: ActivatedRoute,
               ) {
