@@ -106,18 +106,14 @@ export class ProductsCartComponent implements OnInit {
         mutation ShopCartPerUser($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
           shoppingCart(user: $user, product: $sku, quantity: $qty, mode: $mode) {
             shoppingCart {
-              dateModified
+              id
+              quantity
+              totalPrice
             }
           }
         }
       `,
       variables: { user: 1, sku: sku, qty: val, mode: 1},
-      refetchQueries: [{
-        query: GET_RESOLVE_CART,
-        variables: { 
-          uid: 1 
-        }
-      }]
     }).subscribe()
   }
 
