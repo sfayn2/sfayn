@@ -73,22 +73,8 @@
     justify-self: end;
 }
 
-.products-cart-grid-checkout {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 200px;
-    grid-template-areas: "checkout";
-    margin: 1rem;
-    padding: 0.5rem; 
-    background-color: white;
-}
-
-.products-cart-grid-checkout-checkout {
-    grid-area: checkout;
-}
-
 mat-form-field {
-    width: 150px; 
+    width: 50px; 
     text-align: center;
 }
 

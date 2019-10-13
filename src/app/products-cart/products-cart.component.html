@@ -43,7 +43,7 @@
             <input matInput type="number" [value]="sc.node.quantity" #qty (change)="updateQuantity(sc.node.product.sku, qty.value)"/> 
           </mat-form-field>
           <div fxLayout="row" fxLayoutAlign="center start" class="mat-small">
-            <div *ngFor="let w of sc.node.product.warehouse.edges">Available Stocks: {{w.node.goodsNumber}} </div>
+            <div *ngFor="let w of sc.node.product.warehouse.edges">Stocks: {{w.node.goodsNumber}} </div>
           </div>
       </div> 
       <div class="mat-subheading-2 products-cart-grid-details-totalprice" >{{sc.node.totalPrice | currency}}</div>
