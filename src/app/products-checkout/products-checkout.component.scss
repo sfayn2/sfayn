@@ -47,9 +47,11 @@
   padding: 1rem; 
   background-color: white;
   grid-area: products;
+  grid-gap: 0.5rem;
   display: grid;
   grid-template-areas: "header"
-                       "list";
+                       "list"
+                       "list2";
 
   .products-checkout-grid-products-header {
     grid-area: header;
@@ -78,6 +80,11 @@
       grid-area: pl_tprice;
     }
 
+  }
+
+  .products-checkout-grid-products-list2 {
+    grid-area: list2;
+    @extend .products-checkout-grid-products-list;
   }
 
 }
