@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductsComponent } from './products/products.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 //import { ApolloModule, Apollo } from 'apollo-angular';
 //import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
@@ -22,19 +22,21 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //t
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
 import { LoginComponent } from './login/login.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
-import { ProductsCartCheckoutComponent } from './products-cart-checkout/products-cart-checkout.component';
+import { ProductsCartAmountComponent } from './products-cart-amount/products-cart-amount.component';
 import { GraphQLModule } from './graphql.module';
+import { ProductsCheckoutComponent } from './products-checkout/products-checkout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent,
+    ProductsListComponent,
     ProductsSearchComponent,
     ProductsDetailComponent,
     LoginComponent,
     ProductsCartComponent,
-    ProductsCartCheckoutComponent
+    ProductsCartAmountComponent,
+    ProductsCheckoutComponent
   ],
   imports: [
     BrowserModule,

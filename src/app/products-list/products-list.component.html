@@ -1,6 +1,6 @@
 <div class="products-grid-main">
     <ng-container *ngFor="let parent of product$">
-         <div routerLink="/pd/{{product.node.id}}" class="products-grid-items mat-elevation-z0" *ngFor="let product of parent">
+         <div routerLink="/detail/{{product.node.id}}" class="products-grid-items mat-elevation-z0" *ngFor="let product of parent">
              <br/>
              <div matTooltip="{{product.node.title}}" class="mat-subheading-1">{{product.node.title | slice:0:30}}...</div>
            <ng-container *ngFor="let w of product.node.warehouse.edges">

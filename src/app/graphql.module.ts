@@ -86,6 +86,7 @@ export function createApollo(httpLink: HttpLink) {
         let totalAmount = cacheCart.edges.filter(r => r.node.checked == true).map(r => r.node.totalPrice).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0)
 
         const data = { ...cacheCart, totalAmount: totalAmount };
+        console.log("getCalculate Amount", data)
         cache.writeFragment({ fragment, id, data });
 
         return null

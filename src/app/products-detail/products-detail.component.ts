@@ -75,7 +75,7 @@ export class ProductsDetailComponent implements OnInit {
     addCart(user, sku, qty) {
 
       console.log(user, sku, qty)
-
+      // need to refetch query after mutation. not smart enough
       this.apollo.mutate({
           mutation: gql`
             mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {

@@ -5,11 +5,11 @@ import gql from 'graphql-tag';
 import { GET_NAV, GET_PRODUCT_LIST } from '../fragments';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: 'app-products-list',
+  templateUrl: './products-list.component.html',
+  styleUrls: ['./products-list.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
 
   subscription: Subscription;
   product$: any ;
@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
         side_bar: true,
         menu: true,
         arrow_back: false,
-        component: 'ProductsComponent',
+        component: 'ProductsListComponent',
         __typename: 'Nav'
       }, 
     })
