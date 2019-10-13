@@ -1,0 +1,92 @@
+
+
+.products-checkout-grid-main {
+  display:grid;
+  grid-template-areas: "shipping-address"
+                       "products"
+                       "voucher"
+                       "payment-method"; 
+  margin: 1rem; 
+  grid-gap: 1rem;
+}
+
+
+.products-checkout-grid-shipping-address {
+  grid-area: shipping-address;
+  display:grid;
+  //grid-template-areas: "header"
+  //                     "contacts"
+  //                     "address"
+  //                     "country-postal";
+  grid-template-columns: 1.5fr 2.5fr 1.5fr auto;
+  grid-template-areas: "header header header"
+                       "contacts address country-postal";
+  padding: 1rem; 
+  background-color: white;
+
+  .products-checkout-grid-shipping-address-header {
+    grid-area: header;
+    padding:0.5rem;
+  }
+
+  .products-checkout-grid-shipping-address-address {
+    grid-area: address;
+  }
+
+  .products-checkout-grid-shipping-address-contacts {
+    grid-area: contacts;
+  }
+
+  .products-checkout-grid-shipping-address-country-postal {
+    grid-area: country-postal;
+  }
+
+}
+
+.products-checkout-grid-products {
+  padding: 1rem; 
+  background-color: white;
+  grid-area: products;
+  display: grid;
+  grid-template-areas: "header"
+                       "list";
+
+  .products-checkout-grid-products-header {
+    grid-area: header;
+    padding: 0.5rem;
+  }
+
+  .products-checkout-grid-products-list {
+    grid-area: list;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "pl_image pl_product pl_uprice pl_quantity pl_tprice";
+
+    .products-checkout-grid-products-list-image {
+      grid-area: pl_image;
+    }
+    .products-checkout-grid-products-list-product {
+      grid-area: pl_product;
+    }
+    .products-checkout-grid-products-list-uprice {
+      grid-area: pl_uprice;
+    }
+    .products-checkout-grid-products-list-quantity {
+      grid-area: pl_quantity;
+    }
+    .products-checkout-grid-products-list-tprice {
+      grid-area: pl_tprice;
+    }
+
+  }
+
+}
+
+
+.products-checkout-grid-voucher {
+  grid-area: voucher;
+}
+
+.products-checkout-grid-payment-method {
+  grid-area: payment-method;
+}

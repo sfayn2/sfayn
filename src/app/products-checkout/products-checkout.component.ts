@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { GET_NAV } from '../fragments';
 
 @Component({
   selector: 'app-products-checkout',
@@ -7,7 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsCheckoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apollo: Apollo) { 
+
+    apollo.getClient().writeFragment({
+        id: 'Nav:1',
+        fragment: GET_NAV,
+        data: { 
+        side_bar: false,
+        menu: false,
+        arrow_back: true,
+        component: 'ProductsCheckoutComponent',
+        __typename: 'Nav'
+      }, 
+    })
+
+  }
 
   ngOnInit() {
   }
