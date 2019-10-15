@@ -18,7 +18,7 @@
   //                     "contacts"
   //                     "address"
   //                     "country-postal";
-  grid-template-columns: 1.5fr 2.5fr 1.5fr auto;
+  grid-template-columns: 1fr 2.5fr 1fr auto;
   grid-template-areas: "header header header"
                        "contacts address country-postal";
   padding: 1rem; 
@@ -50,18 +50,28 @@
   grid-gap: 0.5rem;
   display: grid;
   grid-template-areas: "header"
-                       "list"
-                       "list2";
+                       "product-order-header"
+                       "product-order"
+                       "shipping-method";
 
   .products-checkout-grid-products-header {
     grid-area: header;
     padding: 0.5rem;
   }
 
+  .headers-color {
+    color: #ccc;
+  }
+
+  .top-line {
+    border-top:1px solid #ccc;
+    margin-top:0.3rem;
+  }
+
   .products-checkout-grid-products-list {
-    grid-area: list;
+    grid-area: product-order-header;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr; 
     grid-template-areas: "pl_image pl_product pl_uprice pl_quantity pl_tprice";
 
     .products-checkout-grid-products-list-image {
@@ -69,22 +79,55 @@
     }
     .products-checkout-grid-products-list-product {
       grid-area: pl_product;
+      align-self: center;
+      
     }
     .products-checkout-grid-products-list-uprice {
       grid-area: pl_uprice;
+      justify-self: center;
+      align-self: center;
     }
     .products-checkout-grid-products-list-quantity {
       grid-area: pl_quantity;
+      justify-self: center;
+      align-self: center;
     }
     .products-checkout-grid-products-list-tprice {
       grid-area: pl_tprice;
+      justify-self: center;
+      align-self: center;
     }
 
+
+  }
+  .products-checkout-grid-products-list2 {
+    grid-area: product-order;
+    @extend .products-checkout-grid-products-list;
   }
 
-  .products-checkout-grid-products-list2 {
-    grid-area: list2;
-    @extend .products-checkout-grid-products-list;
+  .products-checkout-grid-products-list3 {
+    grid-area: shipping-method;
+    border-top: 1px solid #ccc;
+    padding-top:1rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr; 
+    grid-template-areas: "s_label s_method s_method s_price s_price";
+
+    .products-checkout-grid-products-list-shipping-label {
+      grid-area: s_label;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .products-checkout-grid-products-list-shipping-method {
+      grid-area: s_method;
+      align-self: center;
+    }
+
+    .products-checkout-grid-products-list-shipping-price {
+      grid-area: s_price;
+    }
+
   }
 
 }
