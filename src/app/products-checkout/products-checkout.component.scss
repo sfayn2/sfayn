@@ -7,11 +7,11 @@
 
 .o-grid {
   display:grid;
-  grid-template-areas: "shipping-address"
-                       "product"
-                       "voucher"
-                       "payment-method"
-                       "total-amount"; 
+  grid-template-areas: 'shipping-address'
+                       'product'
+                       'voucher'
+                       'payment-method'
+                       'total-amount'; 
   margin: 1rem; 
   grid-gap: 1rem;
 
@@ -20,8 +20,8 @@
     grid-area: shipping-address;
     display:grid;
     grid-template-columns: 1fr 2.5fr 1fr auto;
-    grid-template-areas: "header   header header        "
-                         "contacts detail country-postal";
+    grid-template-areas: 'header   header header        '
+                         'contacts detail country-postal';
     @include box-bg();
 
     &__header {
@@ -46,10 +46,10 @@
     grid-area: product;
     //grid-gap: 0.5rem;
     display: grid;
-    grid-template-areas: "header"
-                         "lheader"
-                         "lorder"
-                         "smethod";
+    grid-template-areas: 'header'
+                         'lheader'
+                         'lorder'
+                         'smethod';
     @include box-bg();
 
     &__header {
@@ -69,7 +69,7 @@
       grid-area: lheader;
       display: grid;
       grid-template-columns: 1fr 2fr 1fr 1fr 1fr; 
-      grid-template-areas: "img prod uprice qty tprice";
+      grid-template-areas: 'img prod uprice qty tprice';
 
       &__img {
         grid-area: img;
@@ -114,8 +114,8 @@
       padding-top:1rem;
       display: grid;
       grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr; 
-      grid-template-areas: "label method  cost        info  transport  subtotal"
-                           ".     .       costamount  infod transportd samount ";
+      grid-template-areas: 'label method  cost        info  transport  subtotal'
+                           '.     .       costamount  infod transportd samount ';
 
       &__label {
         grid-area: label;
@@ -188,7 +188,7 @@
     display: grid;
     grid-area: payment-method;
     grid-template-columns: 1fr 1fr 3fr;
-    grid-template-areas: "pmheader opt .";
+    grid-template-areas: 'pmheader opt .';
     @include box-bg();
 
     &__header {
@@ -207,11 +207,11 @@
     grid-gap: 1rem;
     grid-area: total-amount;
     grid-template-columns: 3fr auto auto;
-    grid-template-areas: ". label-cost     cost-amount2   "
-                         ". label-tax      tax-amount     "
-                         ". label-discount discount-amount"
-                         ". label-total    total-amount2  "
-                         ". .              order-btn      ";
+    grid-template-areas: '. label-cost     cost-amount2   '
+                         '. label-tax      tax-amount     '
+                         '. label-discount discount-amount'
+                         '. label-total    total-amount2  '
+                         '. .              order-btn      ';
     @include box-bg();
 
 
