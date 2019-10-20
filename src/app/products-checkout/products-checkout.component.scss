@@ -1,17 +1,20 @@
 
+@mixin box-bg {
+  padding: 1.5rem;
+  background-color: white;
+}
+
 
 .o-grid {
   display:grid;
   grid-template-areas: "shipping-address"
                        "product"
                        "voucher"
-                       "payment-method"; 
+                       "payment-method"
+                       "total-amount"; 
   margin: 1rem; 
   grid-gap: 1rem;
 
-  .u-header--padding {
-    padding:0.5rem;
-  }
 
   &__address { // Delivery Address
     grid-area: shipping-address;
@@ -19,12 +22,10 @@
     grid-template-columns: 1fr 2.5fr 1fr auto;
     grid-template-areas: "header   header header        "
                          "contacts detail country-postal";
-    padding: 1rem; 
-    background-color: white;
+    @include box-bg();
 
     &__header {
       grid-area: header;
-      @extend .u-header--padding;
     }
 
     &__detail {
@@ -42,19 +43,17 @@
   }// Delivery Address
 
   &__product { // Product Order
-    padding: 1rem; 
-    background-color: white;
     grid-area: product;
-    grid-gap: 0.5rem;
+    //grid-gap: 0.5rem;
     display: grid;
     grid-template-areas: "header"
                          "lheader"
                          "lorder"
                          "smethod";
+    @include box-bg();
 
     &__header {
       grid-area: header;
-      @extend .u-header--padding;
     }
 
     .u-headers--gray {
@@ -70,7 +69,7 @@
       grid-area: lheader;
       display: grid;
       grid-template-columns: 1fr 2fr 1fr 1fr 1fr; 
-      grid-template-areas: "img prod uprice tprice qty";
+      grid-template-areas: "img prod uprice qty tprice";
 
       &__img {
         grid-area: img;
@@ -96,7 +95,7 @@
 
       &__tprice {
         grid-area: tprice;
-        justify-self: center;
+        justify-self:right;
         align-self: center;
       }
 
@@ -163,12 +162,12 @@
       &__subtotal {
         grid-area: subtotal;
         aligh-self: center;
-        justify-self: center;
+        justify-self:right;
       }
 
       &__samount {
         grid-area: samount;
-        justify-self: center;
+        justify-self:right;
       }
 
 
@@ -178,11 +177,89 @@
 
 
   &__voucher {
+    display: grid;
     grid-area: voucher;
+    @include box-bg;
+    &__header {
+    }
   }
 
   &__payment-method {
+    display: grid;
     grid-area: payment-method;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-areas: "pmheader opt .";
+    @include box-bg();
+
+    &__header {
+      grid-area: pmheader;
+    }
+
+    &__btn {
+      grid-area: opt;
+    }
+
+  }
+
+
+  &__total-amount {
+    display: grid;
+    grid-gap: 1rem;
+    grid-area: total-amount;
+    grid-template-columns: 3fr auto auto;
+    grid-template-areas: ". label-cost     cost-amount2   "
+                         ". label-tax      tax-amount     "
+                         ". label-discount discount-amount"
+                         ". label-total    total-amount2  "
+                         ". .              order-btn      ";
+    @include box-bg();
+
+
+    &__label-cost {
+      grid-area: label-cost;
+      justify-self:right;
+    }
+
+    &__cost-amount2 {
+      grid-area: cost-amount2;
+      justify-self:right;
+    }
+
+    &__label-tax {
+      grid-area: label-tax;
+      justify-self:right;
+    }
+
+    &__tax-amount {
+      grid-area: tax-amount;
+      justify-self:right;
+    }
+
+    &__label-discount {
+      grid-area: label-discount;
+      justify-self:right;
+    }
+
+    &__discount-amount {
+      grid-area: discount-amount;
+      justify-self:right;
+    }
+
+    &__label-total {
+      grid-area: label-total;
+      justify-self:right;
+    }
+
+
+    &__total-amount2 {
+      grid-area: total-amount2;
+      justify-self:right;
+    }
+
+    &__order-btn {
+      grid-area: order-btn;
+    }
+
   }
 
 }
