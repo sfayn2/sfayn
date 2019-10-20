@@ -1,53 +1,56 @@
-<div class="products-cart-grid-main">
-  <div class="products-cart-grid-select">
-    <mat-checkbox (change)="checkAll($event)"></mat-checkbox>
+<div class='o-grid'>
+  <div class='o-grid__select'>
+    <mat-checkbox (change)='checkAll($event)'></mat-checkbox>
   </div>
-  <div class="products-cart-grid-img" >
+  <div class='o-grid__img' >
   </div>
-  <div class="products-cart-grid-details" >
-    <div class="mat-subheading-2 products-cart-grid-details-product">Product</div>
-    <div class="mat-subheading-2 products-cart-grid-details-color">Color</div>
-    <div class="mat-subheading-2 products-cart-grid-details-uprice">Unit Price</div>
-    <div class="mat-subheading-2 products-cart-grid-details-quantity">Quantity</div>
-    <div class="mat-subheading-2 products-cart-grid-details-totalprice">Total Price</div>
-    <div class="mat-subheading-2 products-cart-grid-details-actions">-</div>
+  <div class='o-grid__details' >
+    <div class='mat-subheading-2 o-grid__details__product'>Product</div>
+    <div class='mat-subheading-2 o-grid__details__color'>Color</div>
+    <div class='mat-subheading-2 o-grid__details__uprice'>Unit Price</div>
+    <div class='mat-subheading-2 o-grid__details__quantity'>Quantity</div>
+    <div class='mat-subheading-2 o-grid__details__totalprice'>Total Price</div>
+    <div class='mat-subheading-2 o-grid__details__actions'>-</div>
   </div>
 </div>
-<div class="products-cart-grid-warehouse">
-  <div class="products-cart-grid-warehouse-select">
+
+
+  <div class='o-grid' >
+<div class='o-grid__warehouse'>
+  <div class='o-grid__warehouse__select'>
     <mat-checkbox> [Warehouse] warehouse</mat-checkbox>
   </div>
 </div>
+</div>
 
-
-<ng-container *ngFor="let sc of cart$">
-  <div class="products-cart-grid-main" >
-    <div class="products-cart-grid-select">
-        <mat-checkbox [checked]="sc.node.checked" (change)="checkProduct($event, sc.node.id)"></mat-checkbox>
+<ng-container *ngFor='let sc of cart$'>
+  <div class='o-grid' >
+    <div class='o-grid__select'>
+        <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
     </div>
-    <div class="products-cart-grid-img" >
-      <ng-container *ngFor="let img of sc.node.product.originalImg.edges" >
-          <img [src]="img.node.originalImg" style="width:100%;object-fit: cover"/>
+    <div class='o-grid__img' >
+      <ng-container *ngFor='let img of sc.node.product.originalImg.edges' >
+          <img [src]='img.node.originalImg' style='width:100%;object-fit: cover'/>
       </ng-container>
     </div>
-    <div class="products-cart-grid-details">
-      <div class="products-cart-grid-details-product">
-          <div fxFlex class="mat-subheading-1"> {{sc.node.product.title}} </div>
+    <div class='o-grid__details'>
+      <div class='o-grid__details__product'>
+          <div fxFlex class='mat-subheading-1'> {{sc.node.product.title}} </div>
       </div>
-      <div class="products-cart-grid-details-color"><span class="mat-body-1">{{sc.node.product.color}}</span>
+      <div class='o-grid__details__color'><span class='mat-body-1'>{{sc.node.product.color}}</span>
           <!--<button mat-icon-button><mat-icon>arrow_drop_down</mat-icon></button> -->
       </div>
-      <div class="mat-body-1 products-cart-grid-details-uprice" *ngFor="let w of sc.node.product.warehouse.edges">${{w.node.price | currency}}</div>
-      <div class="products-cart-grid-details-quantity">
+      <div class='mat-body-1 o-grid__details__uprice' *ngFor='let w of sc.node.product.warehouse.edges'>${{w.node.price | currency}}</div>
+      <div class='o-grid__details__quantity'>
           <mat-form-field>
-            <input matInput type="number" [value]="sc.node.quantity" #qty (change)="updateQuantity(sc.node.product.sku, qty.value)"/> 
+            <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.product.sku, qty.value)'/> 
           </mat-form-field>
-          <div fxLayout="row" fxLayoutAlign="center start" class="mat-small">
-            <div *ngFor="let w of sc.node.product.warehouse.edges">Stocks: {{w.node.goodsNumber}} </div>
+          <div fxLayout='row' fxLayoutAlign='center start' class='mat-small'>
+            <div *ngFor='let w of sc.node.product.warehouse.edges'>Stocks: {{w.node.goodsNumber}} </div>
           </div>
       </div> 
-      <div class="mat-subheading-2 products-cart-grid-details-totalprice" >{{sc.node.totalPrice | currency}}</div>
-      <div class="products-cart-grid-details-actions">
+      <div class='mat-subheading-2 o-grid__details__totalprice' >{{sc.node.totalPrice | currency}}</div>
+      <div class='o-grid__details__actions'>
           <button mat-button >Remove</button>
       </div>
     </div> <!-- products-cart-grid -->
