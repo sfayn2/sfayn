@@ -25,6 +25,7 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
 import { ProductsCartAmountComponent } from './products-cart-amount/products-cart-amount.component';
 import { GraphQLModule } from './graphql.module';
 import { ProductsCheckoutComponent } from './products-checkout/products-checkout.component';
+import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ProductsCheckoutComponent } from './products-checkout/products-checkout
     LoginComponent,
     ProductsCartComponent,
     ProductsCartAmountComponent,
-    ProductsCheckoutComponent
+    ProductsCheckoutComponent,
+    ShippingAddressComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { ProductsCheckoutComponent } from './products-checkout/products-checkout
     ReactiveFormsModule,
     GraphQLModule,
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [LoginComponent, ShippingAddressComponent],
   providers: [ProductService, AuthService, ProductsGQLService],
   bootstrap: [AppComponent]
 })

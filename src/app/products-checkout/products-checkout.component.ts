@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GET_NAV } from '../fragments';
+import { MatDialog } from '@angular/material/dialog';
+import { ShippingAddressComponent } from '../shipping-address/shipping-address.component';
 
 @Component({
   selector: 'app-products-checkout',
@@ -9,7 +11,8 @@ import { GET_NAV } from '../fragments';
 })
 export class ProductsCheckoutComponent implements OnInit {
 
-  constructor(private apollo: Apollo) { 
+  constructor(private apollo: Apollo,
+              private dialog: MatDialog) { 
 
     apollo.getClient().writeFragment({
         id: 'Nav:1',
@@ -26,6 +29,19 @@ export class ProductsCheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+  } 
+
+
+  openChangeAddress(): void {
+    const dialogRef = this.dialog.open(ShippingAddressComponent, {
+      width: '60%',
+      height: '90%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
+
 
 }

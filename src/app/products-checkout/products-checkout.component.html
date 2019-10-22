@@ -12,6 +12,9 @@
     <div class='o-grid__address__country-postal mat-h4'>
       Tiasfne 12604 
     </div>
+    <div class='o-grid__address__btn--change-address'>
+          <button mat-button (click)='openChangeAddress()'>Change</button>
+    </div>
   </div>
 
   <div class='o-grid__product'> <!--BEGIN product -->
@@ -43,7 +46,7 @@ Hight Quality Compatible R3 Development Board for Arduino</div>
       </div>
       <div class='o-grid__product__smethod__method mat-body-strong' >
         SEA priority mail(Malaysia >$120，need to pay 6% imp
-    <!--    <button mat-button >Change</button> -->
+          <button mat-button>Change</button>
       </div>
         <div class='o-grid__product__smethod__cost mat-small u-headers--gray'>
           Cost
@@ -113,7 +116,8 @@ Hight Quality Compatible R3 Development Board for Arduino</div>
          $0.00
     </div>
     <div class='o-grid__total-amount__paypal'>
-          <img src='https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg'/>
+        <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+<script>paypal.Buttons().render('body');</script>
     </div>
     <div class='o-grid__total-amount__order-btn'>
          <button mat-raised-button color='accent'>Place Order</button>

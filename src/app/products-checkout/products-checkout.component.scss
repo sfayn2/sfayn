@@ -23,9 +23,13 @@
     grid-area: shipping-address;
     display:grid;
     grid-template-columns: 1fr 2.5fr 1fr auto;
-    grid-template-areas: 'header   header header        '
-                         'contacts detail country-postal';
+    grid-template-areas: 'header   header header         .'
+                         'contacts detail country-postal btn-change-add';
     @include box-bg();
+
+    &__btn--change-address {
+      grid-area: btn-change-add;
+    }
 
     &__header {
       grid-area: header;
