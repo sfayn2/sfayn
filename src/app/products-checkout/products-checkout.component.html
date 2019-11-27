@@ -13,7 +13,19 @@
       Tiasfne 12604 
     </div>
     <div class='o-grid__address__btn--change-address'>
-          <button mat-button (click)='openChangeAddress()'>Change</button>
+        <button mat-icon-button matTooltip='Add New Address' (click)='addAddress()'>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip='Edit Address' (click)='editAddress()'>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip='Navigate Before Address'>
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip='Navigate Next Address'>
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+
     </div>
   </div>
 
@@ -46,7 +58,9 @@ Hight Quality Compatible R3 Development Board for Arduino</div>
       </div>
       <div class='o-grid__product__smethod__method mat-body-strong' >
         SEA priority mail(Malaysia >$120，need to pay 6% imp
-          <button mat-button>Change</button>
+        <button mat-icon-button matTooltip='Change shipping method'>
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
         <div class='o-grid__product__smethod__cost mat-small u-headers--gray'>
           Cost

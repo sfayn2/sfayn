@@ -1,30 +1,35 @@
-
+.mat-raised-button {
+  width: 90%;
+}
 
 .frm {
   display: grid;
   grid-gap: 0.5rem;
-  padding: 1rem;
-  //grid-template-columns: 1fr;
-  grid-template-areas: 'firstname'
-                       'lastname '
-                       'email    '
-                       'address  '
-                       'country  '
-                       'city     '
-                       'zip      '
-                       'phone    ';
+  padding: 0.5rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'header       '   
+                       'name         '   
+                       'phone        '    
+                       'address      '
+                       'country      '        
+                       'city         '
+                       'zip          '
+                       'use-address  '
+                       'btn          ';
 
-  &__firstname {
-    grid-area: firstname;
+  &__header {
+    grid-area: header;
   }
 
-  &__lastname {
-    grid-area: lastname;
+  &__useaddress {
+    grid-area: use-address;
   }
 
-  &__email {
-    grid-area: email;
+  &__name {
+    grid-area: name;
   }
+
+
 
   &__address {
     grid-area: address;
@@ -35,11 +40,31 @@
   }
   
   &__city {
+    grid-area: city;
+  }
+
+  &__zip {
     grid-area: zip;
   }
 
   &__phone {
     grid-area: phone;
+  }
+
+  &__btn {
+    grid-area: btn;
+    display: grid;
+    grid-gap: 0;
+    grid-template-areas: 'btn-cancel btn-ok';
+
+    &--ok {
+      grid-area: btn-ok;
+    }
+
+    &--cancel {
+      grid-area: btn-cancel;
+    }
+
   }
 
                         

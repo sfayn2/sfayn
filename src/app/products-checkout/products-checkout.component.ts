@@ -32,10 +32,10 @@ export class ProductsCheckoutComponent implements OnInit {
   } 
 
 
-  openChangeAddress(): void {
+  addAddress(): void {
     const dialogRef = this.dialog.open(ShippingAddressComponent, {
-      width: '60%',
-      height: '90%'
+      width: '450px',
+      height: '580px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -43,5 +43,8 @@ export class ProductsCheckoutComponent implements OnInit {
     });
   }
 
+  editAddress() {
+    alert('coming soon!')
+  }
 
 }

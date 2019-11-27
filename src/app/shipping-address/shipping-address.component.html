@@ -1,15 +1,16 @@
-<div class="frm">
+<div class="frm mat-body">
 
-  <mat-form-field class="frm__firstname">
-    <input matInput placeholder="Firstname" types='text'>
+  <div class='frm__header mat-h3'>New Address</div>
+
+
+  <mat-form-field class="frm__name">
+    <input matInput placeholder="Name" types='text'>
   </mat-form-field>
 
-  <mat-form-field class="frm__lastname">
-    <input matInput placeholder="Lastname" types='text'>
-  </mat-form-field>
 
-  <mat-form-field class="frm__email">
-    <input matInput placeholder="Email" types='email'>
+
+  <mat-form-field class="frm__phone">
+    <input matInput placeholder="phone" types='tel'>
   </mat-form-field>
 
 
@@ -18,7 +19,7 @@
   </mat-form-field>
 
   <mat-form-field class="frm__country">
-    <mat-select placeholder="Select">
+    <mat-select placeholder="Select Country">
       <mat-option value="option">Option</mat-option>
     </mat-select>
   </mat-form-field>
@@ -27,11 +28,23 @@
     <input matInput placeholder="City" types='text'>
   </mat-form-field>
 
-  <mat-form-field class="frm__phone">
-    <input matInput placeholder="phone" types='text'>
-  </mat-form-field>
+
   <mat-form-field class="frm__zip">
     <input matInput placeholder="Zip code" types='text'>
   </mat-form-field>
+
+  <div class='frm__useaddress'>
+        <mat-checkbox>Use this shipping address</mat-checkbox>
+  </div>
+
+  <div class='frm__btn'>
+    <div class='frm__btn--cancel'>
+       <button mat-raised-button>Cancel</button>
+    </div>
+
+    <div class='frm__btn--ok'>
+       <button mat-raised-button color="primary" >Submit</button>
+    </div>
+  </div>
 
 </div>
