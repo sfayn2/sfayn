@@ -34,8 +34,8 @@ export class ProductsCheckoutComponent implements OnInit {
 
   addAddress(): void {
     const dialogRef = this.dialog.open(ShippingAddressComponent, {
-      width: '450px',
-      height: '580px'
+      width: '480px',
+      height: '575px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
