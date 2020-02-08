@@ -1,6 +1,6 @@
 # Sfayn
 
-![image](https://user-images.githubusercontent.com/3206118/60814235-d3790b80-a1c7-11e9-93a1-5969496616a4.png)
+![image](https://user-images.githubusercontent.com/3206118/74082869-3a7ddc00-4a99-11ea-882f-4a6e64e8c81f.png)
 ![image](https://user-images.githubusercontent.com/3206118/60814280-eb508f80-a1c7-11e9-9007-2f2960e5b461.png)
 ![image](https://user-images.githubusercontent.com/3206118/60814331-028f7d00-a1c8-11e9-8ac3-771398d268d6.png)
 ![image](https://user-images.githubusercontent.com/3206118/60814422-29e64a00-a1c8-11e9-8778-7f55c75968f5.png)
