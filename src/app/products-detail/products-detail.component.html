@@ -18,7 +18,7 @@
             <div class="mat-display-1" style="margin-bottom:0"> {{w.node.price | currency}} </div>
         </ng-container>    
 
-        <div> <!-- wo own? -->
+        <div class='mat-body'>  <!-- wo own? -->
           <div>color:</div>
           <div>
             <mat-button-toggle-group>
@@ -29,15 +29,15 @@
           </div>    
         </div> 
 
-      <div>
+      <div class='mat-body'>
         <div>warehouse:</div>
         <div *ngFor="let w of prod$.warehouse.edges">{{w.node.warehouse}} </div>
       </div>
-      <div>
+      <div class='mat-body'>
         <div>available stocks:</div>
         <div *ngFor="let w of prod$.warehouse.edges">{{w.node.goodsNumber}} </div>
       </div>
-      <div>
+      <div class='mat-body'>
         <div>quantity:</div>
         <div>
           <mat-form-field>
@@ -52,7 +52,7 @@
 
     </div> <!-- who own? -->
 
-    <div class="products-detail-desc" >
+    <div class="products-detail-desc mat-body" >
       <p [innerHTML]="prod$.goodsDesc"></p>
     </div>
 
