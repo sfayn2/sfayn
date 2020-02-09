@@ -1,10 +1,10 @@
-<div class='o-grid-main'>
+<div class='l-grid-main'>
   <ng-container *ngFor="let parent of product$">
-     <div routerLink="/detail/{{product.node.id}}" class="o-grid-main__items mat-elevation-z0" *ngFor="let product of parent">
-      <div class='o-grid-main__side-padding'>
-        <div matTooltip="{{product.node.title}}" class="mat-body o-grid-main__top-divider" >{{product.node.title | slice:0:40}}...</div>
+     <div routerLink="/detail/{{product.node.id}}" class="l-grid-main__items mat-elevation-z0" *ngFor="let product of parent">
+      <div class='l-grid-main__side-padding'>
+        <div matTooltip="{{product.node.title}}" class="mat-body l-grid-main__top-divider" >{{product.node.title | slice:0:40}}...</div>
         <ng-container *ngFor="let w of product.node.warehouse.edges">
-          <div class='o-grid-main__top-divider'>${{w.node.price}}</div>
+          <div class='l-grid-main__top-divider'>${{w.node.price}}</div>
         </ng-container>
       </div>
 
@@ -12,7 +12,7 @@
         <img [src]="img.node.originalImg" [alt]="product.node.title">
       </ng-container>
 
-      <div fxLayout="row" fxLayoutAlign="space-around center" class='o-grid-main__top-divider'>
+      <div fxLayout="row" fxLayoutAlign="space-around center" class='l-grid-main__top-divider'>
         <div class="mat-small" fxFlex><mat-icon>favorite_border</mat-icon></div>
         <div class="mat-small" fxFlex fxLayoutAlign="end"><mat-icon>star_border</mat-icon></div>
         <div class="mat-small">0 Sold</div>

@@ -1,5 +1,5 @@
 
-.o-grid-main {
+.l-grid-main {
     display: grid;
     /*grid-template-columns: repeat(auto-fit, minmax(190px, 190px)); */
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -34,11 +34,11 @@
 }
 
 
-.o-grid-main > a {
+.l-grid-main > a {
   text-decoration: none;
 }
 
-.o-grid-main > a:hover {
+.l-grid-main > a:hover {
   text-decoration: underline;
 }
 

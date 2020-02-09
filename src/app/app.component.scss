@@ -17,12 +17,13 @@
 }
 
 .app-sticky {
-    grid-area: sticky;
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
-    height: fit-content;
-    margin: 1rem;
+  grid-area: sticky;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  height: fit-content;
+  //  margin: 1rem;
+  margin: 1rem 2rem 1rem 2rem;
 }
 
 .app-products {

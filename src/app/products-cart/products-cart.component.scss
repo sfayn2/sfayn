@@ -4,13 +4,13 @@
   font-size: 30px;
 }
 
-.o-grid {
+.l-grid {
   display:grid;
-  grid-template-columns:  25px 150px 1fr;
+  grid-template-columns:  25px 100px 1fr;
   grid-template-areas: 'warehouse .   .      '
                        'select    img details'; 
  /* grid-gap: 1rem; */  
-  margin: 1rem;
+  margin: 1rem 2rem 1rem 2rem;
   padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
   background-color: white;
 
@@ -21,7 +21,7 @@
 
   &__img {
     grid-area: img;
-    padding:0.5rem;
+   // padding:0.5rem;
   }
 
   &__details {
@@ -89,4 +89,8 @@ mat-form-field {
     text-align: center;
 }
 
+
+.u-headers--gray {
+  color: #ccc;
+}
 

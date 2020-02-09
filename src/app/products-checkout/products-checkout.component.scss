@@ -5,7 +5,7 @@
 }
 
 
-.o-grid {
+.l-grid {
   display:grid;
   //grid-template-areas: 'shipping-address'
   //                     'product'
@@ -112,7 +112,7 @@
 
     &__lorder {
       grid-area: lorder;
-      @extend .o-grid__product__lheader;
+      @extend .l-grid__product__lheader;
     }
 
     &__smethod {
