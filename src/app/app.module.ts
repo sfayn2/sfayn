@@ -13,7 +13,6 @@ import { ProductsGQLService } from './products-graphql.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import {MaterialModule} from './material-module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductsSearchComponent } from './products-search/products-search.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +45,6 @@ import { ShippingAddressComponent } from './shipping-address/shipping-address.co
     MaterialModule,
     AppRoutingModule,
     HttpClientModule,
-    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     GraphQLModule,
