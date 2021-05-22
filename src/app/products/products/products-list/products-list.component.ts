@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { GET_NAV, GET_PRODUCT_LIST } from '../../../@core/graphql/fragments';
+import { GET_NAV, GET_PRODUCT_LIST } from '@core/graphql/fragments';
 
 @Component({
   selector: 'app-products-list',

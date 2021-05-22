@@ -16,9 +16,15 @@
       "es2018",
       "dom"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@core/*": ["src/app/@core/*"],
+      "@shared/*": ["src/app/@shared/*"],
+      "@core": ["src/app/@core/index.ts"],
+      "@shared": ["src/app/@shared/index.ts"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
-  }
+  },
 }

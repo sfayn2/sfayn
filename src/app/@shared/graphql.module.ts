@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink} from 'apollo-angular/http';
 import { IntrospectionFragmentMatcher, InMemoryCache } from 'apollo-cache-inmemory';
-import { typeDefs } from '../@core/graphql/schema.graphql';
-import { introspectionQueryResultData } from '../@core/graphql/fragmentTypes';
+import { typeDefs } from '@core/graphql/schema.graphql';
+import { introspectionQueryResultData } from '@core/graphql/fragmentTypes';
 import { IResolvers } from 'graphql-tools';
-import { GET_RESOLVE_CART } from '../@core/graphql/fragments';
+import { GET_RESOLVE_CART } from '@core/graphql/fragments';
 import gql from 'graphql-tag'
 
 

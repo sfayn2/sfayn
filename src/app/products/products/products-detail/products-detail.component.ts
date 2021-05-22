@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { GET_NAV, GET_RESOLVE_CART, GET_PRODUCT_DETAIL } from '../../../@core/graphql/fragments';
+import { GET_NAV, GET_RESOLVE_CART, GET_PRODUCT_DETAIL } from '@core/graphql/fragments';
 
 @Component({
   selector: 'app-products-detail',

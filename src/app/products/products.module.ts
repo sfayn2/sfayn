@@ -4,7 +4,7 @@ import { ProductsListComponent } from './products/products-list/products-list.co
 import { ProductsDetailComponent } from './products/products-detail/products-detail.component';
 import { ProductsSearchComponent } from './products/products-search/products-search.component';
 import { ProductsRoutingModule } from './products-routing.module';
-import { SharedModule } from '../@shared/shared.module';
+import { SharedModule } from '@shared';
 
 
 

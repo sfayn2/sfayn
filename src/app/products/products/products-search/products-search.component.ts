@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../../@core/service/product.service';
+import { ProductService } from '@core/service/product.service';
 import { Subscription } from 'rxjs';
 //import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '../../../@shared/fragments';
 
