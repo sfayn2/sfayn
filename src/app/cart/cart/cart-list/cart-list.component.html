@@ -1,0 +1,58 @@
+<div class='l-grid'>
+    <div class='l-grid__select'>
+      <mat-checkbox (change)='checkAll($event)'></mat-checkbox>
+    </div>
+    <div class='l-grid__img' >
+    </div>
+    <div class='l-grid__details mat-body u-headers--gray' >
+      <div class='l-grid__details__product'>Product</div>
+      <div class='l-grid__details__color'>Color</div>
+      <div class='l-grid__details__uprice'>Unit Price</div>
+      <div class='l-grid__details__quantity'>Quantity</div>
+      <div class='l-grid__details__totalprice'>Total Price</div>
+      <div class='l-grid__details__actions'>-</div>
+    </div>
+  </div>
+  
+  
+    <div class='l-grid' >
+  <div class='l-grid__warehouse'>
+    <div class='l-grid__warehouse__select'>
+      <mat-checkbox class='mat-body'> <strong>[Warehouse] warehouse</strong></mat-checkbox>
+    </div>
+  </div>
+  </div>
+  
+  <ng-container *ngFor='let sc of cart$'>
+    <div class='l-grid' >
+      <div class='l-grid__select'>
+          <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
+      </div>
+      <div class='l-grid__img' >
+        <ng-container *ngFor='let img of sc.node.product.originalImg.edges' >
+            <img [src]='img.node.originalImg' style='width:90px;object-fit: cover'/>
+        </ng-container>
+      </div>
+      <div class='l-grid__details'>
+        <div class='l-grid__details__product'>
+            <div fxFlex class='mat-body'> {{sc.node.product.title}} </div>
+        </div>
+        <div class='l-grid__details__color'><span class='mat-body'>{{sc.node.product.color}}</span>
+            <!--<button mat-icon-button><mat-icon>arrow_drop_down</mat-icon></button> -->
+        </div>
+        <div class='mat-body-1 l-grid__details__uprice mat-body' *ngFor='let w of sc.node.product.warehouse.edges'>${{w.node.price | currency}}</div>
+        <div class='l-grid__details__quantity mat-body'>
+            <mat-form-field>
+              <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.product.sku, qty.value)'/> 
+            </mat-form-field>
+            <div fxLayout='row' fxLayoutAlign='center start' class='mat-small'>
+              <div *ngFor='let w of sc.node.product.warehouse.edges'>Stocks: {{w.node.goodsNumber}} </div>
+            </div>
+        </div> 
+        <div class='mat-subheading-2 l-grid__details__totalprice mat-body' >{{sc.node.totalPrice | currency}}</div>
+        <div class='l-grid__details__actions'>
+            <button mat-button >Remove</button>
+        </div>
+      </div> <!-- products-cart-grid -->
+    </div> <!-- products-cart-grid-main -->
+  </ng-container>
