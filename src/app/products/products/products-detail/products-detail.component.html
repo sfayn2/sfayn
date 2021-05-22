@@ -1,0 +1,61 @@
+<div class="products-detail-container"> <!-- TODO: styling app-container only use for detail -->
+
+    <section class="products-detail-grid mat-subheading-2" *ngIf="prod$"> <!-- START section -->
+      <div class="products-detail-img">
+        <img *ngIf="main_pic" [src]="main_pic" />
+        <ng-container *ngFor="let p of prod$.originalImg.edges.slice(0,1)" >
+          <img *ngIf="!main_pic" [src]="p.node.originalImg"/>
+        </ng-container>    
+        <div class="products-detail-img-slide" >
+          <ng-container *ngFor="let p of prod$.originalImg.edges">
+            <img [src]="p.node.originalImg" (mouseover)="setMainPic(p.node.originalImg)"/>
+          </ng-container>    
+        </div>
+      </div>
+      <div class="products-detail-title" >
+          <div class="mat-title" style="margin-bottom:0" >{{prod$.title}}</div>
+          <ng-container *ngFor="let w of prod$.warehouse.edges">
+              <div class="mat-display-1" style="margin-bottom:0"> {{w.node.price | currency}} </div>
+          </ng-container>    
+  
+          <div class='mat-body'>  <!-- wo own? -->
+            <div>color:</div>
+            <div>
+              <mat-button-toggle-group>
+                <mat-button-toggle routerLink="/detail/{{p.node.id}}" value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >
+                     {{p.node.color}} 
+                </mat-button-toggle>
+              </mat-button-toggle-group> 
+            </div>    
+          </div> 
+  
+        <div class='mat-body'>
+          <div>warehouse:</div>
+          <div *ngFor="let w of prod$.warehouse.edges">{{w.node.warehouse}} </div>
+        </div>
+        <div class='mat-body'>
+          <div>available stocks:</div>
+          <div *ngFor="let w of prod$.warehouse.edges">{{w.node.goodsNumber}} </div>
+        </div>
+        <div class='mat-body'>
+          <div>quantity:</div>
+          <div>
+            <mat-form-field>
+              <input matInput type="number" [(ngModel)]="quantity" /> 
+            </mat-form-field>
+          </div> 
+        </div>
+  
+        <div>
+           <button mat-raised-button color="accent" (click)="addCart(1, prod$.sku, quantity)">Add to Cart</button>
+        </div>    
+  
+      </div> <!-- who own? -->
+  
+      <div class="products-detail-desc mat-body" >
+        <p [innerHTML]="prod$.goodsDesc"></p>
+      </div>
+  
+    </section> <!-- END section -->
+  
+  </div>

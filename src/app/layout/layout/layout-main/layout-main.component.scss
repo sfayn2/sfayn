@@ -1,0 +1,78 @@
+
+
+
+
+.app-layout {
+    background-color:#ecebeb; 
+    margin:0;
+    display: grid;
+    grid-template-rows: 60px auto auto 60px;
+    grid-template-areas: "header header"
+                         "main main"
+                         "sticky sticky"
+                         "footer footer";
+}
+
+.app-header {
+    grid-area: header;
+}
+
+.app-sticky {
+  grid-area: sticky;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  height: fit-content;
+  //  margin: 1rem;
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.app-products {
+    grid-area: products;
+    height: 300px;
+}
+
+.app-main {
+    grid-area: main;
+    height:100%; 
+    background-color:#ecebeb; 
+}
+
+
+
+.app-footer{
+    grid-area: footer;
+}
+
+
+.app-navbar {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:2;  
+}
+
+.app-navbar {
+    color: #fff;
+}
+
+.app-navbar-right-menu {
+    width: 100%;
+  /*  div button {
+        min-width: 0;
+        padding:6px;
+    
+    } */
+} 
+
+
+mat-sidenav {
+  width: 260px;
+} 
+
+.mat-drawer-container {
+    /*background-color: #fafafa; */
+    background-color:#ecebeb; 
+}
+
