@@ -18,10 +18,7 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@core/*": ["src/app/@core/*"],
-      "@shared/*": ["src/app/@shared/*"],
-      "@core": ["src/app/@core/index.ts"],
-      "@shared": ["src/app/@shared/index.ts"],
+      "@/*": ["src/app/*"],
     }
   },
   "angularCompilerOptions": {

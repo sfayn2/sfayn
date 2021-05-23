@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from './service/product.service';
-import { ProductsGQLService } from './service/products-graphql.service';
-import { AuthService } from './service/auth.service';
+import { 
+  ProductService, 
+  ProductsGQLService,
+  AuthService
+} from '@/core/service';
 
 
 

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { VERIFY_TOKEN_MUTATION, TOKEN_AUTH_MUTATION } from '../graphql/fragments'
+import { 
+  VERIFY_TOKEN_MUTATION, 
+  TOKEN_AUTH_MUTATION 
+} from '@/core/graphql';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({

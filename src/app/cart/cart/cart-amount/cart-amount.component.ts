@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag'
-import { GET_NAV, GET_RESOLVE_CART } from '../../../@core/graphql/fragments';
+import { 
+  GET_NAV, 
+  GET_RESOLVE_CART 
+} from '@/core/graphql';
 import { Router } from '@angular/router';
 
 @Component({

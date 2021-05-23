@@ -3,7 +3,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { map, tap, filter  } from 'rxjs/operators';
 
-import { PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, SHOPPING_CART_MUTATION } from '../graphql/fragments';
+import { 
+  PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, 
+  SHOPPING_CART_MUTATION 
+} from '@/core/graphql';
 
 
 

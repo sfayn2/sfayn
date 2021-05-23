@@ -2,7 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { GET_NAV, GET_RESOLVE_CART } from '../../../@core/graphql/fragments';
+import { 
+  GET_NAV, 
+  GET_RESOLVE_CART 
+} from '@/core/graphql';
 
 @Component({
   selector: 'app-cart-list',

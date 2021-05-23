@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from '../auth.service';
+import { AuthService } from '@/core/service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
