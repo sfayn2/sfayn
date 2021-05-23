@@ -1,27 +1,31 @@
-<div class="app-layout"> <!-- app-layout -->
-    <header class="app-header">
-      <mat-toolbar color="primary" class="app-navbar mat-elevation-z6" fxLayout="row" fxLayoutAlign="start center"> 
-        <div *ngIf="menu$?.menu">
+<div class="layout-main"> <!-- app-layout -->
+    <header class="layout-main__header">
+      <mat-toolbar color="primary" class="layout-main__header__btn layout-main--navbar mat-elevation-z6"> 
+        <!-- left menu -->
+        <div *ngIf="menu$?.menu" class="layout-main__header__btn__menu">
             <button mat-icon-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
         </div>
-        <div *ngIf="menu$?.arrow_back" >
+        <div *ngIf="menu$?.arrow_back" class="layout-main__header__btn__arrow" >
             <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
         </div>
          <!-- https://stackoverflow.com/questions/41694018/angular2-unset-outlets-with-routerlink -->
-        <div><button mat-button [routerLink]="[{ outlets: {primary: 'list', amount: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
-        <div class="app-navbar-right-menu" fxLayoutAlign="end center">
-          <div><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
-          <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
-          <div>
-            <button mat-icon-button [routerLink]="[{ outlets: { primary: 'cart', amount: 'amount' }}]" >
-              <mat-icon [matBadge]="cartCount" [matBadgeHidden]="!cartCount" matBadgeColor="accent" matBadgeSize="small">shopping_cart</mat-icon>
-            </button>
-          </div>
+        <div class="layout-main__header__btn__logo"><button mat-button [routerLink]="[{ outlets: {primary: 'list', amount: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
+        <!-- left menu -->
+
+        <!-- right menu -->
+        <div class="layout-main__header__btn__search"><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
+        <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
+        <div class="layout-main__header__btn__btn">
+          <button mat-icon-button [routerLink]="[{ outlets: { primary: 'cart', amount: 'amount' }}]" >
+            <mat-icon [matBadge]="cartCount" [matBadgeHidden]="!cartCount" matBadgeColor="accent" matBadgeSize="small">shopping_cart</mat-icon>
+          </button>
         </div>
+        <!-- right menu -->
+
       </mat-toolbar>
     </header> 
   
-    <main class="app-main"> 
+    <main class="layout-main__main"> 
         <mat-sidenav-container> 
              <mat-sidenav #sidenav mode="side" [(opened)]="menu$ && menu$.side_bar" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
  <!--               <app-products-search></app-products-search> -->
@@ -33,11 +37,11 @@
         </mat-sidenav-container>
     </main>
   
-   <div class="app-sticky" >
+   <div class="layout-main__sticky" >
           <router-outlet name="amount"></router-outlet> 
    </div> 
   
-    <footer class="app-footer">
+    <footer class="layout-main__footer">
         Footer
     </footer>    
   
