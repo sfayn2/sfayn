@@ -10,7 +10,9 @@ const routes: Routes = [
     children: [
       { path: 'customers', loadChildren: () => import('../customers/customers.module').then(m => m.CustomersModule) },
       { path: 'products', loadChildren: () => import('../products/products.module').then(m => m.ProductsModule) },
-      { path: 'cart', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule) },
+
+      // @todo workaround set path: '' caused auxiliary outlet not working?? 
+      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule) },
     ]
 }
 ];
