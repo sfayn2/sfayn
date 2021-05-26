@@ -1,6 +1,6 @@
 
 
-.l-grid-main {
+.products-list {
     display: grid;
     /*grid-template-columns: repeat(auto-fit, minmax(190px, 190px)); */
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -8,8 +8,22 @@
     padding: .5rem; /* need to give space for left & right side of the sku grid */
     background-color:#ecebeb;
 
-  &__top-divider {
+  &__bottom {
     padding-top:.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 50px;
+
+    &__sold {
+      justify-self: right;
+    }
+
+    &__star {
+      justify-self: right;
+    }
+
+    &__heart {
+      justify-self: right;
+    }
   }
 
   &__side-padding {
@@ -35,11 +49,11 @@
 }
 
 
-.l-grid-main > a {
+.products-list > a {
   text-decoration: none;
 }
 
-.l-grid-main > a:hover {
+.products-list > a:hover {
   text-decoration: underline;
 }
 
