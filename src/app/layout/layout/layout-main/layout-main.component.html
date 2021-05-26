@@ -9,14 +9,14 @@
             <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
         </div>
          <!-- https://stackoverflow.com/questions/41694018/angular2-unset-outlets-with-routerlink -->
-        <div class="layout-main__header__btn__logo"><button mat-button [routerLink]="[{ outlets: {primary: 'products/list', amount: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
+        <div class="layout-main__header__btn__logo"><button mat-button [routerLink]="['', { outlets: {primary: 'products/list', amount: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
         <!-- left menu -->
 
         <!-- right menu -->
         <div class="layout-main__header__btn__search"><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
         <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
         <div class="layout-main__header__btn__btn">
-          <button mat-icon-button [routerLink]="[{ outlets: { primary: 'cart/list', amount: 'cart/amount' }}]" >
+          <button mat-icon-button [routerLink]="['', { outlets: { primary: 'cart/list', amount: 'cart/amount' }}]" >
             <mat-icon [matBadge]="cartCount" [matBadgeHidden]="!cartCount" matBadgeColor="accent" matBadgeSize="small">shopping_cart</mat-icon>
           </button>
         </div>

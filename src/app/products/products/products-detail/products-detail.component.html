@@ -22,7 +22,7 @@
             <div>color:</div>
             <div>
               <mat-button-toggle-group>
-                <mat-button-toggle routerLink="/detail/{{p.node.id}}" value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >
+                <mat-button-toggle routerLink="products/detail/{{p.node.id}}" value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >
                      {{p.node.color}} 
                 </mat-button-toggle>
               </mat-button-toggle-group> 
