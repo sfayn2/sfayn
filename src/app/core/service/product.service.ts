@@ -5,7 +5,8 @@ import { map, tap, filter  } from 'rxjs/operators';
 
 import { 
   PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, 
-  SHOPPING_CART_MUTATION 
+  SHOPPING_CART_MUTATION,
+  GET_PRODUCT_LIST
 } from '@/core/graphql';
 
 
@@ -28,7 +29,7 @@ constructor(private apollo: Apollo) { }
                     map(res => res.data ),
                     //  map(res => res.map(r => r.node.catName ) )
                     )
-    }
+    };
 
     addCart(arg_user, arg_prod, arg_qty): Observable<any> {
         return this.apollo.mutate({
@@ -40,7 +41,12 @@ constructor(private apollo: Apollo) { }
             }
             })
     
-    }
+    };
 
+    getProducts() {
+      return this.apollo.watchQuery<any>({
+        query: GET_PRODUCT_LIST
+      })
+    };
 
 }
