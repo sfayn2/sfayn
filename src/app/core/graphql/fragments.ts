@@ -232,6 +232,7 @@ export const GET_NAV = gql`
   }
 `;
 
+
 export const GET_PRODUCT_DETAIL = gql`
   fragment ProductDetail on ProductNode {
     id
@@ -303,4 +304,15 @@ export const GET_PRODUCT_LIST = gql`
     }
   }`;
 
-
+export const WRITE_NAV = gql`
+  query WriteNav($id: Int!) {
+    Nav(id: $id) {
+      id
+      menu
+      arrow_back
+      side_bar
+      component
+      __typename
+    }
+  }
+`;

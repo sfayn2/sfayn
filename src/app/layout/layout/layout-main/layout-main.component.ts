@@ -5,6 +5,9 @@ import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 import { ProductsGQLService } from '@/core/service';
+import {
+  WRITE_NAV
+} from '@/core/graphql';
 
 @Component({
   selector: 'app-layout-main',
@@ -23,24 +26,19 @@ export class LayoutMainComponent implements OnInit {
     private _location: Location,
     private apollo: Apollo) {
 
-  apollo.watchQuery<any>({
-    query: gql`query {
-      Nav @client {
-        id
-        menu
-        arrow_back
-        side_bar
-        component
-        __typename
-      }
-    }`,
-  })
-    .valueChanges
-    .pipe(map(res => res.data.Nav),
-    ).subscribe(res => this.menu$ = res);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.apollo.watchQuery<any>({
+      query: WRITE_NAV,
+      variables: {
+        id: 1
+      }
+    })
+      .valueChanges
+      .pipe(map(res => res.data.Nav ),
+      ).subscribe(res => this.menu$ = res );
+
     this.productsGQLService.watch()
       .valueChanges
       .subscribe(({data, loading}) => {

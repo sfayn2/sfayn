@@ -1,5 +1,5 @@
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { GET_ALL_PRODUCTS } from './fragments';
     const cache = new InMemoryCache()
  export  const resolvers: any = {

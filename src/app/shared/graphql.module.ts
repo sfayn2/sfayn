@@ -1,41 +1,40 @@
 import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink} from 'apollo-angular/http';
-import { IntrospectionFragmentMatcher, InMemoryCache } from 'apollo-cache-inmemory';
-import { IResolvers } from 'graphql-tools';
+import { InMemoryCache } from '@apollo/client/core';
 import gql from 'graphql-tag'
 import { 
   typeDefs,
-  introspectionQueryResultData,
-  GET_RESOLVE_CART
+  GET_RESOLVE_CART,
+  WRITE_NAV
 } from '@/core/graphql';
+import { environment } from '../../environments/environment';
 
-
-const uri = 'http://192.168.1.88:4000/graphql/'; // <-- add the URL of the GraphQL server here
+const uri = environment.graphqlUrl // <-- add the URL of the GraphQL server here
 
 export function createApollo(httpLink: HttpLink) {
 
-  const fragmentMatcher = new IntrospectionFragmentMatcher({
-          introspectionQueryResultData
-  });
+  const cache = new InMemoryCache()
 
-  const cache = new InMemoryCache({ fragmentMatcher })
-  
-  cache.writeData({
-    data: {
-      Nav : {
+  cache.writeQuery({
+    query: WRITE_NAV,
+    data: { // Contains the data to write
+      Nav: {
         id: 1,
         menu: true,
         arrow_back: false,
         side_bar: true,
         component: "AppComponent",
         __typename: "Nav" 
-        }
-     }
+      },
+    },
+    variables: {
+      id: 1
+    }
   });
 
 
-  const resolvers: IResolvers = { 
+  const resolvers: any = { 
     ShoppingCartNodeConnection: {
       totalAmount: () => 0.0
     },
@@ -128,7 +127,8 @@ export function createApollo(httpLink: HttpLink) {
     link: httpLink.create({uri}),
     cache,
     typeDefs, //if u comment this. Apollo GQL will look for server data & not in cache when using devTools ?
-    resolvers
+    resolvers,
+    connectToDevTools: environment.connectToDevTools // use apollo dev tools
   };
 }
 
