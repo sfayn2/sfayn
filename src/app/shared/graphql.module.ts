@@ -8,13 +8,61 @@ import {
   GET_RESOLVE_CART,
   WRITE_NAV
 } from '@/core/graphql';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
 
-const uri = environment.graphqlUrl // <-- add the URL of the GraphQL server here
+const uri = environment.graphqlUrl // add the URL of the GraphQL server here
 
 export function createApollo(httpLink: HttpLink) {
 
-  const cache = new InMemoryCache()
+  //@Todo: move to a separat file cache logic . ex. cache.ts?
+  const cache = new InMemoryCache({
+    typePolicies: {
+      ProductNodeConnection: {
+        fields: {
+          edges: {
+            read(edges) {
+              // used distinct product display in products list
+              return [edges[0]] || []; 
+            }
+          }
+        }
+      },
+      ProductWarehouseNodeConnection: {
+        fields: {
+          edges: {
+            read(edges) {
+              // used distinct warehouse info display in products list
+              return [edges[0]] || [];
+            }
+          }
+        }
+      },
+      ProductOriginalImgNodeConnection: {
+        fields: {
+          edges: {
+            read(edges) {
+              // used distinct original img display in products list
+              return [edges[0]] || [];
+            }
+          }
+        }
+      },
+      ShoppingCartNodeConnection: {
+        fields: {
+          totalAmount() {
+            return 0.0
+          }
+        }
+      },
+      ShoppingCartNode: {
+        fields: {
+          checked() {
+            return false
+          }
+        }
+      },
+    }
+  })
 
   cache.writeQuery({
     query: WRITE_NAV,
@@ -35,36 +83,6 @@ export function createApollo(httpLink: HttpLink) {
 
 
   const resolvers: any = { 
-    ShoppingCartNodeConnection: {
-      totalAmount: () => 0.0
-    },
-    ShoppingCartNode: {
-      checked: () => false
-    },
-    ProductWarehouseNodeConnection: {
-      edges: (parent) => {
-        parent.edges = [parent.edges[0]]
-        return parent.edges
-      } 
-    },
-    ProductOriginalImgNodeConnection: {
-      edges: (parent) => {
-        parent.edges = [parent.edges[0]]
-          return parent.edges
-         } 
-    },
-    ProductNodeConnection: {
-      edges: (parent,  args ) => {
-	      if (parent.edges.length > 0) {
-          parent.edges = [parent.edges[0]]
-	      }
-        return parent.edges
-      } 
-    },
-    Query: {
-    
-    }, 
-
     Mutation: { //START mutation
       getTotalAmount: (_, args, { cache }) => {
         const fragment = gql`
