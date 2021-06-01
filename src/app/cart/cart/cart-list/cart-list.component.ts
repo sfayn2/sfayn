@@ -17,6 +17,7 @@ export class CartListComponent implements OnInit {
   selectedProducts: string[] = [];
   loading: boolean = true;
   cart$: any;
+  cartTypenameId: any;
 
   constructor(private apollo: Apollo) {
 
@@ -35,9 +36,7 @@ export class CartListComponent implements OnInit {
  }
 
  ngOnInit() {
-  
   this.getResolveCart()
- 
  }
 
  getResolveCart() { // add extra field checked, qty, totalAmount in Shop cart cache
@@ -49,55 +48,32 @@ export class CartListComponent implements OnInit {
    })
    .valueChanges
    .subscribe( ({data, loading}) => {
-     console.log('watching me2?', data)
      this.loading = loading;
      this.cart$ = data.allShoppingCart.edges;
-     this.getTotalAmount()
+     console.log(this.cart$);
+     this.cartTypenameId = this.cart$.map(res => res.node).map(res => `${res.__typename}:${res.id}`)
+     
    })
+
  }
 
  checkAll(e) {
+  this.cartTypenameId.forEach(res => {
+    localStorage.setItem(res, JSON.stringify(e.checked));
 
-   this.apollo.mutate({
-     mutation: gql`
-       mutation {
-         toggleCheckedCart (id: 1, checked: ${e.checked}) @client 
-       }`,
-   })
-   .subscribe(res => {
-    // this.calculateTotalAmount()
-     console.log('mutate check', res)
-   })
+    // cache.evict auto refresh once localStorage change?
+    this.apollo.client.cache.evict({id: res, fieldName: 'checked' })
+  })
 
  }
 
  checkProduct(e, pid) {
-   this.apollo.mutate({
-     mutation: gql`
-      mutation {
-       checkCartItem (id: "${pid}", checked: ${e.checked}) @client 
-     }`,
-   })
-   .subscribe(res => {
-     this.getTotalAmount()
-     console.log('mutate check product', res)
-   })
+   const cartTypenameId = `ShoppingCartNode:${pid}`;
+   localStorage.setItem(cartTypenameId, JSON.stringify(e.checked));
 
+   // cache.evict auto refresh once localStorage change?
+   this.apollo.client.cache.evict({id: cartTypenameId, fieldName: 'checked' })
  }
-
- getTotalAmount() {
-   this.apollo.mutate({
-     mutation: gql`
-      mutation {
-       getTotalAmount @client 
-     }`,
-   })
-   .subscribe(_ => {
-     console.log('mutate getTotalAmount in products-cart', _)
-   })
-
- }
-
 
  updateQuantity(sku, val) {
    this.apollo.mutate({

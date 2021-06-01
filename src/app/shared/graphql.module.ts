@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import { 
   typeDefs,
   GET_RESOLVE_CART,
-  WRITE_NAV
+  WRITE_NAV,
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
 
@@ -47,20 +47,42 @@ export function createApollo(httpLink: HttpLink) {
           }
         }
       },
-      ShoppingCartNodeConnection: {
-        fields: {
-          totalAmount() {
-            return 0.0
-          }
-        }
-      },
       ShoppingCartNode: {
         fields: {
-          checked() {
-            return false
-          }
+          checked(_, { readField }) {
+            const typenameId = `${readField('__typename')}:${readField('id')}`;
+            if (!localStorage.getItem(typenameId)) {
+              const obj = { [typenameId]: false }
+              localStorage.setItem('checked', JSON.stringify(obj))
+            }
+            return JSON.parse(localStorage.getItem(typenameId))
+          },
+          //totalAmount(_, { readField }) {
+          //  //  @Todo? 
+          //  const checked: boolean = readField('checked');
+          //  const totalPrice: number =  readField('totalPrice');
+          //  if (checked) {
+          //    totalAmount = totalAmount + totalPrice;
+          //  } else if (totalAmount > 0) {
+          //    totalAmount = totalAmount - totalPrice;
+          //  }
+
+          //  return totalAmount;
+          //}
         }
       },
+      //Query: {
+      //  fields: {
+      //    allShoppingCart: {
+      //      merge(existing, incoming, { cache }) {
+      //        console.log('Query.allShoppingCart', existing, incoming)
+
+
+      //        return { ...incoming };
+      //      }
+      //    }
+      //  }
+      //},
     }
   })
 
@@ -81,74 +103,15 @@ export function createApollo(httpLink: HttpLink) {
     }
   });
 
-
-  const resolvers: any = { 
-    Mutation: { //START mutation
-      getTotalAmount: (_, args, { cache }) => {
-        const fragment = gql`
-              fragment getTotalAmount on ShoppingCartNodeConnection {
-                edges {
-                  node {
-                    id
-                    __typename
-                    checked
-                    totalPrice
-                  }
-                }
-                totalAmount
-              }
-            `
-        const id = `$ROOT_QUERY.allShoppingCart({"user_Id":1})`
-        const cacheCart = cache.readFragment({ fragment, id });
-        
-        let totalAmount = cacheCart.edges.filter(r => r.node.checked == true).map(r => r.node.totalPrice).reduce((a, b) => parseFloat(a) + parseFloat(b), 0.0)
-
-        const data = { ...cacheCart, totalAmount: totalAmount };
-        console.log("getCalculate Amount", data)
-        cache.writeFragment({ fragment, id, data });
-
-        return null
-
-      },
-      checkCartItem: (_, args, { cache, getCacheKey }) => {
-        const id = getCacheKey({ id: args.id, __typename: 'ShoppingCartNode' });
-        const fragment = gql`
-          fragment cartToChecked on ShoppingCartNode {
-            checked
-          }
-        `;
-        const cart = cache.readFragment({ fragment, id });
-        const data = { ...cart, checked: args.checked };
-        cache.writeFragment({ fragment, id, data });
-        return null;
-      },
-      toggleCheckedCart: (_, args, { cache }) => { // START toggleCheckedCart
-        const cacheCart = cache.readQuery({ 
-          query: GET_RESOLVE_CART,
-          variables: { uid: 1}
-        });
-
-        cacheCart.allShoppingCart.edges.map(res => Object.assign(res.node, {checked: args.checked } ))
-        cache.writeQuery({ 
-          query: GET_RESOLVE_CART, 
-          variables: { uid: 1},
-          data: cacheCart
-        });
-	      return null
-	    } // END toggleCheckedCart
-    }, // END mutation
-
-  };
-
   
   return {
     link: httpLink.create({uri}),
     cache,
     typeDefs, //if u comment this. Apollo GQL will look for server data & not in cache when using devTools ?
-    resolvers,
     connectToDevTools: environment.connectToDevTools // use apollo dev tools
   };
 }
+
 
 @NgModule({
   exports: [],
