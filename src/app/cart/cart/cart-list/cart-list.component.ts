@@ -7,7 +7,8 @@ import {
   GET_RESOLVE_CART 
 } from '@/core/graphql';
 import {
-  MakevarService
+  MakevarService,
+  SiteService
 } from '@/core/service';
 
 @Component({
@@ -24,24 +25,14 @@ export class CartListComponent implements OnInit {
 
   constructor(
     private apollo: Apollo, 
-    private makeVar: MakevarService
-  ) {
-
-  apollo.client.writeFragment({
-      id: 'Nav:1',
-      fragment: GET_NAV,
-      data: { 
-      side_bar: false,
-      menu: false,
-      arrow_back: true,
-      component: 'ShoppingCartComponent',
-      __typename: 'Nav'
-    }, 
-  })
-
- }
+    private makeVar: MakevarService,
+    private siteService: SiteService
+  ) {}
 
  ngOnInit() {
+  this.siteService.setNav2({
+    component: 'CartListComponent'
+  });
   this.getResolveCart()
  }
 
@@ -75,7 +66,6 @@ export class CartListComponent implements OnInit {
  checkAll(e) {
   this.cartTypenameId.forEach(res => {
     localStorage.setItem(res, JSON.stringify(e.checked));
-    console.log(e.checked, res)
     
     // cache.evict auto refresh once localStorage change?
     this.apollo.client.cache.evict({id: res, fieldName: 'checked' })

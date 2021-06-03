@@ -11,6 +11,19 @@ import {
 export class SiteService {
   constructor(private apollo: Apollo) { }
 
+  setNav2({
+    component = null,
+  } = {} ) {
+
+    this.setNav({
+      side_bar: false,
+      menu: false,
+      arrow_back: true,
+      component,
+    });
+
+  }
+
   setNav({ 
       side_bar = true, 
       menu = true, 

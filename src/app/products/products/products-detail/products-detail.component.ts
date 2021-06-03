@@ -8,6 +8,9 @@ import {
   GET_RESOLVE_CART, 
   GET_PRODUCT_DETAIL 
 } from '@/core/graphql';
+import {
+  SiteService
+} from '@/core/service';
 
 @Component({
   selector: 'app-products-detail',
@@ -23,23 +26,13 @@ export class ProductsDetailComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private _route: ActivatedRoute,
-  ) {
-
-    apollo.client.writeFragment({
-      id: 'Nav:1',
-      fragment: GET_NAV,
-      data: { 
-      side_bar: false,
-      menu: false,
-      arrow_back: true,
-      component: 'ProductsDetailComponent',
-      __typename: 'Nav'
-      }, 
-    })
-
-  }
+    private siteService: SiteService
+  ) {}
 
   ngOnInit() {
+    this.siteService.setNav2({
+      component: 'ProductsDetailComponent',
+    })
     this._route.params.subscribe(routeParams => {
       this.main_pic = null; //reset every call
       this.getProductDetail(routeParams.id);
