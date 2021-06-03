@@ -9,10 +9,13 @@ import {
   WRITE_NAV,
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
+import {
+  MakevarService
+} from '@/core/service'
 
 const uri = environment.graphqlUrl // add the URL of the GraphQL server here
 
-export function createApollo(httpLink: HttpLink) {
+export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
 
   //@Todo: move to a separat file cache logic . ex. cache.ts?
   const cache = new InMemoryCache({
@@ -51,10 +54,6 @@ export function createApollo(httpLink: HttpLink) {
         fields: {
           checked(_, { readField }) {
             const typenameId = `${readField('__typename')}:${readField('id')}`;
-            if (!localStorage.getItem(typenameId)) {
-              const obj = { [typenameId]: false }
-              localStorage.setItem('checked', JSON.stringify(obj))
-            }
             return JSON.parse(localStorage.getItem(typenameId))
           },
           //totalAmount(_, { readField }) {
@@ -119,7 +118,7 @@ export function createApollo(httpLink: HttpLink) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink],
+      deps: [HttpLink, MakevarService],
     },
   ],
 })

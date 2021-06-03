@@ -6,6 +6,9 @@ import {
   GET_NAV, 
   GET_RESOLVE_CART 
 } from '@/core/graphql';
+import {
+  MakevarService
+} from '@/core/service';
 
 @Component({
   selector: 'app-cart-list',
@@ -19,19 +22,22 @@ export class CartListComponent implements OnInit {
   cart$: any;
   cartTypenameId: any;
 
-  constructor(private apollo: Apollo) {
+  constructor(
+    private apollo: Apollo, 
+    private makeVar: MakevarService
+  ) {
 
-    apollo.client.writeFragment({
-        id: 'Nav:1',
-        fragment: GET_NAV,
-        data: { 
-        side_bar: false,
-        menu: false,
-        arrow_back: true,
-        component: 'ShoppingCartComponent',
-        __typename: 'Nav'
-      }, 
-    })
+  apollo.client.writeFragment({
+      id: 'Nav:1',
+      fragment: GET_NAV,
+      data: { 
+      side_bar: false,
+      menu: false,
+      arrow_back: true,
+      component: 'ShoppingCartComponent',
+      __typename: 'Nav'
+    }, 
+  })
 
  }
 
@@ -39,7 +45,7 @@ export class CartListComponent implements OnInit {
   this.getResolveCart()
  }
 
- getResolveCart() { // add extra field checked, qty, totalAmount in Shop cart cache
+ getResolveCart() { 
    this.apollo.watchQuery<any>({
      query: GET_RESOLVE_CART,
      variables: { 
@@ -50,8 +56,17 @@ export class CartListComponent implements OnInit {
    .subscribe( ({data, loading}) => {
      this.loading = loading;
      this.cart$ = data.allShoppingCart.edges;
-     console.log(this.cart$);
-     this.cartTypenameId = this.cart$.map(res => res.node).map(res => `${res.__typename}:${res.id}`)
+
+     // get total Amount
+     const totalAmount = this.cart$
+        .filter(res => res.node.checked == true)
+        .map(res => res.node.totalPrice)
+        .reduce((a, b) => a + b, 0.0)
+     this.makeVar.totalAmountSrc$.next(totalAmount);
+
+     this.cartTypenameId = this.cart$
+        .map(res => res.node)
+        .map(res => `${res.__typename}:${res.id}`)
      
    })
 
@@ -60,7 +75,8 @@ export class CartListComponent implements OnInit {
  checkAll(e) {
   this.cartTypenameId.forEach(res => {
     localStorage.setItem(res, JSON.stringify(e.checked));
-
+    console.log(e.checked, res)
+    
     // cache.evict auto refresh once localStorage change?
     this.apollo.client.cache.evict({id: res, fieldName: 'checked' })
   })

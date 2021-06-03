@@ -70,6 +70,7 @@ export const parent2productInfo = gql`
 export const shopcartInfo = gql`
   fragment shopcartInfo on ShoppingCartNode {
     id
+    checked @client
     quantity
     totalPrice
     totalCount
@@ -211,8 +212,6 @@ export const GET_RESOLVE_CART = gql`
     allShoppingCart(user_Id: $uid ){
       edges {
         node {
-          checked @client
-          totalAmount @client
           ...shopcartInfo
         }
       __typename

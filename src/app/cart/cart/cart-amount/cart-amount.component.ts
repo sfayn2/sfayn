@@ -6,6 +6,9 @@ import {
   GET_RESOLVE_CART 
 } from '@/core/graphql';
 import { Router } from '@angular/router';
+import {
+  MakevarService
+} from '@/core/service';
 
 @Component({
   selector: 'app-cart-amount',
@@ -15,47 +18,31 @@ import { Router } from '@angular/router';
 export class CartAmountComponent implements OnInit {
 
   totalAmount: number = 0;
-  constructor(private apollo: Apollo,
-              private router: Router) { 
 
-    apollo.client.writeFragment({
-        id: 'Nav:1',
-        fragment: GET_NAV,
-        data: { 
-        side_bar: false,
-        menu: false,
-        arrow_back: true,
-        component: 'CartAmountComponent',
-        __typename: 'Nav'
-      }, 
-    })
+  constructor(
+    private apollo: Apollo,
+    private makeVar: MakevarService,
+    private router: Router
+  ) { 
 
-  }
-
-  ngOnInit() {
-
-    this.getTotalAmount()
+  apollo.client.writeFragment({
+      id: 'Nav:1',
+      fragment: GET_NAV,
+      data: { 
+      side_bar: false,
+      menu: false,
+      arrow_back: true,
+      component: 'CartAmountComponent',
+      __typename: 'Nav'
+    }, 
+  })
 
   }
 
-  getTotalAmount() {
-
-    this.apollo.watchQuery<any>({
-      query: gql`
-        query getTotalAmount($uid: ID!) {
-          allShoppingCart(user_Id: $uid ){
-            totalAmount @client
-          }
-        }
-      `,
-      variables: { uid: 1 }
-    })
-    .valueChanges
-    .subscribe( ({data, loading}) => {
-      this.totalAmount = data.allShoppingCart.totalAmount;
-      console.log('shop cart checked', data)    
-    });
-
+  ngOnInit(): void {
+    this.makeVar.totalAmount$.subscribe(
+      res => this.totalAmount = res
+    )
   }
 
   goCheckout() {
