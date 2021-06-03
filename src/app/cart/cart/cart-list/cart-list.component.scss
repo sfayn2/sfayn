@@ -2,93 +2,93 @@
     font-size: 30px;
   }
   
-  .l-grid {
-    display:grid;
-    grid-template-columns:  25px 100px 1fr;
-    grid-template-areas: 'warehouse .   .      '
-                         'select    img details'; 
-   /* grid-gap: 1rem; */  
-    margin: 1rem 2rem 1rem 2rem;
-    padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
-    background-color: white;
-  
-    &__select {
-      grid-area: select;
-      align-self: center;
-    }
-  
-    &__img {
-      grid-area: img;
-     // padding:0.5rem;
-    }
-  
-    &__details {
-      grid-area: details; 
-      display: grid;
-      grid-template-columns: 3fr 1fr 1fr .5fr 1fr .5fr;
-      grid-template-areas: 'product color uprice quantity totalprice actions';
-      align-items: center;
-  
-      .mat-subheading-2 {
-          margin:0; 
-      }
-  
-      &__product {
-          grid-area: product;
-      }
-  
-      &__color {
-          grid-area: color;
-          justify-self: center;
-      }
-  
-      &__uprice {
-          grid-area: uprice;
-          justify-self: center;
-      }
-  
-      &__quantity {
-          grid-area: quantity;
-          justify-self: center;
-      }
-  
-      &__totalprice {
-          grid-area: totalprice;
-          justify-self: center;
-      }
-  
-      &__actions {
-          grid-area: actions;
-          justify-self: end;
-      }
-  
-    }
-  
-    &__warehouse {
-      grid-area: warehouse;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-areas: 'wselect';
-  
-      &__wselect {
-        grid-area: wselect;
-      } 
-    }
-  
-  
-  
+.cart-list {
+  display:grid;
+  grid-template-columns:  25px 100px 1fr;
+  grid-template-areas: 'warehouse .   .      '
+                        'select    img details'; 
+  /* grid-gap: 1rem; */  
+  margin: 1rem 2rem 1rem 2rem;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
+  background-color: white;
+
+  &__select {
+    grid-area: select;
+    align-self: center;
   }
-  
-  
-  
-  
-  mat-form-field {
-      width: 50px; 
-      text-align: center;
+
+  &__img {
+    grid-area: img;
+    // padding:0.5rem;
   }
-  
-  
-  .u-headers--gray {
-    color: #ccc;
+
+  &__details {
+    grid-area: details; 
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr .5fr 1fr .5fr;
+    grid-template-areas: 'product color uprice quantity totalprice actions';
+    align-items: center;
+
+    .mat-subheading-2 {
+        margin:0; 
+    }
+
+    &__product {
+        grid-area: product;
+    }
+
+    &__color {
+        grid-area: color;
+        justify-self: center;
+    }
+
+    &__uprice {
+        grid-area: uprice;
+        justify-self: center;
+    }
+
+    &__quantity {
+        grid-area: quantity;
+        justify-self: center;
+    }
+
+    &__totalprice {
+        grid-area: totalprice;
+        justify-self: center;
+    }
+
+    &__actions {
+        grid-area: actions;
+        justify-self: end;
+    }
+
   }
+
+  &__warehouse {
+    grid-area: warehouse;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'wselect';
+
+    &__wselect {
+      grid-area: wselect;
+    } 
+  }
+
+
+
+}
+  
+  
+  
+  
+mat-form-field {
+    width: 50px; 
+    text-align: center;
+}
+
+
+.u-headers--gray {
+  color: #ccc;
+}
   
