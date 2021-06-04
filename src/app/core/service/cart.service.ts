@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import gql from 'graphql-tag';
 import { 
   GET_RESOLVE_CART 
@@ -10,6 +10,9 @@ import {
   providedIn: 'root'
 })
 export class CartService {
+
+  totalAmountSrc$ = new BehaviorSubject(0.0);
+  totalAmount$ = this.totalAmountSrc$.asObservable();
 
   constructor(
     private apollo: Apollo

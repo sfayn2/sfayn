@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag'
-import { 
-  GET_NAV, 
-  GET_RESOLVE_CART 
-} from '@/core/graphql';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {
-  MakevarService
+  CartService
 } from '@/core/service';
 
 @Component({
@@ -15,38 +10,28 @@ import {
   templateUrl: './cart-amount.component.html',
   styleUrls: ['./cart-amount.component.scss']
 })
-export class CartAmountComponent implements OnInit {
+export class CartAmountComponent implements OnInit, OnDestroy {
 
+  subscription: Subscription;
   totalAmount: number = 0;
 
   constructor(
-    private apollo: Apollo,
-    private makeVar: MakevarService,
+    private cartService: CartService,
     private router: Router
-  ) { 
-
-  apollo.client.writeFragment({
-      id: 'Nav:1',
-      fragment: GET_NAV,
-      data: { 
-      side_bar: false,
-      menu: false,
-      arrow_back: true,
-      component: 'CartAmountComponent',
-      __typename: 'Nav'
-    }, 
-  })
-
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.makeVar.totalAmount$.subscribe(
+    this.subscription = this.cartService.totalAmount$.subscribe(
       res => this.totalAmount = res
     )
   }
 
   goCheckout() {
     this.router.navigate([{ outlets: {primary: 'checkout', amount: null }}])
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

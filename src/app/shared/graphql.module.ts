@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink} from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
-import gql from 'graphql-tag'
 import { 
   typeDefs,
-  GET_RESOLVE_CART,
   WRITE_NAV,
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
@@ -106,7 +104,7 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
   return {
     link: httpLink.create({uri}),
     cache,
-    typeDefs, //if u comment this. Apollo GQL will look for server data & not in cache when using devTools ?
+    //typeDefs, //if u comment this. Apollo GQL will look for server data & not in cache when using devTools ?
     connectToDevTools: environment.connectToDevTools // use apollo dev tools
   };
 }

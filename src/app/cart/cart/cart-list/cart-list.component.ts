@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import {
-  MakevarService,
   SiteService,
   CartService
 } from '@/core/service';
@@ -11,41 +11,41 @@ import {
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.scss']
 })
-export class CartListComponent implements OnInit {
+export class CartListComponent implements OnInit, OnDestroy {
 
-  selectedProducts: string[] = [];
+  subscription: Subscription;
   loading: boolean = true;
   cartObj: any;
-  cartTypenameId: any;
+  typenameId: any;
 
   constructor(
     private apollo: Apollo, 
-    private makeVar: MakevarService,
     private siteService: SiteService,
     private cartService: CartService
   ) {}
 
- ngOnInit() {
+ ngOnInit(): void {
   this.siteService.setNav2({
     component: 'CartListComponent'
   });
 
-  this.cartService.getResolveCart()
+  console.log('cart list init')
+  this.subscription = this.cartService.getResolveCart()
     .valueChanges
     .subscribe( ({data, loading}) => {
       this.loading = loading;
       this.cartObj = data.allShoppingCart.edges;
 
       const totalAmount = this.cartService.getTotalAmount(this.cartObj);
-      this.makeVar.totalAmountSrc$.next(totalAmount);
+      this.cartService.totalAmountSrc$.next(totalAmount);
       
-      this.cartTypenameId = this.cartService.getTypeNameId(this.cartObj);
+      this.typenameId = this.cartService.getTypeNameId(this.cartObj);
   })
 
  }
 
  checkAll(e) {
-  this.cartTypenameId.forEach(res => {
+  this.typenameId.forEach(res => {
     localStorage.setItem(res, JSON.stringify(e.checked));
     
     // cache.evict auto refresh once localStorage change?
@@ -64,6 +64,10 @@ export class CartListComponent implements OnInit {
 
   updateQuantity(sku, val) {
     this.cartService.updateQuantity(sku, val);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
