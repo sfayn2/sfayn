@@ -1,5 +1,5 @@
 <div class='products-list'>
-  <ng-container *ngFor="let parent of product$">
+  <ng-container *ngFor="let parent of products">
      <div routerLink="/products/detail/{{product.node.id}}" class="products-list__items mat-elevation-z0" *ngFor="let product of parent">
       <div class='products-list__side-padding'>
         <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
@@ -8,7 +8,7 @@
         </ng-container>
       </div>
 
-      <ng-container *ngFor="let img of product.node.originalImg.edges">
+      <ng-container *ngFor="let img of product.node.originalImg.edges2">
         <img [src]="img.node.originalImg" [alt]="product.node.title">
       </ng-container>
 

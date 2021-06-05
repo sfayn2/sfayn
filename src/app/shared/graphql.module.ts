@@ -41,9 +41,9 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
       },
       ProductOriginalImgNodeConnection: {
         fields: {
-          edges: {
-            read(edges) {
-              // used distinct original img display in products list
+          edges2: { // only use for products-list single img
+            read(_, { readField }) {
+              const edges =  readField('edges');
               return [edges[0]] || [];
             }
           }

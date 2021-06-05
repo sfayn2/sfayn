@@ -13,7 +13,7 @@ import {
 })
 export class ProductsDetailComponent implements OnInit {
 
-  prod$: any;
+  product: any;
   mainPicture: string;
   quantity: number = 1; //default
 
@@ -30,7 +30,7 @@ export class ProductsDetailComponent implements OnInit {
     })
     this.route.params.subscribe(routeParams => {
       this.mainPicture = null; //reset every call
-      this.prod$ = this.productService.getProductDetail(routeParams.id);
+      this.product = this.productService.getProductDetail(routeParams.id);
     });
   }
 

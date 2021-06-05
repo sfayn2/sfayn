@@ -279,6 +279,13 @@ export const GET_PRODUCT_LIST = gql`
                       originalImg
                       __typename
                     }
+                  },
+                  edges2 @client {
+                    node {
+                      id
+                      originalImg
+                      __typename
+                    }
                   }
                 }
                 warehouse {

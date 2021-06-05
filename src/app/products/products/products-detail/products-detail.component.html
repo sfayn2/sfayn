@@ -1,20 +1,20 @@
 <div class="products-detail-container"> <!-- TODO: styling app-container only use for detail -->
 
-    <section class="products-detail-grid mat-subheading-2" *ngIf="prod$"> <!-- START section -->
+    <section class="products-detail-grid mat-subheading-2" *ngIf="product"> <!-- START section -->
       <div class="products-detail-img">
         <img *ngIf="mainPicture" [src]="mainPicture" />
-        <ng-container *ngFor="let p of prod$.originalImg.edges.slice(0,1)" >
+        <ng-container *ngFor="let p of product.originalImg.edges.slice(0,1)" >
           <img *ngIf="!mainPicture" [src]="p.node.originalImg"/>
         </ng-container>    
         <div class="products-detail-img-slide" >
-          <ng-container *ngFor="let p of prod$.originalImg.edges">
-            <img [src]="p.node.originalImg" (mouseover)="setMainPic(p.node.originalImg)"/>
+          <ng-container *ngFor="let p of product.originalImg.edges">
+            <img [src]="p.node.originalImg" (mouseover)="setMainPicture(p.node.originalImg)"/>
           </ng-container>    
         </div>
       </div>
       <div class="products-detail-title" >
-          <div class="mat-title" style="margin-bottom:0" >{{prod$.title}}</div>
-          <ng-container *ngFor="let w of prod$.warehouse.edges">
+          <div class="mat-title" style="margin-bottom:0" >{{product.title}}</div>
+          <ng-container *ngFor="let w of product.warehouse.edges">
               <div class="mat-display-1" style="margin-bottom:0"> {{w.node.price | currency}} </div>
           </ng-container>    
   
@@ -22,7 +22,7 @@
             <div>color:</div>
             <div>
               <mat-button-toggle-group>
-                <mat-button-toggle [routerLink]="['', { outlets: { primary: ['products', 'detail', p.node.id], amount: null }}]" value="p.node.color" [checked]="isProdColor(prod$.color, p.node.color)" *ngFor="let p of prod$.parentSn.parent2product.edges" >
+                <mat-button-toggle [routerLink]="['', { outlets: { primary: ['products', 'detail', p.node.id], amount: null }}]" value="p.node.color" [checked]="isProdColor(product.color, p.node.color)" *ngFor="let p of product.parentSn.parent2product.edges" >
                      {{p.node.color}} 
                 </mat-button-toggle>
               </mat-button-toggle-group> 
@@ -31,11 +31,11 @@
   
         <div class='mat-body'>
           <div>warehouse:</div>
-          <div *ngFor="let w of prod$.warehouse.edges">{{w.node.warehouse}} </div>
+          <div *ngFor="let w of product.warehouse.edges">{{w.node.warehouse}} </div>
         </div>
         <div class='mat-body'>
           <div>available stocks:</div>
-          <div *ngFor="let w of prod$.warehouse.edges">{{w.node.goodsNumber}} </div>
+          <div *ngFor="let w of product.warehouse.edges">{{w.node.goodsNumber}} </div>
         </div>
         <div class='mat-body'>
           <div>quantity:</div>
@@ -47,13 +47,13 @@
         </div>
   
         <div>
-           <button mat-raised-button color="accent" (click)="addCart(1, prod$.sku, quantity)">Add to Cart</button>
+           <button mat-raised-button color="accent" (click)="addCart(1, product.sku, quantity)">Add to Cart</button>
         </div>    
   
       </div> <!-- who own? -->
   
       <div class="products-detail-desc mat-body" >
-        <p [innerHTML]="prod$.goodsDesc"></p>
+        <p [innerHTML]="product.goodsDesc"></p>
       </div>
   
     </section> <!-- END section -->

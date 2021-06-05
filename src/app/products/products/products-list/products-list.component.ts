@@ -12,7 +12,7 @@ import {
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  product$: any ;
+  products: any ;
   loading: boolean = true;
  
   constructor(
@@ -26,7 +26,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({ data, loading }) => {
         this.loading = loading; //hide progress
-        this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
+        this.products = data.allProductparents.edges.map(
+          res => res.node.parent2product.edges
+        )
       });
       
   }
