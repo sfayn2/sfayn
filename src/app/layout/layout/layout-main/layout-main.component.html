@@ -6,7 +6,7 @@
             <button mat-icon-button (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon></button>
         </div>
         <div *ngIf="menu$?.arrow_back" class="layout-main__header__btn__arrow" >
-            <button mat-icon-button (click)="_location.back()"> <mat-icon>arrow_back</mat-icon></button>
+            <button mat-icon-button (click)="location.back()"> <mat-icon>arrow_back</mat-icon></button>
         </div>
          <!-- https://stackoverflow.com/questions/41694018/angular2-unset-outlets-with-routerlink -->
         <div class="layout-main__header__btn__logo"><button mat-button [routerLink]="['', { outlets: {primary: 'products/list', amount: null }}]"><h1 class="mat-headline">Sfayn Store</h1></button></div>
@@ -27,7 +27,7 @@
   
     <main class="layout-main__main"> 
         <mat-sidenav-container> 
-             <mat-sidenav #sidenav mode="side" [(opened)]="menu$ && menu$.side_bar" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
+             <mat-sidenav #sidenav mode="side" (opened)="menu$?.side_bar" style="background-color:#ecebeb;border:0" > <!-- mode change to over when in mobile -->
  <!--               <app-products-search></app-products-search> -->
              </mat-sidenav>
   

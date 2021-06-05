@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import {Location} from '@angular/common';
 import { map } from 'rxjs/operators';
 import {
   SiteService,
@@ -25,6 +26,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     private siteService: SiteService,
     private productService: ProductService,
     private cartService: CartService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
