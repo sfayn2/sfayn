@@ -2,9 +2,9 @@
 
     <section class="products-detail-grid mat-subheading-2" *ngIf="prod$"> <!-- START section -->
       <div class="products-detail-img">
-        <img *ngIf="main_pic" [src]="main_pic" />
+        <img *ngIf="mainPicture" [src]="mainPicture" />
         <ng-container *ngFor="let p of prod$.originalImg.edges.slice(0,1)" >
-          <img *ngIf="!main_pic" [src]="p.node.originalImg"/>
+          <img *ngIf="!mainPicture" [src]="p.node.originalImg"/>
         </ng-container>    
         <div class="products-detail-img-slide" >
           <ng-container *ngFor="let p of prod$.originalImg.edges">

@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-import { 
-  GET_ALL_CARTS, 
-  GET_PRODUCT_DETAIL 
-} from '@/core/graphql';
 import {
-  SiteService
+  SiteService,
+  ProductService,
+  CartService
 } from '@/core/service';
 
 @Component({
@@ -19,36 +14,28 @@ import {
 export class ProductsDetailComponent implements OnInit {
 
   prod$: any;
-  main_pic: string;
+  mainPicture: string;
   quantity: number = 1; //default
 
   constructor(
-    private apollo: Apollo,
-    private _route: ActivatedRoute,
-    private siteService: SiteService
+    private route: ActivatedRoute,
+    private siteService: SiteService,
+    private productService: ProductService,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
     this.siteService.setNav2({
       component: 'ProductsDetailComponent',
     })
-    this._route.params.subscribe(routeParams => {
-      this.main_pic = null; //reset every call
-      this.getProductDetail(routeParams.id);
+    this.route.params.subscribe(routeParams => {
+      this.mainPicture = null; //reset every call
+      this.prod$ = this.productService.getProductDetail(routeParams.id);
     });
   }
 
-  getProductDetail(id) {
-    this.prod$ = this.apollo.client.readFragment({
-      id: `ProductNode:${id}`,
-      fragment: GET_PRODUCT_DETAIL,
-      //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
-      fragmentName: "ProductDetail", 
-    });
-  }
-
-  setMainPic(x) {
-    this.main_pic = x;
+  setMainPicture(img) {
+    this.mainPicture = img;
   }  
 
   isProdColor(c1, c2) {
@@ -61,26 +48,7 @@ export class ProductsDetailComponent implements OnInit {
 
   addCart(user, sku, qty) {
     // need to refetch query after mutation. not smart enough
-    this.apollo.mutate({
-      mutation: gql`
-        mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
-          shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
-            shoppingCart {
-                dateCreated
-            }
-          }
-        }
-      `,
-      variables: { user: user, sku: sku, qty: qty },
-      refetchQueries: [{
-        query: GET_ALL_CARTS,
-        variables: { 
-          uid: user
-        }
-      }]
-    }).subscribe(res => {
-      console.log('new cart', res)
-    })
+    this.cartService.addCart(user, sku, qty)
   }
 
 }

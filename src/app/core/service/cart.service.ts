@@ -56,5 +56,30 @@ export class CartService {
       variables: { user: 1, sku: sku, qty: val, mode: 1},
       }).subscribe()
   }
+
+  addCart(user, sku, qty) {
+    // need to refetch query after mutation. not smart enough
+    this.apollo.mutate({
+      mutation: gql`
+        mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
+          shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
+            shoppingCart {
+                dateCreated
+            }
+          }
+        }
+      `,
+      variables: { user: user, sku: sku, qty: qty },
+      refetchQueries: [{
+        query: GET_ALL_CARTS,
+        variables: { 
+          uid: user
+        }
+      }]
+    }).subscribe(res => {
+      console.log('new cart', res)
+    })
+  }
+
   
 }
