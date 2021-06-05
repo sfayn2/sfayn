@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import {
   SiteService,
-  CartService
+  CartService,
 } from '@/core/service';
 
 @Component({
@@ -16,12 +16,11 @@ export class CartListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   loading: boolean = true;
   cartObj: any;
-  typenameId: any;
 
   constructor(
     private apollo: Apollo, 
     private siteService: SiteService,
-    private cartService: CartService
+    private cartService: CartService,
   ) {}
 
  ngOnInit(): void {
@@ -29,30 +28,21 @@ export class CartListComponent implements OnInit, OnDestroy {
     component: 'CartListComponent'
   });
 
-  console.log('cart list init')
-  this.subscription = this.cartService.getResolveCart()
-    .valueChanges
-    .subscribe( ({data, loading}) => {
-      this.loading = loading;
-      this.cartObj = data.allShoppingCart.edges;
+  this.subscription = this.cartService.obj$.subscribe(res => {
+    this.cartObj = res.cartObj;
+  })
 
-      const totalAmount = this.cartService.getTotalAmount(this.cartObj);
-      this.cartService.totalAmountSrc$.next(totalAmount);
+ }
+
+  checkAll(e) {
+    const typeNameId = this.cartService.objSrc$.getValue().typeNameId;
+    typeNameId.forEach(res => {
+      localStorage.setItem(res, JSON.stringify(e.checked));
       
-      this.typenameId = this.cartService.getTypeNameId(this.cartObj);
-  })
-
- }
-
- checkAll(e) {
-  this.typenameId.forEach(res => {
-    localStorage.setItem(res, JSON.stringify(e.checked));
-    
-    // cache.evict auto refresh once localStorage change?
-    this.apollo.client.cache.evict({id: res, fieldName: 'checked' })
-  })
-
- }
+        // cache.evict auto refresh once localStorage change?
+      this.apollo.client.cache.evict({id: res, fieldName: 'checked' })
+    })
+  }
 
  checkProduct(e, pid) {
    const cartTypenameId = `ShoppingCartNode:${pid}`;

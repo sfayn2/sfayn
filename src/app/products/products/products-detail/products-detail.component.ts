@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { 
-  GET_NAV, 
-  GET_RESOLVE_CART, 
+  GET_ALL_CARTS, 
   GET_PRODUCT_DETAIL 
 } from '@/core/graphql';
 import {
@@ -74,7 +73,7 @@ export class ProductsDetailComponent implements OnInit {
       `,
       variables: { user: user, sku: sku, qty: qty },
       refetchQueries: [{
-        query: GET_RESOLVE_CART,
+        query: GET_ALL_CARTS,
         variables: { 
           uid: user
         }

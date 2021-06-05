@@ -5,6 +5,7 @@ import { InMemoryCache } from '@apollo/client/core';
 import { 
   typeDefs,
   WRITE_NAV,
+  GET_ALL_CARTS
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
 import {
@@ -54,32 +55,8 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
             const typenameId = `${readField('__typename')}:${readField('id')}`;
             return JSON.parse(localStorage.getItem(typenameId))
           },
-          //totalAmount(_, { readField }) {
-          //  //  @Todo? 
-          //  const checked: boolean = readField('checked');
-          //  const totalPrice: number =  readField('totalPrice');
-          //  if (checked) {
-          //    totalAmount = totalAmount + totalPrice;
-          //  } else if (totalAmount > 0) {
-          //    totalAmount = totalAmount - totalPrice;
-          //  }
-
-          //  return totalAmount;
-          //}
         }
       },
-      //Query: {
-      //  fields: {
-      //    allShoppingCart: {
-      //      merge(existing, incoming, { cache }) {
-      //        console.log('Query.allShoppingCart', existing, incoming)
-
-
-      //        return { ...incoming };
-      //      }
-      //    }
-      //  }
-      //},
     }
   })
 

@@ -1,72 +1,75 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Subscription, Observable } from 'rxjs';
-import { Apollo } from 'apollo-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import gql from 'graphql-tag';
-import { ProductsGQLService } from '@/core/service';
 import {
-  WRITE_NAV
-} from '@/core/graphql';
+  SiteService,
+  ProductService,
+  CartService,
+} from '@/core/service';
 
 @Component({
   selector: 'app-layout-main',
   templateUrl: './layout-main.component.html',
   styleUrls: ['./layout-main.component.scss']
 })
-export class LayoutMainComponent implements OnInit {
+export class LayoutMainComponent implements OnInit, OnDestroy {
   title = 'sfayn';
   opened: boolean = true;
-  //menu = {};
   menu$: any;
   loading: boolean = true;
   cartCount: number = 0 ;
+  cartObj: any;
+  subscriptions = new Subscription();
 
-  constructor(private productsGQLService: ProductsGQLService,
-    private _location: Location,
-    private apollo: Apollo) {
-
-  }
+  constructor(
+    private siteService: SiteService,
+    private productService: ProductService,
+    private cartService: CartService,
+  ) { }
 
   ngOnInit(): void {
-    this.apollo.watchQuery<any>({
-      query: WRITE_NAV,
-      variables: {
-        id: 1
-      }
-    })
-      .valueChanges
-      .pipe(map(res => res.data.Nav ),
-      ).subscribe(res => this.menu$ = res );
-
-    this.productsGQLService.watch()
-      .valueChanges
-      .subscribe(({data, loading}) => {
-        this.loading = loading;
-        console.log('loaded products', data)
-    });
-
-    this.apollo.watchQuery<any>({
-      query: gql`
-        query ShopCartPerUserResolver($uid: ID!) {
-        allShoppingCart(user_Id: $uid ){
-          edges {
-            node {
-              totalCount
-            }
-          }
-        }
-        }`,  
-      variables: { 
-        uid: 1 
-      }
-    })
-    .valueChanges
-    .subscribe( ({data, loading}) => {
-        console.log('watching total Count?', data.allShoppingCart.edges.map(r => r.node.totalCount )[0])
-        this.cartCount = data.allShoppingCart.edges.map(r => r.node.totalCount )[0]
-      })
+    this.subscriptions.add(this.loadNav());
+    this.subscriptions.add(this.loadProducts());
   }
 
+  loadNav() {
+    this.siteService.navQuery()
+      .valueChanges
+      .pipe(map(res => res.data.Nav ))
+      .subscribe(res => this.menu$ = res)
+  }
+
+  loadProducts() {
+    this.productService.allProductsQuery()
+      .valueChanges
+      .subscribe(({data, loading}) => {
+        this.subscriptions.add(this.loadCarts())
+    });
+  }
+
+  loadCarts() {
+    this.cartService.allCartsQuery()
+      .valueChanges
+      .subscribe(({data, loading}) => {
+        const data2 = data.allShoppingCart.edges;
+        const totalAmount = this.cartService.getTotalAmount(data2)
+        const typeNameId = this.cartService.getTypeNameId(data2)
+
+        const cartObj = {}
+        cartObj['cartObj'] = data2;
+        cartObj['totalAmount'] = totalAmount;
+        cartObj['typeNameId'] = typeNameId;
+
+        this.cartService.objSrc$.next(cartObj)
+        this.cartCount =  data2.length;
+        this.loading = loading;
+        //console.log('cartObj', cartObj, this.cartCount)
+
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
 }

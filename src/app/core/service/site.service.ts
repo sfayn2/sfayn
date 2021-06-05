@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { 
   GET_NAV, 
+  WRITE_NAV
 } from '@/core/graphql';
 
 @Injectable({
@@ -10,6 +11,15 @@ import {
 })
 export class SiteService {
   constructor(private apollo: Apollo) { }
+
+  navQuery() {
+    return this.apollo.watchQuery<any>({
+      query: WRITE_NAV,
+      variables: {
+        id: 1
+      }
+    })
+  }
 
   setNav2({
     component = null,

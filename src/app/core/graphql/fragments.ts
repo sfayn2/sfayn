@@ -206,8 +206,7 @@ export const GET_ALL_PRODUCTS = gql`
      ${parent2productInfo}
 `;
 
-
-export const GET_RESOLVE_CART = gql`
+export const GET_ALL_CARTS = gql`
   query ShopCartPerUserResolver($uid: ID!) {
     allShoppingCart(user_Id: $uid ){
       edges {
@@ -216,7 +215,6 @@ export const GET_RESOLVE_CART = gql`
         }
       __typename
       }
-      __typename
     }
   }
   ${shopcartInfo}

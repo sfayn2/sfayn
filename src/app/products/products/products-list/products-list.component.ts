@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   ProductService,
-  SiteService
+  SiteService,
 } from '@/core/service';
 
 @Component({
@@ -17,17 +17,18 @@ export class ProductsListComponent implements OnInit, OnDestroy {
  
   constructor(
     private productService: ProductService,
-    private siteService: SiteService
+    private siteService: SiteService,
   ) {}
 
   ngOnInit(): void {
     this.siteService.setNav();
     this.subscription = this.productService.getProducts()
-    .valueChanges
-    .subscribe(({ data, loading }) => {
-      this.loading = loading; //hide progress
-      this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
-    });
+      .valueChanges
+      .subscribe(({ data, loading }) => {
+        this.loading = loading; //hide progress
+        this.product$ = data.allProductparents.edges.map(res => res.node.parent2product.edges).filter(res => res.length != 0)
+      });
+      
   }
 
   ngOnDestroy() {

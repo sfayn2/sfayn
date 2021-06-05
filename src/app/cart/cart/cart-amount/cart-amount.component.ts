@@ -21,9 +21,9 @@ export class CartAmountComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.cartService.totalAmount$.subscribe(
-      res => this.totalAmount = res
-    )
+    this.subscription = this.cartService.obj$.subscribe(
+      res => this.totalAmount = res.totalAmount 
+    );
   }
 
   goCheckout() {
