@@ -206,6 +206,25 @@ export const GET_ALL_PRODUCTS = gql`
      ${parent2productInfo}
 `;
 
+export const GET_ALL_CARTS_BY_WAREHOUSE = gql`
+  query {
+    allShoppingCartWarehouse {
+      totalCount
+      warehouses {
+        name
+        shoppingCart {
+          edges {
+            node {
+              ...shopcartInfo
+            }
+          }
+        }
+      }
+    }
+  }
+  ${shopcartInfo}
+`
+
 export const GET_ALL_CARTS = gql`
   query ShopCartPerUserResolver($uid: ID!) {
     allShoppingCart(user_Id: $uid ){

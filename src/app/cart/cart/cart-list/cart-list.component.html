@@ -12,47 +12,47 @@
       <div class='cart-list__details__totalprice'>Total Price</div>
       <div class='cart-list__details__actions'>-</div>
     </div>
-  </div>
-  
-  
-    <div class='cart-list' >
-  <div class='cart-list__warehouse'>
-    <div class='cart-list__warehouse__select'>
-      <mat-checkbox class='mat-body'> <strong>[Warehouse] warehouse</strong></mat-checkbox>
+
+</div>
+
+<div class='cart-list2' *ngFor='let warehouse of cartObj'>
+  <div>
+    <mat-checkbox class='mat-body'> <strong>{{warehouse.name}}</strong></mat-checkbox>
+    <div>
+      <ng-container *ngFor='let sc of warehouse.shoppingCart.edges'>
+          <div class='cart-list' >
+            <div class='cart-list__select'>
+                <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
+            </div>
+            <div class='cart-list__img' >
+              <ng-container *ngFor='let img of sc.node.product.originalImg.edges' >
+                  <img [src]='img.node.originalImg' style='width:90px;object-fit: cover'/>
+              </ng-container>
+            </div>
+            <div class='cart-list__details'>
+              <div class='cart-list__details__product'>
+                  <div fxFlex class='mat-body'> {{sc.node.product.title}} </div>
+              </div>
+              <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.product.color}}</span>
+                
+              </div>
+              <div class='mat-body-1 cart-list__details__uprice mat-body' *ngFor='let w of sc.node.product.warehouse.edges'>${{w.node.price | currency}}</div>
+              <div class='cart-list__details__quantity mat-body'>
+                  <mat-form-field>
+                    <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.product.sku, qty.value)'/> 
+                  </mat-form-field>
+                  <div fxLayout='row' fxLayoutAlign='center start' class='mat-small'>
+                    <div *ngFor='let w of sc.node.product.warehouse.edges'>Stocks: {{w.node.goodsNumber}} </div>
+                  </div>
+              </div> 
+              <div class='mat-subheading-2 cart-list__details__totalprice mat-body' >{{sc.node.totalPrice | currency}}</div>
+              <div class='cart-list__details__actions'>
+                  <button mat-button >Remove</button>
+              </div>
+            </div> 
+          </div>
+      </ng-container>
     </div>
   </div>
-  </div>
+</div>
   
-  <ng-container *ngFor='let sc of cartObj'>
-    <div class='cart-list' >
-      <div class='cart-list__select'>
-          <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
-      </div>
-      <div class='cart-list__img' >
-        <ng-container *ngFor='let img of sc.node.product.originalImg.edges' >
-            <img [src]='img.node.originalImg' style='width:90px;object-fit: cover'/>
-        </ng-container>
-      </div>
-      <div class='cart-list__details'>
-        <div class='cart-list__details__product'>
-            <div fxFlex class='mat-body'> {{sc.node.product.title}} </div>
-        </div>
-        <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.product.color}}</span>
-            <!--<button mat-icon-button><mat-icon>arrow_drop_down</mat-icon></button> -->
-        </div>
-        <div class='mat-body-1 cart-list__details__uprice mat-body' *ngFor='let w of sc.node.product.warehouse.edges'>${{w.node.price | currency}}</div>
-        <div class='cart-list__details__quantity mat-body'>
-            <mat-form-field>
-              <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.product.sku, qty.value)'/> 
-            </mat-form-field>
-            <div fxLayout='row' fxLayoutAlign='center start' class='mat-small'>
-              <div *ngFor='let w of sc.node.product.warehouse.edges'>Stocks: {{w.node.goodsNumber}} </div>
-            </div>
-        </div> 
-        <div class='mat-subheading-2 cart-list__details__totalprice mat-body' >{{sc.node.totalPrice | currency}}</div>
-        <div class='cart-list__details__actions'>
-            <button mat-button >Remove</button>
-        </div>
-      </div> <!-- products-cart-grid -->
-    </div> <!-- products-cart-grid-main -->
-  </ng-container>

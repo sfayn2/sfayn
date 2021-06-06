@@ -49,6 +49,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     });
   }
 
+
   loadCarts() {
     this.cartService.allCartsQuery()
       .valueChanges
@@ -57,17 +58,33 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
         const totalAmount = this.cartService.getTotalAmount(data2)
         const typeNameId = this.cartService.getTypeNameId(data2)
 
-        const cartObj = {}
-        cartObj['cartObj'] = data2;
-        cartObj['totalAmount'] = totalAmount;
-        cartObj['typeNameId'] = typeNameId;
+        this.cartService.objSrc$.next({ 
+          ...this.cartService.objSrc$.getValue(), 
+          totalAmount,
+          typeNameId
+         } 
+        )
 
-        this.cartService.objSrc$.next(cartObj)
         this.cartCount =  data2.length;
-        this.loading = loading;
-        //console.log('cartObj', cartObj, this.cartCount)
+        console.log('cartObj', this.cartService.objSrc$.getValue(), this.cartCount)
+
+        this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
+  }
+
+  loadCartsByWarehouse() {
+    this.cartService.allCartsByWarehouseQuery()
+      .valueChanges
+      .subscribe(({data, loading}) => {
+        const cartObj = data.allShoppingCartWarehouse.map(r => r.warehouses)
+        this.cartService.objSrc$.next({ 
+          ...this.cartService.objSrc$.getValue(), 
+          cartObj
+         } 
+        )
+        this.loading = loading;
+      })
   }
 
   ngOnDestroy() {

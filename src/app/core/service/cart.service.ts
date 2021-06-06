@@ -3,7 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { BehaviorSubject } from 'rxjs';
 import gql from 'graphql-tag';
 import { 
-  GET_ALL_CARTS
+  GET_ALL_CARTS,
+  GET_ALL_CARTS_BY_WAREHOUSE
 } from '@/core/graphql';
 
 @Injectable({
@@ -11,12 +12,26 @@ import {
 })
 export class CartService {
 
-  objSrc$ = new BehaviorSubject(null);
+  objSrc$ = new BehaviorSubject({
+    cartObj: null,
+    totalAmount: 0,
+    typeNameId: []
+  });
+
   obj$ = this.objSrc$.asObservable();
 
   constructor(
     private apollo: Apollo
   ) { }
+
+  allCartsByWarehouseQuery() { 
+    return this.apollo.watchQuery<any>({
+      query: GET_ALL_CARTS_BY_WAREHOUSE,
+      variables: { 
+        uid: 1 
+      }
+     })
+  }
 
   allCartsQuery() { 
     return this.apollo.watchQuery<any>({

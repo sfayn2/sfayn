@@ -29,7 +29,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   });
 
   this.subscription = this.cartService.obj$.subscribe(res => {
-    this.cartObj = res.cartObj;
+    this.cartObj = res.cartObj[0];
   })
 
  }
