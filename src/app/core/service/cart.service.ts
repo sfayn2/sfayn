@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { BehaviorSubject } from 'rxjs';
-import gql from 'graphql-tag';
 import { 
+  ADD_CART,
+  UPDATE_CART,
+  DELETE_CART,
   GET_ALL_CARTS,
   GET_ALL_CARTS_BY_WAREHOUSE
 } from '@/core/graphql';
@@ -57,34 +59,33 @@ export class CartService {
 
   updateQuantity(sku, val) {
     this.apollo.mutate({
-      mutation: gql`
-        mutation ShopCartPerUser($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
-          shoppingCart(user: $user, product: $sku, quantity: $qty, mode: $mode) {
-            shoppingCart {
-              id
-              quantity
-              totalPrice
-             }
-           }
-         }
-       `,
+      mutation: UPDATE_CART,
       variables: { user: 1, sku: sku, qty: val, mode: 1},
       }).subscribe()
+  }
+
+  deleteCart(user, sku) {
+    // need to refetch query after mutation. not smart enough
+    this.apollo.mutate({
+      mutation: DELETE_CART,
+      variables: { 
+        user,
+        sku,
+      },
+      refetchQueries: [{
+        query: GET_ALL_CARTS,
+        variables: { 
+          uid: user
+        }
+      }]
+    }).subscribe(res => console.log('delete cart', res) )
   }
 
   addCart(user, sku, qty) {
     // need to refetch query after mutation. not smart enough
     this.apollo.mutate({
-      mutation: gql`
-        mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
-          shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
-            shoppingCart {
-                dateCreated
-            }
-          }
-        }
-      `,
-      variables: { user: user, sku: sku, qty: qty },
+      mutation: ADD_CART,
+      variables: { user, sku, qty },
       refetchQueries: [{
         query: GET_ALL_CARTS,
         variables: { 

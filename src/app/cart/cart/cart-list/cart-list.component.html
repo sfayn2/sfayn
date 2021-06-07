@@ -47,7 +47,7 @@
               </div> 
               <div class='mat-subheading-2 cart-list__details__totalprice mat-body' >{{sc.node.totalPrice | currency}}</div>
               <div class='cart-list__details__actions'>
-                  <button mat-button >Remove</button>
+                  <button mat-button (click)='deleteCart(sc.node.product.sku)'>Remove</button>
               </div>
             </div> 
           </div>

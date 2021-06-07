@@ -339,3 +339,33 @@ export const WRITE_NAV = gql`
     }
   }
 `;
+
+export const ADD_CART = gql`
+  mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
+    shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
+      shoppingCart {
+          dateCreated
+      }
+    }
+  }
+`;
+
+export const DELETE_CART = gql`
+  mutation DeleteCart($user: ID!, $sku: ID!) {
+    shoppingCart(user: $user, product: $sku, mode: 2) {
+      ok
+    }
+  }
+`;
+
+export const UPDATE_CART = gql`
+  mutation UpdateShopCart($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
+    shoppingCart(user: $user, product: $sku, quantity: $qty, mode: $mode) {
+      shoppingCart {
+        id
+        quantity
+        totalPrice
+        }
+      }
+    }
+`
