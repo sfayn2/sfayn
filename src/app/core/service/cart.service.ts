@@ -58,43 +58,41 @@ export class CartService {
   }
 
   updateQuantity(sku, val) {
+    // no need to call cache.evict? it can auto trigger watchQuery
     this.apollo.mutate({
       mutation: UPDATE_CART,
       variables: { user: 1, sku: sku, qty: val, mode: 1},
       }).subscribe()
   }
 
+  cacheEvict(res) {
+    const data = res.data['shoppingCart'].shoppingCart;
+    const id = `${data.__typename}:${data.id}`; 
+    this.apollo.client.cache.evict({id: id });
+    this.apollo.client.cache.gc();
+  }
+
   deleteCart(user, sku) {
-    // need to refetch query after mutation. not smart enough
+    // need to call cache.evict to force cache update 
+    // and auto trigger watchQuery
     this.apollo.mutate({
       mutation: DELETE_CART,
       variables: { 
         user,
         sku,
       },
-      refetchQueries: [{
-        query: GET_ALL_CARTS,
-        variables: { 
-          uid: user
-        }
-      }]
-    }).subscribe(res => console.log('delete cart', res) )
+    }).subscribe(res => this.cacheEvict(res) )
   }
 
   addCart(user, sku, qty) {
-    // need to refetch query after mutation. not smart enough
+    // why not evict instead of refetchQueries for new record? 
     this.apollo.mutate({
       mutation: ADD_CART,
       variables: { user, sku, qty },
-      refetchQueries: [{
-        query: GET_ALL_CARTS,
-        variables: { 
-          uid: user
-        }
-      }]
-    }).subscribe(res => {
-      console.log('new cart', res)
-    })
+      refetchQueries: [
+        { query: GET_ALL_CARTS, variables: { uid: user } },
+        { query: GET_ALL_CARTS_BY_WAREHOUSE, variables: {  uid: user } }]
+    }).subscribe()
   }
 
   

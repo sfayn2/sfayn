@@ -66,7 +66,6 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
         )
 
         this.cartCount =  data2.length;
-        console.log('cartObj', this.cartService.objSrc$.getValue(), this.cartCount)
 
         this.subscriptions.add(this.loadCartsByWarehouse())
 
@@ -84,6 +83,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
          } 
         )
         this.loading = loading;
+        console.log('cartObj', this.cartService.objSrc$.getValue())
       })
   }
 
