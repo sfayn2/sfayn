@@ -17,6 +17,7 @@ export const warehouseInfo = gql`
     node {
       id
       warehouse
+      warehouseDisplay
       price
       goodsState
       goodsNumber

@@ -65,15 +65,17 @@ export class CartService {
       }).subscribe()
   }
 
-  cacheEvict(res) {
-    const data = res.data['shoppingCart'].shoppingCart;
-    const id = `${data.__typename}:${data.id}`; 
-    this.apollo.client.cache.evict({id: id });
-    this.apollo.client.cache.gc();
-  }
+  //cacheEvict(res) {
+  //  const data = res.data['shoppingCart'].shoppingCart;
+  //  console.log(data, 'delete?')
+  //  const id = `${data.__typename}:${data.id}`; 
+  //  console.log(id)
+  //  this.apollo.client.cache.evict({id: 'allShoppingCartWarehouse' });
+  //  this.apollo.client.cache.gc();
+  //}
 
   deleteCart(user, sku) {
-    // need to call cache.evict to force cache update 
+    // either use refetchQueries or cache.evict will do
     // and auto trigger watchQuery
     this.apollo.mutate({
       mutation: DELETE_CART,
@@ -81,7 +83,10 @@ export class CartService {
         user,
         sku,
       },
-    }).subscribe(res => this.cacheEvict(res) )
+      refetchQueries: [
+        { query: GET_ALL_CARTS, variables: { uid: user } },
+        { query: GET_ALL_CARTS_BY_WAREHOUSE, variables: {  uid: user } }]
+    }).subscribe()
   }
 
   addCart(user, sku, qty) {
