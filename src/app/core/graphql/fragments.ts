@@ -373,3 +373,126 @@ export const UPDATE_CART = gql`
       }
     }
 `
+
+export const GET_ALL_PRODUCTS2 = gql`
+query GetAllProducts {
+  allProductparents {
+    edges {
+      node {
+        id
+        parentSn
+        title
+        goodsDesc
+        category {
+          id
+          name
+          level
+        }
+        product2variants {
+          edges {
+            node {
+              id
+              sku
+              name
+              options
+              quantity
+              price
+              default
+              parentSn {
+                id
+                goodsDesc
+                title
+                parent2image {
+                  edges {
+                    node {
+                      id
+                      imgUrl
+                      coverPhoto
+                    }
+                  }
+                }
+                product2variants {
+                  edges {
+                    node {
+                      id
+                      options
+                      name
+                      imgUrl
+                    }
+                  }
+                }
+              }  
+            }
+          }
+        }
+        parent2image {
+          edges {
+            node {
+              id
+              imgUrl
+              coverPhoto
+            }
+          }
+        }
+      }
+    }
+  }
+ }
+`;
+
+export const GET_PRODUCT_DETAIL2 = gql`
+  fragment ProductVariantDetail on ProductVariantNode {
+    id
+    sku
+    name
+    options  
+    quantity
+    price
+    default
+    __typename
+    parentSn {
+      id
+      goodsDesc
+      title
+      parent2image {
+        edges {
+          node {
+            id
+            imgUrl
+            coverPhoto
+          }
+        }
+      }
+      product2variants {
+        edges {
+          node {
+            id
+            imgUrl
+            options
+            name
+          }
+        }
+      }
+    }  
+  }
+`;
+
+
+export const GET_ALL_CARTS2 = gql`
+  query ShopCartPerUserResolver($uid: ID!) {
+    allShopcart(createdBy_Id: $uid  ) {
+      edges {
+        node {
+          id
+          productVariant {
+            id
+            parentSn {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+`

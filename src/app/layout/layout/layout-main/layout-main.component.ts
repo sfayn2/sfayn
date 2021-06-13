@@ -45,6 +45,13 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.productService.allProductsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
+        this.loading = loading;
+        console.log(data.allProductparents.edges)
+        this.productService.objSrc$.next({ 
+          ...this.productService.objSrc$.getValue(), 
+          obj: data.allProductparents.edges
+         } 
+        )
         this.subscriptions.add(this.loadCarts())
     });
   }
@@ -54,20 +61,30 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.cartService.allCartsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
-        const data2 = data.allShoppingCart.edges;
-        const totalAmount = this.cartService.getTotalAmount(data2)
-        const typeNameId = this.cartService.getTypeNameId(data2)
-
+        const cartObj = data.allShopcart.edges;
+        const totalAmount = 0;
+        const typeNameId = [];
+        console.log('loadCarts', cartObj)
         this.cartService.objSrc$.next({ 
           ...this.cartService.objSrc$.getValue(), 
+          cartObj,
           totalAmount,
           typeNameId
-         } 
-        )
+        })
+        //const data2 = data.allShoppingCart.edges;
+        //const totalAmount = this.cartService.getTotalAmount(data2)
+        //const typeNameId = this.cartService.getTypeNameId(data2)
 
-        this.cartCount =  data2.length;
+        //this.cartService.objSrc$.next({ 
+        //  ...this.cartService.objSrc$.getValue(), 
+        //  totalAmount,
+        //  typeNameId
+        // } 
+        //)
 
-        this.subscriptions.add(this.loadCartsByWarehouse())
+        //this.cartCount =  data2.length;
+
+        //this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
   }

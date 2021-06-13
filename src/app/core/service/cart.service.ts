@@ -6,7 +6,8 @@ import {
   UPDATE_CART,
   DELETE_CART,
   GET_ALL_CARTS,
-  GET_ALL_CARTS_BY_WAREHOUSE
+  GET_ALL_CARTS_BY_WAREHOUSE,
+  GET_ALL_CARTS2
 } from '@/core/graphql';
 
 @Injectable({
@@ -37,7 +38,7 @@ export class CartService {
 
   allCartsQuery() { 
     return this.apollo.watchQuery<any>({
-      query: GET_ALL_CARTS,
+      query: GET_ALL_CARTS2,
       variables: { 
         uid: 1 
       }

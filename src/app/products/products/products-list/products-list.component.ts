@@ -21,15 +21,20 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('going here?')
     this.siteService.setNav();
-    this.subscription = this.productService.getProducts()
-      .valueChanges
-      .subscribe(({ data, loading }) => {
-        this.loading = loading; //hide progress
-        this.products = data.allProductparents.edges.map(
-          res => res.node.parent2product.edges
-        )
-      });
+    this.subscription = this.productService.obj$.subscribe(res => {
+      this.products = res.obj;
+      console.log(res.obj)
+    })
+    //this.subscription = this.productService.getProducts()
+    //  .valueChanges
+    //  .subscribe(({ data, loading }) => {
+    //    this.loading = loading; //hide progress
+    //    this.products = data.allProductparents.edges.map(
+    //      res => res.node.parent2product.edges
+    //    )
+    //  });
       
   }
 
