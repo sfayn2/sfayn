@@ -45,7 +45,6 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.productService.allProductsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
-        this.loading = loading;
         console.log(data.allProductparents.edges)
         this.productService.objSrc$.next({ 
           ...this.productService.objSrc$.getValue(), 
@@ -62,8 +61,8 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data, loading}) => {
         const cartObj = data.allShopcart.edges;
-        const totalAmount = 0;
-        const typeNameId = [];
+        const totalAmount = this.cartService.getTotalAmount(cartObj)
+        const typeNameId = this.cartService.getTypeNameId(cartObj)
         console.log('loadCarts', cartObj)
         this.cartService.objSrc$.next({ 
           ...this.cartService.objSrc$.getValue(), 
@@ -71,37 +70,12 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
           totalAmount,
           typeNameId
         })
-        //const data2 = data.allShoppingCart.edges;
-        //const totalAmount = this.cartService.getTotalAmount(data2)
-        //const typeNameId = this.cartService.getTypeNameId(data2)
-
-        //this.cartService.objSrc$.next({ 
-        //  ...this.cartService.objSrc$.getValue(), 
-        //  totalAmount,
-        //  typeNameId
-        // } 
-        //)
-
-        //this.cartCount =  data2.length;
+        this.cartCount =  cartObj.length;
+        this.loading = loading;
 
         //this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
-  }
-
-  loadCartsByWarehouse() {
-    this.cartService.allCartsByWarehouseQuery()
-      .valueChanges
-      .subscribe(({data, loading}) => {
-        const cartObj = data.allShoppingCartWarehouse.map(r => r.warehouses)
-        this.cartService.objSrc$.next({ 
-          ...this.cartService.objSrc$.getValue(), 
-          cartObj
-         } 
-        )
-        this.loading = loading;
-        console.log('cartObj', this.cartService.objSrc$.getValue())
-      })
   }
 
   ngOnDestroy() {

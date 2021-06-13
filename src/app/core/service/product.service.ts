@@ -6,11 +6,8 @@ import { map, tap, filter  } from 'rxjs/operators';
 import { 
   PRODUCTS_SEARCH_CATEGORY_LIST_QUERY, 
   SHOPPING_CART_MUTATION,
-  GET_PRODUCT_LIST,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_DETAIL,
-  GET_ALL_PRODUCTS2,
-  GET_PRODUCT_DETAIL2
 } from '@/core/graphql';
 
 
@@ -48,22 +45,22 @@ export class ProductService {
     
     };
 
-    getProducts() {
-      return this.apollo.watchQuery<any>({
-        query: GET_PRODUCT_LIST
-      })
-    };
+    //getProducts() {
+    //  return this.apollo.watchQuery<any>({
+    //    query: GET_PRODUCT_LIST
+    //  })
+    //};
 
     allProductsQuery() {
       return this.apollo.watchQuery<any>({
-        query: GET_ALL_PRODUCTS2
+        query: GET_ALL_PRODUCTS
       })
     }
 
     getProductDetail(id) {
       return this.apollo.client.readFragment({
         id: `ProductVariantNode:${id}`,
-        fragment: GET_PRODUCT_DETAIL2,
+        fragment: GET_PRODUCT_DETAIL,
         //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
         fragmentName: "ProductVariantDetail", 
       });

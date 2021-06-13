@@ -21,29 +21,29 @@
           <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
       </div>
       <div class='cart-list__img' >
-        <ng-container *ngFor='let img of sc.node.product.originalImg.edges' >
-            <img [src]='img.node.originalImg' style='width:90px;object-fit: cover'/>
+        <ng-container *ngFor="let img of sc.node.productVariant.parentSn.parent2image.edges">
+          <img *ngIf="img.node.coverPhoto" [src]='img.node.imgUrl' style='width:90px;object-fit: cover'/>
         </ng-container>
       </div>
       <div class='cart-list__details'>
         <div class='cart-list__details__product'>
-            <div fxFlex class='mat-body'> {{sc.node.product.title}} </div>
+            <div fxFlex class='mat-body'> {{sc.node.productVariant.parentSn.title}} </div>
         </div>
-        <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.product.color}}</span>
+        <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.productVariant.color}}</span>
           
         </div>
-        <div class='mat-body-1 cart-list__details__uprice mat-body' *ngFor='let w of sc.node.product.warehouse.edges'>${{w.node.price | currency}}</div>
+        <div class='mat-body-1 cart-list__details__uprice mat-body'>{{sc.node.productVariant.price | currency}}</div>
         <div class='cart-list__details__quantity mat-body'>
             <mat-form-field>
-              <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.product.sku, qty.value)'/> 
+              <input matInput type='number' [value]='sc.node.quantity' #qty (change)='updateQuantity(sc.node.productVariant.sku, qty.value)'/> 
             </mat-form-field>
             <div fxLayout='row' fxLayoutAlign='center start' class='mat-small'>
-              <div *ngFor='let w of sc.node.product.warehouse.edges'>Stocks: {{w.node.goodsNumber}} </div>
+              <div>Stocks: {{sc.node.productVariant.quantity}} </div>
             </div>
         </div> 
         <div class='mat-subheading-2 cart-list__details__totalprice mat-body' >{{sc.node.totalPrice | currency}}</div>
         <div class='cart-list__details__actions'>
-            <button mat-button (click)='deleteCart(sc.node.product.sku)'>Remove</button>
+            <button mat-button (click)='deleteCart(sc.node.productVariant.sku)'>Remove</button>
         </div>
       </div> 
     </div>
