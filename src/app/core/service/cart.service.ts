@@ -6,7 +6,6 @@ import {
   UPDATE_CART,
   DELETE_CART,
   GET_ALL_CARTS,
-  GET_ALL_CARTS_BY_WAREHOUSE
 } from '@/core/graphql';
 
 @Injectable({
@@ -25,15 +24,6 @@ export class CartService {
   constructor(
     private apollo: Apollo
   ) { }
-
-  allCartsByWarehouseQuery() { 
-    return this.apollo.watchQuery<any>({
-      query: GET_ALL_CARTS_BY_WAREHOUSE,
-      variables: { 
-        uid: 1 
-      }
-     })
-  }
 
   allCartsQuery() { 
     return this.apollo.watchQuery<any>({
@@ -84,8 +74,8 @@ export class CartService {
         sku,
       },
       refetchQueries: [
-        { query: GET_ALL_CARTS, variables: { uid: user } },
-        { query: GET_ALL_CARTS_BY_WAREHOUSE, variables: {  uid: user } }]
+        { query: GET_ALL_CARTS, variables: { uid: user } }
+      ]
     }).subscribe()
   }
 
@@ -95,8 +85,8 @@ export class CartService {
       mutation: ADD_CART,
       variables: { user, sku, qty },
       refetchQueries: [
-        { query: GET_ALL_CARTS, variables: { uid: user } },
-        { query: GET_ALL_CARTS_BY_WAREHOUSE, variables: {  uid: user } }]
+        { query: GET_ALL_CARTS, variables: { uid: user } }
+      ]
     }).subscribe()
   }
 

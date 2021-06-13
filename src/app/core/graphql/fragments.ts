@@ -188,57 +188,57 @@ export const SHOPPING_CART_MUTATION = gql`
     }
 `
 
-export const GET_ALL_PRODUCTS = gql`
-    query GetProductList 
-        {
-            allProductparents{
-                edges {
-                  node {
-                    id
-                    parent2product {
-                      edges {
-                            ...parent2productInfo
-                      }
-                    }
-                  }
-                }
-            }
-     }
-     ${parent2productInfo}
-`;
+//export const GET_ALL_PRODUCTS = gql`
+//    query GetProductList 
+//        {
+//            allProductparents{
+//                edges {
+//                  node {
+//                    id
+//                    parent2product {
+//                      edges {
+//                            ...parent2productInfo
+//                      }
+//                    }
+//                  }
+//                }
+//            }
+//     }
+//     ${parent2productInfo}
+//`;
 
-export const GET_ALL_CARTS_BY_WAREHOUSE = gql`
-  query {
-    allShoppingCartWarehouse {
-      totalCount
-      warehouses {
-        name
-        shoppingCart {
-          edges {
-            node {
-              ...shopcartInfo
-            }
-          }
-        }
-      }
-    }
-  }
-  ${shopcartInfo}
-`
+//export const GET_ALL_CARTS_BY_WAREHOUSE = gql`
+//  query {
+//    allShoppingCartWarehouse {
+//      totalCount
+//      warehouses {
+//        name
+//        shoppingCart {
+//          edges {
+//            node {
+//              ...shopcartInfo
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//  ${shopcartInfo}
+//`
 
-export const GET_ALL_CARTS = gql`
-  query ShopCartPerUserResolver($uid: ID!) {
-    allShoppingCart(user_Id: $uid ){
-      edges {
-        node {
-          ...shopcartInfo
-        }
-      __typename
-      }
-    }
-  }
-  ${shopcartInfo}
-`
+//export const GET_ALL_CARTS = gql`
+//  query ShopCartPerUserResolver($uid: ID!) {
+//    allShoppingCart(user_Id: $uid ){
+//      edges {
+//        node {
+//          ...shopcartInfo
+//        }
+//      __typename
+//      }
+//    }
+//  }
+//  ${shopcartInfo}
+//`
 
 export const GET_NAV = gql`
   fragment myNav on Nav {
@@ -250,30 +250,30 @@ export const GET_NAV = gql`
 `;
 
 
-export const GET_PRODUCT_DETAIL = gql`
-  fragment ProductDetail on ProductNode {
-    id
-    title
-    sku
-    parentId
-    color
-    goodsDesc
-    ...parentSn2ProductInfo
-    originalImg {
-      edges {
-        ...originalImgInfo   
-      }
-    }
-    warehouse {
-      edges {
-        ...warehouseInfo                  
-      }
-    }
-  }
-  ${originalImgInfo}
-  ${warehouseInfo}
-  ${parentSn2ProductInfo}
-`;
+//export const GET_PRODUCT_DETAIL = gql`
+//  fragment ProductDetail on ProductNode {
+//    id
+//    title
+//    sku
+//    parentId
+//    color
+//    goodsDesc
+//    ...parentSn2ProductInfo
+//    originalImg {
+//      edges {
+//        ...originalImgInfo   
+//      }
+//    }
+//    warehouse {
+//      edges {
+//        ...warehouseInfo                  
+//      }
+//    }
+//  }
+//  ${originalImgInfo}
+//  ${warehouseInfo}
+//  ${parentSn2ProductInfo}
+//`;
 
 export const GET_PRODUCT_LIST = gql`
   query {
@@ -372,4 +372,145 @@ export const UPDATE_CART = gql`
         }
       }
     }
+`
+
+export const GET_ALL_PRODUCTS = gql`
+query GetAllProducts {
+  allProductparents {
+    edges {
+      node {
+        id
+        parentSn
+        title
+        goodsDesc
+        category {
+          id
+          name
+          level
+        }
+        product2variants {
+          edges {
+            node {
+              id
+              sku
+              name
+              options
+              quantity
+              price
+              default
+              parentSn {
+                id
+                goodsDesc
+                title
+                parent2image {
+                  edges {
+                    node {
+                      id
+                      imgUrl
+                      coverPhoto
+                    }
+                  }
+                }
+                product2variants {
+                  edges {
+                    node {
+                      id
+                      options
+                      name
+                      imgUrl
+                    }
+                  }
+                }
+              }  
+            }
+          }
+        }
+        parent2image {
+          edges {
+            node {
+              id
+              imgUrl
+              coverPhoto
+            }
+          }
+        }
+      }
+    }
+  }
+ }
+`;
+
+export const GET_PRODUCT_DETAIL = gql`
+  fragment ProductVariantDetail on ProductVariantNode {
+    id
+    sku
+    name
+    options  
+    quantity
+    price
+    default
+    __typename
+    parentSn {
+      id
+      goodsDesc
+      title
+      parent2image {
+        edges {
+          node {
+            id
+            imgUrl
+            coverPhoto
+          }
+        }
+      }
+      product2variants {
+        edges {
+          node {
+            id
+            imgUrl
+            options
+            name
+          }
+        }
+      }
+    }  
+  }
+`;
+
+
+export const GET_ALL_CARTS = gql`
+  query ShopCartPerUserResolver($uid: ID!) {
+    allShopcart(createdBy_Id: $uid  ) {
+      edges {
+        node {
+          id
+          quantity
+          totalPrice
+          checked @client
+          productVariant {
+            id
+            sku
+            name
+            options
+            imgUrl
+            default
+            price
+            parentSn {
+              id
+              title
+              parent2image {
+                edges {
+                  node {
+                    id
+                    imgUrl
+                    coverPhoto
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `

@@ -31,6 +31,7 @@ export class ProductsDetailComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.mainPicture = null; //reset every call
       this.product = this.productService.getProductDetail(routeParams.id);
+      console.log(this.product, routeParams.id )
     });
   }
 

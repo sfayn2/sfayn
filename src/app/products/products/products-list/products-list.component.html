@@ -1,23 +1,24 @@
 <div class='products-list'>
-  <ng-container *ngFor="let parent of products">
-     <div routerLink="/products/detail/{{product.node.id}}" class="products-list__items mat-elevation-z0" *ngFor="let product of parent">
-      <div class='products-list__side-padding'>
-        <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
-        <ng-container *ngFor="let w of product.node.warehouse.edges">
-          <div>${{w.node.price}}</div>
+  <ng-container *ngFor="let product of products">
+    <ng-container *ngFor="let variants of product.node.product2variants.edges">
+      <div *ngIf="variants.node.default" routerLink="/products/detail/{{variants.node.id}}" class="products-list__items mat-elevation-z0">
+        <div class='products-list__side-padding'>
+          <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
+          <div>${{variants.node.price}}</div>
+        </div>
+
+        <img *ngIf="variants.node.imgUrl else getFromParent2Image" [src]="variants.node.imgUrl" [alt]="product.node.title">
+          
+        <ng-container #getFromParent2Image *ngFor="let img of product.node.parent2image.edges">
+          <img *ngIf="img.node.coverPhoto" [src]="img.node.imgUrl" [alt]="product.node.title">
         </ng-container>
+
+        <div class='products-list__bottom'>
+          <div class="mat-small products-list__bottom__fav" ><mat-icon>favorite_border</mat-icon></div>
+          <div class="mat-small products-list__bottom__star" ><mat-icon>star_border</mat-icon></div>
+          <div class="mat-small products-list__bottom__sold">0 Sold</div>
+        </div> 
       </div>
-
-      <ng-container *ngFor="let img of product.node.originalImg.edges2">
-        <img [src]="img.node.originalImg" [alt]="product.node.title">
-      </ng-container>
-
-      <div class='products-list__bottom'>
-        <div class="mat-small products-list__bottom__fav" ><mat-icon>favorite_border</mat-icon></div>
-        <div class="mat-small products-list__bottom__star" ><mat-icon>star_border</mat-icon></div>
-        <div class="mat-small products-list__bottom__sold">0 Sold</div>
-      </div> 
-
-     </div>
+    </ng-container>
   </ng-container>
 </div>

@@ -45,6 +45,12 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.productService.allProductsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
+        console.log(data.allProductparents.edges)
+        this.productService.objSrc$.next({ 
+          ...this.productService.objSrc$.getValue(), 
+          obj: data.allProductparents.edges
+         } 
+        )
         this.subscriptions.add(this.loadCarts())
     });
   }
@@ -54,37 +60,22 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.cartService.allCartsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
-        const data2 = data.allShoppingCart.edges;
-        const totalAmount = this.cartService.getTotalAmount(data2)
-        const typeNameId = this.cartService.getTypeNameId(data2)
-
+        const cartObj = data.allShopcart.edges;
+        const totalAmount = this.cartService.getTotalAmount(cartObj)
+        const typeNameId = this.cartService.getTypeNameId(cartObj)
+        console.log('loadCarts', cartObj)
         this.cartService.objSrc$.next({ 
           ...this.cartService.objSrc$.getValue(), 
+          cartObj,
           totalAmount,
           typeNameId
-         } 
-        )
+        })
+        this.cartCount =  cartObj.length;
+        this.loading = loading;
 
-        this.cartCount =  data2.length;
-
-        this.subscriptions.add(this.loadCartsByWarehouse())
+        //this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
-  }
-
-  loadCartsByWarehouse() {
-    this.cartService.allCartsByWarehouseQuery()
-      .valueChanges
-      .subscribe(({data, loading}) => {
-        const cartObj = data.allShoppingCartWarehouse.map(r => r.warehouses)
-        this.cartService.objSrc$.next({ 
-          ...this.cartService.objSrc$.getValue(), 
-          cartObj
-         } 
-        )
-        this.loading = loading;
-        console.log('cartObj', this.cartService.objSrc$.getValue())
-      })
   }
 
   ngOnDestroy() {

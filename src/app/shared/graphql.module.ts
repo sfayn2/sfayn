@@ -49,7 +49,7 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
           }
         }
       },
-      ShoppingCartNode: {
+      ShopCartNode: {
         fields: {
           checked(_, { readField }) {
             const typenameId = `${readField('__typename')}:${readField('id')}`;
