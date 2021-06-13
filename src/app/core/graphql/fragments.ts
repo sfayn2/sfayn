@@ -342,8 +342,8 @@ export const WRITE_NAV = gql`
 `;
 
 export const ADD_CART = gql`
-  mutation addNewCart($user: ID!, $sku: ID!, $qty: ID!) {
-    shoppingCart(user: $user, product: $sku, quantity: $qty, mode: 0) {
+  mutation AddCart($user: ID!, $sku: ID!, $qty: ID!) {
+    shopcart(user: $user, sku: $sku, quantity: $qty, mode: 0) {
       ok
     }
   }
@@ -364,14 +364,15 @@ export const DELETE_CART = gql`
 
 export const UPDATE_CART = gql`
   mutation UpdateShopCart($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
-    shoppingCart(user: $user, product: $sku, quantity: $qty, mode: $mode) {
-      shoppingCart {
+    shopcart(user: $user, sku: $sku, quantity: $qty, mode: $mode) {
+      ok
+      shopcart {
         id
-        quantity
         totalPrice
-        }
-      }
+        quantity
+      }    
     }
+  }
 `
 
 export const GET_ALL_PRODUCTS = gql`
