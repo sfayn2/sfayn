@@ -5,7 +5,6 @@ import { InMemoryCache } from '@apollo/client/core';
 import { 
   typeDefs,
   WRITE_NAV,
-  GET_ALL_CARTS
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
 import {
@@ -19,36 +18,6 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
   //@Todo: move to a separat file cache logic . ex. cache.ts?
   const cache = new InMemoryCache({
     typePolicies: {
-      ProductNodeConnection: {
-        fields: {
-          edges: {
-            read(edges) {
-              // used distinct product display in products list
-              return [edges[0]] || []; 
-            }
-          }
-        }
-      },
-      ProductWarehouseNodeConnection: {
-        fields: {
-          edges: {
-            read(edges) {
-              // used distinct warehouse info display in products list
-              return [edges[0]] || [];
-            }
-          }
-        }
-      },
-      ProductOriginalImgNodeConnection: {
-        fields: {
-          edges2: { // only use for products-list single img
-            read(_, { readField }) {
-              const edges =  readField('edges');
-              return [edges[0]] || [];
-            }
-          }
-        }
-      },
       ShopCartNode: {
         fields: {
           checked(_, { readField }) {
