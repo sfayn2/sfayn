@@ -4,19 +4,21 @@
       <div class="products-detail-img">
 
         <!-- main image -->
-        <img *ngIf="mainPicture else getFromVariantsImgUrl" [src]="mainPicture" />
+        <img *ngIf="mainPicture" [src]="mainPicture" />
 
-        <ng-template #getFromVariantsImgUrl>
+        <ng-container>
           <img 
-            *ngIf="product.imgUrl else getFromParent2Image" 
+            *ngIf="!mainPicture && product.imgUrl" 
             [src]="product.imgUrl" />
-        </ng-template>
+        </ng-container>
 
-        <ng-template 
-          #getFromParent2Image 
+        <ng-container 
           *ngFor="let p of product.parentSn.parent2image.edges" >
-          <img *ngIf="!mainPicture && p.node.coverPhoto" [src]="p.node.imgUrl"/>
-        </ng-template>    
+          <img 
+            *ngIf="!mainPicture && !product.imgUrl && p.node.coverPhoto" 
+            [src]="p.node.imgUrl"
+          >
+        </ng-container>    
         <!-- main image -->
 
         <!-- image slide -->
