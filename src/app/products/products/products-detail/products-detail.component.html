@@ -6,15 +6,17 @@
         <!-- main image -->
         <img *ngIf="mainPicture else getFromVariantsImgUrl" [src]="mainPicture" />
 
-        <img #getFromVariantsImgUrl 
-          *ngIf="product.imgUrl else getFromParent2Image" 
-          [src]="product.imgUrl" />
+        <ng-template #getFromVariantsImgUrl>
+          <img 
+            *ngIf="product.imgUrl else getFromParent2Image" 
+            [src]="product.imgUrl" />
+        </ng-template>
 
-        <ng-container 
+        <ng-template 
           #getFromParent2Image 
           *ngFor="let p of product.parentSn.parent2image.edges" >
           <img *ngIf="!mainPicture && p.node.coverPhoto" [src]="p.node.imgUrl"/>
-        </ng-container>    
+        </ng-template>    
         <!-- main image -->
 
         <!-- image slide -->
