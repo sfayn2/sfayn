@@ -7,11 +7,10 @@
           <div>${{variants.node.price}}</div>
         </div>
 
-        <!--TODO: handle None?? -->
-        <img *ngIf="variants.node.imgUrl != 'None'" [src]="variants.node.imgUrl" [alt]="product.node.title">
+        <img *ngIf="variants.node.imgUrl" [src]="variants.node.imgUrl" [alt]="product.node.title">
           
         <ng-container *ngFor="let img of product.node.parent2image.edges">
-          <img *ngIf="img.node.coverPhoto && variants.node.imgUrl == 'None'" [src]="img.node.imgUrl" [alt]="product.node.title">
+          <img *ngIf="!variants.node.imgUrl && img.node.coverPhoto" [src]="img.node.imgUrl" [alt]="product.node.title">
         </ng-container>
 
         <div class='products-list__bottom'>
