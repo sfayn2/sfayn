@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { 
-  CheckoutListComponent,
-} from './checkout/checkout-list/checkout-list.component';
+  CheckoutMainComponent,
+} from './checkout/checkout-main/checkout-main.component';
 
 
 const routes: Routes = [
-  { path: 'checkout', component: CheckoutListComponent },
+  { path: 'checkout', component: CheckoutMainComponent },
 ];
 
 @NgModule({

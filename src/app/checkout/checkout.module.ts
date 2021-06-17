@@ -5,20 +5,22 @@ import {
   CheckoutRoutingModule
 } from './checkout-routing.module';
 import { 
-  CheckoutListComponent,
   CheckoutAddressComponent,
   CheckoutTotalComponent,
-  CheckoutPaymentComponent
+  CheckoutPaymentComponent,
+  CheckoutMainComponent,
+  CheckoutItemsComponent
 } from '@/checkout/checkout';
 
 
 
 @NgModule({
   declarations: [
-    CheckoutListComponent,
     CheckoutPaymentComponent,
     CheckoutAddressComponent,
-    CheckoutTotalComponent
+    CheckoutTotalComponent,
+    CheckoutMainComponent,
+    CheckoutItemsComponent
   ],
   imports: [
     CommonModule,
