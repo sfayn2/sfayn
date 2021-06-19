@@ -22,7 +22,7 @@
       </div>
       <div class='cart-list__img' >
         <ng-container *ngFor="let img of sc.node.productVariant.parentSn.parent2image.edges">
-          <img *ngIf="img.node.coverPhoto" [src]='img.node.imgUrl' style='width:90px;object-fit: cover'/>
+          <img class="u-img--90px" *ngIf="img.node.coverPhoto" [src]='img.node.imgUrl'/>
         </ng-container>
       </div>
       <div class='cart-list__details'>

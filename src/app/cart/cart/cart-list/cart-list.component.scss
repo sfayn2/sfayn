@@ -5,8 +5,7 @@
 .cart-list {
   display:grid;
   grid-template-columns:  25px 100px 1fr;
-  grid-template-areas: 'warehouse .   .      '
-                        'select    img details'; 
+  grid-template-areas: 'select    img details'; 
   /* grid-gap: 1rem; */  
   margin: 1rem 2.5rem;
   padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
@@ -15,15 +14,18 @@
   &__select {
     grid-area: select;
     align-self: center;
+    padding: 0.5rem;
   }
 
   &__img {
     grid-area: img;
     // padding:0.5rem;
+    padding: 0.5rem;
   }
 
   &__details {
     grid-area: details; 
+    padding: 0.5rem;
     display: grid;
     grid-template-columns: 3fr 1fr 1fr .5fr 1fr .5fr;
     grid-template-areas: 'product color uprice quantity totalprice actions';
@@ -95,8 +97,3 @@ mat-form-field {
     text-align: center;
 }
 
-
-.u-headers--gray {
-  color: #ccc;
-}
-  
