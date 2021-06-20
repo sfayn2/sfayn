@@ -1,10 +1,24 @@
 <div class="checkout-main">
     <div class="checkout-main__address">
-        <div class="mat-title title blue-gray-color">Shipping Address</div>
-        <div>ADFSGl Afnn Gadf (+98) 34234256
-            Blk 134 Agad AFDSG, #07-324, UK 344310
-            Default
-            CHANGE</div>
+        <div class="checkout-main__address__label-icon">
+            <div class="checkout-main__address__label-icon__icon">
+                <mat-icon aria-hidden="false" class="gray-icon">place</mat-icon>
+            </div>
+            <div class="checkout-main__address__label-icon__label">
+                Shipping Address
+            </div>
+        </div>
+        <div class="checkout-main__address__value">
+            <div class="checkout-main__address__value__customer-name">
+                ADFSGl Afnn Gadf (+98) 34234256
+            </div>
+            <div class="checkout-main__address__value__address">
+                Blk 134 Agad AFDSG, #07-324, UK 344310
+            </div>
+            <div class="checkout-main__address__value__change">
+                <a href="">Change</a>
+            </div>
+        </div>
     </div>
     <div class="checkout-main__items">
         <div class="checkout-main__items__header">
@@ -58,14 +72,28 @@
 
     <!--Voucher Start-->
     <div class="checkout-main__voucher">
-        <div class="checkout-main__voucher__label mat-title title" style="font-weight: normal;">Vouchers</div>
+        <div class="checkout-main__voucher__label-icon">
+            <div class="checkout-main__voucher__label-icon__icon">
+                <mat-icon aria-hidden="false" class="gray-icon">card_giftcard</mat-icon>
+            </div>
+            <div class="checkout-main__voucher__label-icon__label">
+                Vouchers
+            </div>
+        </div>
         <div class="checkout-main__voucher__select"><a href="">Select Voucher</a></div>
     </div>
     <!--Voucher End-->
 
     <!--Payment Start-->
     <div class="checkout-main__payment">
-        <div class="checkout-main__payment__label mat-title title" style="font-weight: normal;">Payment Method</div>
+        <div class="checkout-main__payment__label-icon">
+            <div class="checkout-main__payment__label-icon__icon">
+                <mat-icon aria-hidden="false" class="gray-icon">payment</mat-icon>
+            </div>
+            <div class="checkout-main__payment__label-icon__label">
+                Payment Method
+            </div>
+        </div>
         <div class="checkout-main__payment__method">
               <mat-button-toggle-group>
                 <mat-button-toggle>
@@ -84,15 +112,24 @@
 
     <!--Place Order Start-->
     <div class="checkout-main__place-order">
-        <div class="checkout-main__place-order__ship-total">
-            <div class="checkout-main__place-order__ship-total__empty"></div>
-            <div class="checkout-main__place-order__ship-total__label">Shipping Total:</div>
-            <div class="checkout-main__place-order__ship-total__total">$2.0</div>
+        <div class="checkout-main__place-order__label-total">
+            <div class="checkout-main__place-order__label-total__empty"></div>
+            <div class="checkout-main__place-order__label-total__label">Merchandis SubTotal:</div>
+            <div class="checkout-main__place-order__label-total__total">$12.0</div>
         </div>
-        <div class="checkout-main__place-order__total-payment">
-            <div class="checkout-main__place-order__total-payment__empty"></div>
-            <div class="checkout-main__place-order__total-payment__label">Total Payment</div>
-            <div class="checkout-main__place-order__total-payment__total mat-display-1">$14.57</div>
+        <div class="checkout-main__place-order__label-total">
+            <div class="checkout-main__place-order__label-total__empty"></div>
+            <div class="checkout-main__place-order__label-total__label">Shipping Total:</div>
+            <div class="checkout-main__place-order__label-total__total">$2.0</div>
+        </div>
+        <div class="checkout-main__place-order__label-total">
+            <div class="checkout-main__place-order__label-total__empty"></div>
+            <div class="checkout-main__place-order__label-total__label">Total Payment:</div>
+            <div class="checkout-main__place-order__label-total__total u-28px">$12.1</div>
+        </div>
+        <div class="checkout-main__place-order__horizontal"></div>
+        <div class="checkout-main__place-order__button">
+            <button mat-raised-button color="accent">Place Order</button>
         </div>
     </div>
     <!--Place Order End-->

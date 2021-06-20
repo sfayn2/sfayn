@@ -1,26 +1,60 @@
 
+$outer-box-bgcolor: white;
+
+.u-horizontal-line {
+  display: grid;
+  border-bottom-color: #eee;
+  border-bottom-style: solid;
+}
+
+
 .checkout-main {
+  font-size: 0.875rem; // 14px
   display: grid;
   margin: 1rem 2.5rem;
-/*  padding: 0.5rem 1.5rem; */
   gap: 1rem;
-  /*grid-template-areas: 'address'
-                       'items'
-                       'voucher'
-                       'payment'; */
 
   &__address {
-    background-color: white;
+    background-color: $outer-box-bgcolor;
     padding: 1.5rem; 
-//    grid-area: address;
     display: grid;
+
+    &__label-icon {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: .5rem;
+      &__icon {
+        display: grid;
+      }
+      &__label {
+        display: grid;
+        justify-self: left;
+        font-size: 18px;
+      }
+    }
+
+    &__value {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 1rem;
+      &__customer-name {
+        display: grid;
+      }
+      &__address {
+        display: grid;
+      }
+      &__change {
+        display: grid;
+        justify-self: right;
+      }
+    }
 
   }
 
   &__items {
-    background-color: white;
+    background-color: $outer-box-bgcolor;
     padding: 1.5rem; 
-//    grid-area: items;
     display: grid;
 
     &__header { // header STARTS
@@ -62,9 +96,7 @@
     } // header END
 
     &__horizontal {
-      display: grid;
-      border-bottom-color: #CCC;
-      border-bottom-style: solid;
+      @extend .u-horizontal-line;
     }
 
 
@@ -118,15 +150,26 @@
   }
   
   &__voucher {
-    background-color: white;
+    background-color: $outer-box-bgcolor;
     display: grid;
-    padding: 0.5rem 1.5rem; 
-    grid-template-columns: 1fr 1fr;
+    padding: 1.5rem; 
     align-items: center;
 
-    &__label {
+    &__label-icon {
       display: grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: .5rem;
+      &__icon {
+        display: grid;
+      }
+      &__label {
+        display: grid;
+        justify-self: left;
+        font-size: 18px;
+      }
     }
+
 
     &__select {
       display: grid;
@@ -135,16 +178,27 @@
   }
 
   &__payment {
-    background-color: white;
-    padding: 0.5rem 1.5rem; 
+    background-color: $outer-box-bgcolor;
+    padding: 1.5rem; 
     gap: 1rem;
     display: grid;
-    grid-template-columns: auto 1fr;
     align-items: center;
 
-    &__label {
+    &__label-icon {
       display: grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: .5rem;
+      &__icon {
+        display: grid;
+      }
+      &__label {
+        display: grid;
+        justify-self: left;
+        font-size: 18px;
+      }
     }
+
 
     &__method {
       display: grid;
@@ -154,48 +208,42 @@
 
 
   &__place-order {
-    background-color: white;
-    padding: 0.5rem 1.5rem; 
+    background-color: $outer-box-bgcolor;
+    padding: 1rem 1.5rem; 
     display: grid;
-    gap: .5rem;
 
-    &__ship-total {
+    &__label-total {
       display: grid;
-      grid-template-columns: 800px 1fr auto;
+      grid-template-columns: 850px 1fr auto;
+      align-items: center;
       &__empty {
         display: grid;
+        padding: .5rem;
       }
       &__label {
         justify-self: left;
+        padding: .5rem;
       }
       &__total {
         justify-self: right;
+        padding: .5rem;
       }
     }
 
-    &__total-payment {
-      display: grid;
-      grid-template-columns: 800px 1fr auto;
-      &__empty {
-        display: grid;
-      }
-      &__label {
-        justify-self: left;
-      }
-      &__total {
-        justify-self: right;
-      }
+    &__horizontal {
+      @extend .u-horizontal-line;
     }
+
+    &__button {
+      display: grid;
+      justify-self: right;
+      padding-top: 1rem;
+    }
+
   }
 
 
 }
 
-.title {
-  font-size: 1.125rem; 
-}
 
-.blue-gray-color {
-  color: #455a64;
-}
 
