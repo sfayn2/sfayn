@@ -1,0 +1,40 @@
+
+.checkout-address {
+    background-color: white;
+    padding: 1.5rem; 
+    display: grid;
+    border-bottom-color: #e3e0e0;
+    border-bottom-style: solid;
+
+    &__label-icon {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: .5rem;
+      &__icon {
+        display: grid;
+      }
+      &__label {
+        display: grid;
+        justify-self: left;
+        font-size: 18px;
+      }
+    }
+
+    &__value {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 1rem;
+      &__customer-name {
+        display: grid;
+      }
+      &__address {
+        display: grid;
+      }
+      &__change {
+        display: grid;
+        justify-self: right;
+      }
+    }
+
+  }

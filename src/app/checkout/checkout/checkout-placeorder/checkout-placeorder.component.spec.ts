@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CheckoutTotalComponent } from './checkout-total.component';
+import { CheckoutPlaceorderComponent } from './checkout-placeorder.component';
 
-describe('CheckoutTotalComponent', () => {
-  let component: CheckoutTotalComponent;
-  let fixture: ComponentFixture<CheckoutTotalComponent>;
+describe('CheckoutPlaceorderComponent', () => {
+  let component: CheckoutPlaceorderComponent;
+  let fixture: ComponentFixture<CheckoutPlaceorderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CheckoutTotalComponent ]
+      declarations: [ CheckoutPlaceorderComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckoutTotalComponent);
+    fixture = TestBed.createComponent(CheckoutPlaceorderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

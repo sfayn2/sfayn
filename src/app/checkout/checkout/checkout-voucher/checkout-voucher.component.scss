@@ -1,10 +1,11 @@
 
+$outer-box-bgcolor: white;
 
-.checkout-payment {
-    background-color: white;
-    padding: 1.5rem; 
-    gap: 1rem;
+
+.checkout-voucher {
+    background-color: $outer-box-bgcolor;
     display: grid;
+    padding: 1.5rem; 
     align-items: center;
 
     &__label-icon {
@@ -23,8 +24,9 @@
     }
 
 
-    &__method {
+    &__select {
       display: grid;
-      justify-self: left;
+      justify-self: right;
     }
   }
+
