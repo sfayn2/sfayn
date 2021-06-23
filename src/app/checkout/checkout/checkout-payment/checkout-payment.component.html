@@ -9,17 +9,11 @@
         </div>
     </div>
     <div class="checkout-payment__method">
-            <mat-button-toggle-group>
-            <mat-button-toggle>
-                PayNow
-            </mat-button-toggle>
-            <mat-button-toggle>
-                Credit Card/Debit Card
-            </mat-button-toggle>
-            <mat-button-toggle>
-                Cash
-            </mat-button-toggle>
-            </mat-button-toggle-group> 
+      <mat-button-toggle-group>
+        <mat-button-toggle *ngFor="let method of methodObj">
+          {{method.node.method}}
+        </mat-button-toggle>
+      </mat-button-toggle-group> 
     </div>
 </div>
 <!--Payment End-->
