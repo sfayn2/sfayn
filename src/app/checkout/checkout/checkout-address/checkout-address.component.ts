@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import {
+  CustomerService
+} from '@/core/service';
 
 @Component({
   selector: 'app-checkout-address',
@@ -7,9 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutAddressComponent implements OnInit {
 
-  constructor() { }
+  loading: boolean = false;
+  addressObj: any;
+  subscriptions = new Subscription();
+
+  constructor(
+    private customerService: CustomerService
+  ) { }
 
   ngOnInit(): void {
+    this.subscriptions.add(this.loadCustomerAddress());
+  }
+
+  loadCustomerAddress() {
+    this.customerService.allCustomerAddressQuery()
+      .valueChanges
+      .subscribe(({data, loading}) => {
+        this.loading = loading;
+        this.addressObj = data.allCustomeraddress.edges;
+        console.log(data)
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
 }

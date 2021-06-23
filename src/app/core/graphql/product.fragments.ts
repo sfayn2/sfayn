@@ -176,8 +176,8 @@ export const GET_PRODUCT_DETAIL = gql`
 
 
 export const GET_ALL_CARTS = gql`
-  query ShopCartPerUserResolver($uid: ID!) {
-    allShopcart(createdBy_Id: $uid  ) {
+  query ShopCartPerUserResolver($id: ID!) {
+    allShopcart(createdBy_Id: $id  ) {
       edges {
         node {
           id

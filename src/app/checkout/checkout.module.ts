@@ -6,7 +6,8 @@ import {
 } from './checkout-routing.module';
 import { 
   CheckoutAddressComponent,
-  CheckoutTotalComponent,
+  CheckoutPlaceorderComponent,
+  CheckoutVoucherComponent,
   CheckoutPaymentComponent,
   CheckoutMainComponent,
   CheckoutItemsComponent
@@ -18,9 +19,10 @@ import {
   declarations: [
     CheckoutPaymentComponent,
     CheckoutAddressComponent,
-    CheckoutTotalComponent,
     CheckoutMainComponent,
-    CheckoutItemsComponent
+    CheckoutItemsComponent,
+    CheckoutPlaceorderComponent,
+    CheckoutVoucherComponent,
   ],
   imports: [
     CommonModule,

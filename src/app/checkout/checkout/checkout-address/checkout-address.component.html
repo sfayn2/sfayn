@@ -7,15 +7,17 @@
             Shipping Address
         </div>
     </div>
-    <div class="checkout-address__value">
-        <div class="checkout-address__value__customer-name">
-            ADFSGl Afnn Gadf (+98) 34234256
+    <ng-container *ngFor="let address of addressObj">
+        <div class="checkout-address__value" *ngIf="address.node.default">
+            <div class="checkout-address__value__customer-name">
+                {{address.node.fullname}} {{address.node.phone}}
+            </div>
+            <div class="checkout-address__value__address">
+                {{address.node.address}} {{address.node.country}} {{address.node.postal}}
+            </div>
+            <div class="checkout-address__value__change">
+                <a href="">Change</a>
+            </div>
         </div>
-        <div class="checkout-address__value__address">
-            Blk 134 Agad AFDSG, #07-324, UK 344310
-        </div>
-        <div class="checkout-address__value__change">
-            <a href="">Change</a>
-        </div>
-    </div>
+    </ng-container>
 </div>

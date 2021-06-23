@@ -29,7 +29,7 @@ export class CartService {
     return this.apollo.watchQuery<any>({
       query: GET_ALL_CARTS,
       variables: { 
-        uid: 1 
+        id: 'VXNlck5vZGU6MQ=='
       }
      })
   }
