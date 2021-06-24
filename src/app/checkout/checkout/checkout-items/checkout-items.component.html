@@ -1,11 +1,12 @@
+<div class="checkout-items-gap">
 <ng-container *ngFor="let item of cartObj">
   <div class="checkout-items" *ngIf="item.node.checked">
-    <div class="checkout-items__header" *ngIf="item.node.id=='U2hvcENhcnROb2RlOjEx'">
-      <div class="checkout-items__header__img u-headers--gray" style="font-weight: normal;"></div>
-      <div class="checkout-items__header__name u-headers--gray " style="font-weight: normal;">Product Orders</div>
-      <div class="checkout-items__header__unit u-headers--gray " style="font-weight: normal;">Unit Price</div>
-      <div class="checkout-items__header__qty u-headers--gray " style="font-weight: normal;">Quantity</div>
-      <div class="checkout-items__header__subtotal u-headers--gray " style="font-weight: normal;">SubTotal</div>
+    <div class="checkout-items__header">
+      <div class="checkout-items__header__img u-headers--gray" ></div>
+      <div class="checkout-items__header__name u-headers--gray">Product Orders</div>
+      <div class="checkout-items__header__unit u-headers--gray">Unit Price</div>
+      <div class="checkout-items__header__qty u-headers--gray">Quantity</div>
+      <div class="checkout-items__header__subtotal u-headers--gray">SubTotal</div>
     </div>
     <div class="checkout-items__header">
       <div 
@@ -33,21 +34,25 @@
 
     <div class="checkout-items__horizontal"></div>
 
-    <div class="checkout-items__fees">
-      <div class="checkout-items__fees__msg-label">
-          Message: 
-      </div>
+    <div class="checkout-items__fees mat-caption">
       <div class="checkout-items__fees__msg-input">
-          <input placeholder="(Optional) Leave a message to seller" >
+        <form class="frm" >
+        <mat-form-field class="frm-full-width">
+          <mat-label>Message</mat-label>
+          <input matInput #message maxlength="256">
+          <mat-hint align="start"><strong>(Optional) Leave a message to seller</strong> </mat-hint>
+          <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+        </mat-form-field>
+        </form>
       </div>
       <div class="checkout-items__fees__ship-opt">
-          Shipping Option:
+          <strong>Shipping Option:</strong>
       </div>
       <div class="checkout-items__fees__ship">
-          Standard Express??
+          ---
       </div>
       <div class="checkout-items__fees__subtotal">
-          SubTotal
+          ---
       </div>
     </div>
 
@@ -56,8 +61,10 @@
           Order Total:
       </div>
       <div class="checkout-items__ordertotal__total">
-          <div class="mat-title" style="margin:0">$102</div>
+          <!--@Todo include extra fees -->
+          <div class="mat-title" style="margin:0">{{item.node.totalPrice | currency }}</div>
       </div>
     </div>
   </div>
 </ng-container>
+</div>

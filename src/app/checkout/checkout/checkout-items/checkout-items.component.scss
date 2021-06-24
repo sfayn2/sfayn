@@ -1,3 +1,7 @@
+.checkout-items-gap { //for the sake of having gap in between
+  display:grid;
+  gap: .5rem;
+}
 
 .checkout-items {
     background-color: white;
@@ -56,29 +60,25 @@
       padding: 0.5rem;
       display: grid;
       gap: .5rem;
-      grid-template-columns: auto  1fr auto 1fr 1fr;
-      grid-template-areas: 'msg-label msg-input ship-label ship subtotal2';
+      grid-template-columns: 2fr auto 1fr 1fr;
       align-items: center;
 
-      &__msg-label {
-        grid-area: msg-label;
-      }
-
       &__msg-input {
-        grid-area: msg-input;
         justify-self:left;
+        display: grid;
+        width:70%;
+       // grid-row: 1 / span 3 ;
       }
 
       &__ship-label {
-        grid-area: ship-label;
+        display: grid;
       }
 
       &__ship {
-        grid-area: ship;
+        display: grid;
       }
 
       &__subtotal {
-        grid-area: subtotal2;
         justify-self: right;
       }
     } // order fees end
@@ -102,4 +102,14 @@
     }
 
 
+  }
+
+  .frm {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .frm-full-width {
+    width: 100%;
   }
