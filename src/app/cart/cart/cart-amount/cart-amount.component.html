@@ -1,8 +1,11 @@
-<div class='o-grid mat-elevation-z1' >
-    <div class='o-grid__voucher'>
-         Total Amount: <span class='mat-display-1'>{{totalAmount | currency}}</span>
+<div class='cart-amount mat-elevation-z1' >
+    <div class='cart-amount__label-total'>
+        <div class="checkout-placeorder__label-total__empty"></div>
+        <div class="checkout-placeorder__label-total__label">Total Amount:</div>
+        <div class="checkout-placeorder__label-total__total mat-display-1 u-total">{{totalAmount | currency}}</div>
     </div>
-    <div class='o-grid__checkout' >
-         <button mat-raised-button color='accent' (click)='goCheckout()'>Checkout</button>
+    <div class="cart-amount__horizontal"></div>
+    <div class="cart-amount__button">
+        <button mat-raised-button color="accent" (click)="goCheckout()">Checkout</button>
     </div>
 </div>

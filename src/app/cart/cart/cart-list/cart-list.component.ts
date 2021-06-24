@@ -45,7 +45,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
  checkProduct(e, pid) {
-   const cartTypenameId = `ShoppingCartNode:${pid}`;
+   const cartTypenameId = `ShopCartNode:${pid}`;
    localStorage.setItem(cartTypenameId, JSON.stringify(e.checked));
 
    // cache.evict auto refresh once localStorage change?

@@ -1,22 +1,37 @@
-.o-grid {
+.cart-amount {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: 'voucher'
-                         'checkout';
+    font-size: 0.875rem; // 14px
     background-color: white;
-    padding: 0.5rem 1.5rem; 
-    
-    &__voucher {
-      grid-area: voucher; 
-      justify-self: end;
-      padding: 0.5rem;
+    padding: 1rem 1.5rem; 
+
+    &__label-total {
+      display: grid;
+      grid-template-columns: 850px 1fr auto;
+      align-items: center;
+      &__empty {
+        display: grid;
+        padding: .5rem;
+      }
+      &__label {
+        justify-self: left;
+        padding: .5rem;
+      }
+      &__total {
+        justify-self: right;
+        padding: .5rem;
+      }
     }
-  
-    &__checkout {
-      grid-area: checkout;
-      justify-self: end;
-      padding: 0.5rem;
+
+    &__horizontal {
+    //  @extend .u-horizontal-line;
+        border-bottom-color: #eee;
+        border-bottom-style: solid;
+    }
+
+    &__button {
+      display: grid;
+      justify-self: right;
+      padding-top: 1rem;
     }
   
   }
