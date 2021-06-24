@@ -53,11 +53,12 @@
 
 
     &__fees { // order fees start
-      padding: 1rem;
+      padding: 0.5rem;
       display: grid;
       gap: .5rem;
       grid-template-columns: auto  1fr auto 1fr 1fr;
       grid-template-areas: 'msg-label msg-input ship-label ship subtotal2';
+      align-items: center;
 
       &__msg-label {
         grid-area: msg-label;
@@ -84,7 +85,8 @@
 
     &__ordertotal{
       display: grid;
-      grid-template-columns: 1fr 50px;
+      padding: 0.5rem;
+      grid-template-columns: 1fr 70px;
       grid-template-areas: 'label total';
       align-items:center;
 

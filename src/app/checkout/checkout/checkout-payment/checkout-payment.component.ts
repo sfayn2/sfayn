@@ -9,7 +9,7 @@ import {
   templateUrl: './checkout-payment.component.html',
   styleUrls: ['./checkout-payment.component.scss']
 })
-export class CheckoutPaymentComponent implements OnInit {
+export class CheckoutPaymentComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   methodObj: any;

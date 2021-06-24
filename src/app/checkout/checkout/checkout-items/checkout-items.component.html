@@ -1,49 +1,63 @@
-<div class="checkout-items">
-    <div class="checkout-items__header">
-        <div class="checkout-items__header__img u-headers--gray" style="font-weight: normal;"></div>
-        <div class="checkout-items__header__name u-headers--gray " style="font-weight: normal;">Product Orders</div>
-        <div class="checkout-items__header__unit u-headers--gray " style="font-weight: normal;">Unit Price</div>
-        <div class="checkout-items__header__qty u-headers--gray " style="font-weight: normal;">Quantity</div>
-        <div class="checkout-items__header__subtotal u-headers--gray " style="font-weight: normal;">SubTotal</div>
+<ng-container *ngFor="let item of cartObj">
+  <div class="checkout-items" *ngIf="item.node.checked">
+    <div class="checkout-items__header" *ngIf="item.node.id=='U2hvcENhcnROb2RlOjEx'">
+      <div class="checkout-items__header__img u-headers--gray" style="font-weight: normal;"></div>
+      <div class="checkout-items__header__name u-headers--gray " style="font-weight: normal;">Product Orders</div>
+      <div class="checkout-items__header__unit u-headers--gray " style="font-weight: normal;">Unit Price</div>
+      <div class="checkout-items__header__qty u-headers--gray " style="font-weight: normal;">Quantity</div>
+      <div class="checkout-items__header__subtotal u-headers--gray " style="font-weight: normal;">SubTotal</div>
     </div>
     <div class="checkout-items__header">
-        <div class="checkout-items__header__img">
-            <img 
-                class="u-img--90px"
-                src="https://glodimg.chinabrands.com/2014/201409/source-img/1410717328898-P-1986006.jpg"
-            />
-        </div>
-        <div class="checkout-items__header__name" style="font-weight: normal;">SMZ658 Professional 1.1M In-ear Headset Perfect HiFi Sound Earphone Flat Wire Good Sound Insulation</div>
-        <div class="checkout-items__header__unit" style="font-weight: normal;">$1.0</div>
-        <div class="checkout-items__header__qty" style="font-weight: normal;">1</div>
-        <div class="checkout-items__header__subtotal" style="font-weight: normal;">$1.0</div>
+      <div 
+        class="checkout-items__header__img" 
+        *ngFor="let img of item.node.productVariant.parentSn.parent2image.edges">
+        <img 
+          *ngIf="img.node.coverPhoto"
+          class="u-img--90px"
+          [src]="img.node.imgUrl"
+        />
+      </div>
+      <div class="checkout-items__header__name">
+        <span class="mat-body">{{item.node.productVariant.parentSn.title}}</span>
+      </div>
+      <div class="checkout-items__header__unit">
+        <span class="mat-body-1">{{item.node.productVariant.price | currency}}</span>
+      </div>
+      <div class="checkout-items__header__qty">
+        <span class="mat-body-1">{{item.node.quantity}}</span>
+      </div>
+      <div class="checkout-items__header__subtotal" style="font-weight: normal;">
+        <span class="mat-body">{{item.node.totalPrice | currency}}</span>
+      </div>
     </div>
 
     <div class="checkout-items__horizontal"></div>
 
     <div class="checkout-items__fees">
-        <div class="checkout-items__fees__msg-label">
-            Message: 
-        </div>
-        <div class="checkout-items__fees__msg-input">
-            <input placeholder="(Optional) Leave a message to seller" >
-        </div>
-        <div class="checkout-items__fees__ship-opt">
-            Shipping Option:
-        </div>
-        <div class="checkout-items__fees__ship">
-            Standard Express??
-        </div>
-        <div class="checkout-items__fees__subtotal">
-            SubTotal
-        </div>
+      <div class="checkout-items__fees__msg-label">
+          Message: 
+      </div>
+      <div class="checkout-items__fees__msg-input">
+          <input placeholder="(Optional) Leave a message to seller" >
+      </div>
+      <div class="checkout-items__fees__ship-opt">
+          Shipping Option:
+      </div>
+      <div class="checkout-items__fees__ship">
+          Standard Express??
+      </div>
+      <div class="checkout-items__fees__subtotal">
+          SubTotal
+      </div>
     </div>
+
     <div class="checkout-items__ordertotal">
-        <div class="checkout-items__ordertotal__label">
-            <div class="mat-subheading-2">Order Total:</div>
-        </div>
-        <div class="checkout-items__ordertotal__total">
-            <div class="mat-title">$102</div>
-        </div>
+      <div class="checkout-items__ordertotal__label">
+          Order Total:
+      </div>
+      <div class="checkout-items__ordertotal__total">
+          <div class="mat-title" style="margin:0">$102</div>
+      </div>
     </div>
-</div>
+  </div>
+</ng-container>

@@ -61,6 +61,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data, loading}) => {
         const cartObj = data.allShopcart.edges;
+        console.log(cartObj)
         const totalAmount = this.cartService.getTotalAmount(cartObj)
         const typeNameId = this.cartService.getTypeNameId(cartObj)
         this.cartService.objSrc$.next({ 
