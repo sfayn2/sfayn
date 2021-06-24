@@ -10,7 +10,10 @@
     </div>
     <div class="checkout-payment__method">
       <mat-button-toggle-group>
-        <mat-button-toggle *ngFor="let method of methodObj">
+        <mat-button-toggle 
+          *ngFor="let method of methodObj"
+          [checked]="method.node.default" 
+        >
           {{method.node.method}}
         </mat-button-toggle>
       </mat-button-toggle-group> 

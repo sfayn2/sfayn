@@ -8,6 +8,7 @@ export const GET_ALL_PAYMENT_METHOD = gql`
           node {
             id
             method
+            default
           }
         }
       }
