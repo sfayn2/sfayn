@@ -61,6 +61,7 @@
       display: grid;
       gap: .5rem;
       grid-template-columns: 2fr auto 1fr 1fr;
+      background-color: #fdfafa;
       align-items: center;
 
       &__msg-input {
