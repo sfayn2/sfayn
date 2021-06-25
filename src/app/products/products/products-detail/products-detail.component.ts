@@ -46,9 +46,9 @@ export class ProductsDetailComponent implements OnInit {
     }
   }
 
-  addCart(user, sku, qty) {
+  addCart(sku, qty) {
     // need to refetch query after mutation. not smart enough
-    this.cartService.addCart(user, sku, qty)
+    this.cartService.addCart(sku, qty)
   }
 
 }

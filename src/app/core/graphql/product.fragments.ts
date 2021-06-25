@@ -1,77 +1,7 @@
 
 import gql from 'graphql-tag';
 
-export const TOKEN_AUTH_MUTATION = gql`
-    mutation Login($username: String!, $password: String!) {
-      tokenAuth(username: $username, password: $password) {
-        token
-      }
-    }
-`;
 
-export const VERIFY_TOKEN_MUTATION = gql`
-    mutation VerifyToken($token: String!) {
-      verifyToken(token: $token) {
-        payload
-      }
-    }
-`;
-
-export const GET_NAV = gql`
-  fragment myNav on Nav {
-    arrow_back
-    side_bar
-    menu
-    component
-  }
-`;
-
-export const WRITE_NAV = gql`
-  query WriteNav($id: Int!) {
-    Nav(id: $id) {
-      id
-      menu
-      arrow_back
-      side_bar
-      component
-      __typename
-    }
-  }
-`;
-
-export const ADD_CART = gql`
-  mutation AddCart($user: ID!, $sku: ID!, $qty: ID!) {
-    shopcart(user: $user, sku: $sku, quantity: $qty, mode: 0) {
-      ok
-    }
-  }
-`;
-
-// need to provide the __typename & id to use it for cache.evict
-export const DELETE_CART = gql`
-  mutation DeleteCart($user: ID!, $sku: ID!) {
-    shopcart(user: $user, sku: $sku, mode: 2) {
-      ok
-      shopcart {
-        id
-        totalPrice
-      }    
-    }
-  }
-`;
-
-export const UPDATE_CART = gql`
-  mutation UpdateShopCart($user: ID!, $sku: ID!, $qty: ID!, $mode: ID!) {
-    shopcart(user: $user, sku: $sku, quantity: $qty, mode: $mode) {
-      ok
-      shopcart {
-        id
-        totalPrice
-        quantity
-      }    
-    }
-  }
-`
 export const parent2imageInfo = gql`
   fragment parent2imageInfo on ProductParentNode {
     parent2image {

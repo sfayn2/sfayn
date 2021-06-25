@@ -51,7 +51,7 @@ export class CartService {
     // no need to call cache.evict? it can auto trigger watchQuery
     this.apollo.mutate({
       mutation: UPDATE_CART,
-      variables: { user: 1, sku: sku, qty: val, mode: 1},
+      variables: { user: 'VXNlck5vZGU6MQ==', sku: sku, qty: val, mode: 1},
       }).subscribe()
   }
 
@@ -64,9 +64,10 @@ export class CartService {
   //  this.apollo.client.cache.gc();
   //}
 
-  deleteCart(user, sku) {
+  deleteCart(sku) {
     // either use refetchQueries or cache.evict will do
     // and auto trigger watchQuery
+    const user = 1; //@Todo it should use relay id?
     this.apollo.mutate({
       mutation: DELETE_CART,
       variables: { 
@@ -74,18 +75,19 @@ export class CartService {
         sku,
       },
       refetchQueries: [
-        { query: GET_ALL_CARTS, variables: { uid: user } }
+        { query: GET_ALL_CARTS, variables: { id: 'VXNlck5vZGU6MQ==' } } // @Todo
       ]
     }).subscribe()
   }
 
-  addCart(user, sku, qty) {
+  addCart(sku, qty) {
     // why not evict instead of refetchQueries for new record? 
+    const user = 1; //@Todo
     this.apollo.mutate({
       mutation: ADD_CART,
       variables: { user, sku, qty },
       refetchQueries: [
-        { query: GET_ALL_CARTS, variables: { uid: user } }
+        { query: GET_ALL_CARTS, variables: { id: 'VXNlck5vZGU6MQ==' } } 
       ]
     }).subscribe()
   }

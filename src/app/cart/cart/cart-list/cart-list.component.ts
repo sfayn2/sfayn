@@ -58,7 +58,7 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   deleteCart(sku) {
     // @Todo for now user is hardcoded?
-    this.cartService.deleteCart(1, sku);
+    this.cartService.deleteCart(sku);
   }
 
   ngOnDestroy() {
