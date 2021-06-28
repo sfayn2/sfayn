@@ -8,12 +8,12 @@
         </div>
     </div>
     <ng-container *ngFor="let address of addressObj">
-        <div class="checkout-address__value" *ngIf="address.node.default">
+        <div class="checkout-address__value">
             <div class="checkout-address__value__customer-name">
-                {{address.node.fullname}} {{address.node.phone}}
+                {{address.fullname}} {{address.phone}}
             </div>
             <div class="checkout-address__value__address">
-                {{address.node.address}} {{address.node.country}} {{address.node.postal}}
+                {{address.address}} {{address.country}} {{address.postal}}
             </div>
             <div class="checkout-address__value__change">
                 <a href="">Change</a>

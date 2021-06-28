@@ -13,28 +13,20 @@ export class CheckoutAddressComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   addressObj: any;
-  subscriptions = new Subscription();
+  subscription: Subscription;
 
   constructor(
     private customerService: CustomerService
   ) { }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.loadCustomerAddress());
-  }
-
-  loadCustomerAddress() {
-    this.customerService.allCustomerAddressQuery()
-      .valueChanges
-      .subscribe(({data, loading}) => {
-        this.loading = loading;
-        this.addressObj = data.allCustomeraddress.edges;
-        console.log(data)
-      });
+    this.subscription = this.customerService.obj$.subscribe(res => {
+      this.addressObj = res.selected
+    })
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

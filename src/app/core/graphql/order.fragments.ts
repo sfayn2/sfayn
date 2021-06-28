@@ -1,0 +1,42 @@
+
+import gql from 'graphql-tag';
+
+export const CREATE_ORDER = gql`
+  mutation CreateOrder(
+    $user: ID!, 
+    $payment: ID!, 
+    $customerAddress: ID!,
+    $totalAmount: Float!
+  ) {
+    shoporder(input: { 
+       customerAddress: $customerAddress, 
+       user: $user, 
+       payment: $payment, 
+       totalAmount: $totalAmount }
+    ) {
+      ok
+      shoporder {
+        id
+      }
+    }
+  }
+`;
+
+export const CREATE_ORDER_ITEM = gql`
+  mutation CreateOrderItem(
+    $user: ID!, 
+    $order: ID!, 
+    $item: ID!,
+  ) {
+    shoporderitem(input: { 
+       user: $user, 
+       order: $order, 
+       item: $item }
+    ) {
+      ok
+      shoporderitem {
+        id
+      }
+    }
+  }
+`;
