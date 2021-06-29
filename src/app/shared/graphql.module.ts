@@ -13,6 +13,7 @@ import {
 
 const uri = environment.graphqlUrl // add the URL of the GraphQL server here
 
+
 export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
 
   //@Todo: move to a separat file cache logic . ex. cache.ts?
@@ -22,7 +23,21 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
         fields: {
           checked(_, { readField }) {
             const typenameId = `${readField('__typename')}:${readField('id')}`;
-            return JSON.parse(localStorage.getItem(typenameId))
+            return JSON.parse(localStorage.getItem(typenameId)) // null if cannot find 
+          },
+        }
+      },
+      PaymentMethodNode: {
+        fields: {
+          selected(_, { readField }) {
+            return makeVar.setSelectedValue(readField);
+          },
+        }
+      },
+      CustomerAddressNode: {
+        fields: {
+          selected(_, { readField }) {
+            return makeVar.setSelectedValue(readField);
           },
         }
       },

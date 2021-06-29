@@ -14,6 +14,7 @@ export const GET_ALL_CUSTOMER_ADDRESS = gql`
           postal
           country
           default
+          selected @client
           createdBy {
             id
             username

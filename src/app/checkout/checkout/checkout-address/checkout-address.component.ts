@@ -21,7 +21,11 @@ export class CheckoutAddressComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.customerService.obj$.subscribe(res => {
-      this.addressObj = res.selected
+      this.addressObj = res.obj?.filter(
+        res => res.node.selected
+      ).map(
+        res => res.node
+      )
     })
   }
 

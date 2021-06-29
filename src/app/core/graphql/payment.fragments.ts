@@ -9,6 +9,7 @@ export const GET_ALL_PAYMENT_METHOD = gql`
             id
             method
             default
+            selected @client
           }
         }
       }

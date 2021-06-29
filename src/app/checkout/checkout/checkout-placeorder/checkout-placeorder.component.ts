@@ -41,14 +41,22 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
       }
     ));
 
-    // get selected customer
     this.subscription.add(this.customerService.obj$.subscribe(
-      res => this.customerAddressId = res.selected?.map(res1 => res1.id)[0]
+      res => {
+        // get selected customer
+        this.customerAddressId = res.obj?.filter(
+          res => res.node.selected
+        ).map(res => res.node.id)
+      }
     ));
 
-    // get selected payment method
     this.subscription.add(this.paymentService.obj$.subscribe(
-      res => this.paymentMethodId = res.selected?.map(res1 => res1.id)[0]
+      res => {
+        // get selected payment method
+        this.paymentMethodId = res.obj?.filter(
+          res => res.node.selected
+        ).map(res => res.node.id)
+      }
     ));
   }
 

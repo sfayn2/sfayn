@@ -13,7 +13,6 @@ export class PaymentService {
 
   objSrc$ = new BehaviorSubject({
     obj: null,
-    selected: null
   });
 
   obj$ = this.objSrc$.asObservable();
