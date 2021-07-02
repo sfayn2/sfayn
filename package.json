@@ -22,6 +22,7 @@
     "@angular/router": "~12.0.2",
     "@apollo/client": "^3.3.19",
     "apollo-angular": "^2.6.0",
+    "creditcardpayments": "^1.0.3",
     "glob-parent": "^5.1.2",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
@@ -30,6 +31,7 @@
     "normalize-url": "^4.5.1",
     "postcss": "^7.0.36",
     "rxjs": "~6.6.0",
+    "socket.io-parser": "^3.3.2",
     "tslib": "^2.1.0",
     "ws": "^6.2.2",
     "zone.js": "~0.11.4"
