@@ -8,7 +8,7 @@ import {
   CheckoutAddressComponent,
   CheckoutPlaceorderComponent,
   CheckoutVoucherComponent,
-  CheckoutPaymentComponent,
+  CheckoutPaymentmethodComponent,
   CheckoutMainComponent,
   CheckoutItemsComponent
 } from '@/checkout/checkout';
@@ -17,12 +17,13 @@ import {
 
 @NgModule({
   declarations: [
-    CheckoutPaymentComponent,
+    CheckoutPaymentmethodComponent,
     CheckoutAddressComponent,
     CheckoutMainComponent,
     CheckoutItemsComponent,
     CheckoutPlaceorderComponent,
     CheckoutVoucherComponent,
+    CheckoutPaymentmethodComponent,
   ],
   imports: [
     CommonModule,

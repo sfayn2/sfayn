@@ -5,11 +5,11 @@ import {
 } from '@/core/service';
 
 @Component({
-  selector: 'app-checkout-payment',
-  templateUrl: './checkout-payment.component.html',
-  styleUrls: ['./checkout-payment.component.scss']
+  selector: 'app-checkout-paymentmethod',
+  templateUrl: './checkout-paymentmethod.component.html',
+  styleUrls: ['./checkout-paymentmethod.component.scss']
 })
-export class CheckoutPaymentComponent implements OnInit, OnDestroy {
+export class CheckoutPaymentmethodComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   methodObj: any;
@@ -36,6 +36,5 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
 
 }
