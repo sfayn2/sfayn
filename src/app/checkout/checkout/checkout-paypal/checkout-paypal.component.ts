@@ -53,12 +53,13 @@ export class CheckoutPaypalComponent implements OnInit, OnDestroy {
           });
       },
 
-      onApprove: async (data, actions) => {
-        const order = await actions.order.capture();
-        console.log(order);
-        alert('Transaction completed by ' + order.payer.name.given_name + '!');
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            // Show a success message to the buyer
+            console.log(details)
+            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        });
       }
-
 
     }).render(this.paypalElement.nativeElement);
 
