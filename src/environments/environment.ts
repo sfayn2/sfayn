@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   connectToDevTools: true,
-  graphqlUrl: 'http://192.168.1.88:4000/graphql/'
+  graphqlUrl: 'http://192.168.1.88:4000/graphql/',
+  paypalClientId: 'AfAJ4gV66UXfeXQZv5ti9LNZODs5GawXjRautA1ExMhKnEVIn08lYSsU39HEtBkZgVhp3DjJU-Wdxs8s'
 };
 
 /*

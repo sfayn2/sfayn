@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   CartService,
@@ -7,6 +7,8 @@ import {
   PaymentService
 } from '@/core/service';
 
+declare var paypal; // js library in order to accept by typescript
+
 @Component({
   selector: 'app-checkout-placeorder',
   templateUrl: './checkout-placeorder.component.html',
@@ -14,6 +16,7 @@ import {
 })
 export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
 
+  @ViewChild('paypal', { static: true}) paypalElement: ElementRef;
   subscription = new Subscription();
   totalAmount: number = 0;
   customerAddressId: string;
@@ -58,6 +61,40 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
         ).map(res => res.node.id)
       }
     ));
+    // paypal
+    paypal.Buttons({
+
+      style: {
+        color:  'blue',
+        shape:  'pill',
+        label:  'pay',
+        height: 40,
+        width: 100
+    },
+
+      // Set up the transaction
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '0.44'
+                  }
+              }],
+              application_context: {  shipping_preference: 'NO_SHIPPING'   }
+          });
+      },
+
+      // Finalize the transaction
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              // Show a success message to the buyer
+              console.log(details)
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+
+  }).render(this.paypalElement.nativeElement);
+
   }
 
   createOrder() {

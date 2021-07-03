@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  connectToDevTools: false
+  connectToDevTools: false,
+  paypalClientId: 'XYZ'
 };
