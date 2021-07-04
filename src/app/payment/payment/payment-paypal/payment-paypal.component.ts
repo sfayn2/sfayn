@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment'; // @Todo: to alias the dir. path
 import {
@@ -8,11 +8,11 @@ import {
 declare var paypal; // js library in order to accept by typescript
 
 @Component({
-  selector: 'app-checkout-paypal',
-  templateUrl: './checkout-paypal.component.html',
-  styleUrls: ['./checkout-paypal.component.scss']
+  selector: 'app-payment-paypal',
+  templateUrl: './payment-paypal.component.html',
+  styleUrls: ['./payment-paypal.component.scss']
 })
-export class CheckoutPaypalComponent implements OnInit, OnDestroy {
+export class PaymentPaypalComponent implements OnInit {
 
   subscriptions = new Subscription();
   @ViewChild('paypal', { static: true}) paypalElement: ElementRef;
