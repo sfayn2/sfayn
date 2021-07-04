@@ -1,4 +1,11 @@
 <div class="payment-completion">
-    <ng-content></ng-content>
-    <app-payment-paypal></app-payment-paypal>
+    <div class="payment-completion__msg mat-subheading-2">
+      Please complete your payment in order process your order!
+    </div>
+    <div class="payment-completion__total-payment mat-title">
+      Total Payment:  $1.23
+    </div>
+    <div class="payment-completion__method">
+      <app-payment-paypal></app-payment-paypal>
+    </div>
 </div>
