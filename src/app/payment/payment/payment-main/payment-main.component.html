@@ -1,3 +1,4 @@
 <div class="payment-main">
-  <app-payment-completion></app-payment-completion>
+  <app-payment-completion *ngIf="paymentStatus=='Waiting For Payment'" [amount]="totalPayment"></app-payment-completion>
+  <app-payment-confirmation *ngIf="paymentStatus=='Paid'"></app-payment-confirmation>
 </div>

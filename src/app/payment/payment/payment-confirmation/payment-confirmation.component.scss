@@ -1,13 +1,10 @@
-.payment-completion {
+
+.payment-confirmation {
     background-color: white;
     padding: 1rem 1.5rem; 
     display: grid;
     border-bottom-color: #CCC;
     border-bottom-style: solid;
-    gap:1rem;
     justify-items: center;
-
-    &__method {
-      width:25%;
-    }
+    gap:1rem;
 }

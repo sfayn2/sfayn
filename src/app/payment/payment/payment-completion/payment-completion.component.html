@@ -1,9 +1,9 @@
 <div class="payment-completion">
-    <div class="payment-completion__msg mat-subheading-2">
-      Please complete your payment in order process your order!
+    <div class="payment-completion__total-payment mat-display-1">
+      Total Payment:  {{totalPayment | currency}}
     </div>
-    <div class="payment-completion__total-payment mat-title">
-      Total Payment:  $1.23
+    <div class="payment-completion__msg">
+      Please complete your payment in order process your order!
     </div>
     <div class="payment-completion__method">
       <app-payment-paypal></app-payment-paypal>

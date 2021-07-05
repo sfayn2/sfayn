@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-payment-completion',
@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentCompletionComponent implements OnInit {
 
-  constructor() { }
+  @Input('amount')
+  totalPayment: number = 0;
+
+
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
