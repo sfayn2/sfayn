@@ -7,7 +7,7 @@ import {
 
 
 const routes: Routes = [
-  { path: 'payment', component: PaymentMainComponent },
+  { path: 'payment/:id', component: PaymentMainComponent },
 ];
 
 @NgModule({

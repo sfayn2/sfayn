@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 
 import { 
+  GET_ORDER,
   CREATE_ORDER,
   CREATE_ORDER_ITEM
 } from '@/core/graphql';
@@ -11,7 +12,7 @@ import {
   providedIn: 'root'
 })
 export class OrderService {
-
+  
   constructor(
     private apollo: Apollo
   ) { }
@@ -30,6 +31,15 @@ export class OrderService {
       mutation: CREATE_ORDER_ITEM,
       variables: { user, order, item },
       }).subscribe()
+  }
+
+  getOrderQuery(id) { 
+    return this.apollo.watchQuery<any>({
+      query: GET_ORDER,
+      variables: { 
+        id
+      }
+     })
   }
 
 }

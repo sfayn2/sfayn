@@ -5,17 +5,19 @@ import {
   PaymentRoutingModule
 } from './payment-routing.module';
 import {
-  PaymentCompletionComponent,
   PaymentMainComponent,
-  PaymentPaypalComponent
+  PaymentPaypalComponent,
+  PaymentCompletionComponent,
+  PaymentConfirmationComponent,
 } from '@/payment/payment';
 
 
 @NgModule({
   declarations: [
-    PaymentCompletionComponent,
+    PaymentMainComponent,
     PaymentPaypalComponent,
-    PaymentMainComponent
+    PaymentCompletionComponent,
+    PaymentConfirmationComponent
   ],
   imports: [
     CommonModule,

@@ -6,8 +6,7 @@ export const CREATE_ORDER = gql`
     $user: ID!, 
     $payment: ID!, 
     $customerAddress: ID!,
-    $totalAmount: Float!
-  ) {
+    $totalAmount: Float!) {
     shoporder(input: { 
        customerAddress: $customerAddress, 
        user: $user, 
@@ -39,4 +38,24 @@ export const CREATE_ORDER_ITEM = gql`
       }
     }
   }
+`;
+
+
+export const GET_ORDER = gql`
+query GetOrder($id: ID!) {
+  allShoporder(id: $id) {
+    edges {
+      node {
+        id
+        status
+        paymentMethod {
+          id
+          method
+          default
+        }
+        totalAmount
+      }
+    }
+  }
+}
 `;

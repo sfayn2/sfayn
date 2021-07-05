@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   CustomerService,
-  PaymentService
+  PaymentService,
 } from '@/core/service';
 
 @Component({
@@ -17,7 +17,7 @@ export class CheckoutMainComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
   ) { }
 
   ngOnInit(): void {
@@ -25,8 +25,9 @@ export class CheckoutMainComponent implements OnInit {
     this.subscriptions.add(this.loadPaymentMethod());
   }
 
+
   loadCustomerAddress() {
-    this.customerService.allCustomerAddressQuery()
+    return this.customerService.allCustomerAddressQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
         this.loading = loading;
@@ -39,7 +40,7 @@ export class CheckoutMainComponent implements OnInit {
   }
 
   loadPaymentMethod() {
-    this.paymentService.allPaymentMethodQuery()
+    return this.paymentService.allPaymentMethodQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
         this.loading = loading;

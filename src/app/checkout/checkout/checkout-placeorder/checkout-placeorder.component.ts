@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   CartService,
@@ -27,7 +28,8 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private orderService: OrderService,
     private customerService: CustomerService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -61,40 +63,6 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
         ).map(res => res.node.id)
       }
     ));
-    // paypal
-    paypal.Buttons({
-
-      style: {
-        color:  'blue',
-        shape:  'pill',
-        label:  'pay',
-        height: 40,
-        width: 100
-    },
-
-      // Set up the transaction
-      createOrder: function(data, actions) {
-          return actions.order.create({
-              purchase_units: [{
-                  amount: {
-                      value: '0.44'
-                  }
-              }],
-              application_context: {  shipping_preference: 'NO_SHIPPING'   }
-          });
-      },
-
-      // Finalize the transaction
-      onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-              // Show a success message to the buyer
-              console.log(details)
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
-          });
-      }
-
-  }).render(this.paypalElement.nativeElement);
-
   }
 
   createOrder() {
@@ -110,8 +78,14 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
           item
         )
       });
+    
+      this.goPayment(res.data['shoporder'].shoporder.id);
 
     });
+  }
+
+  goPayment(id) {
+    this.router.navigate(['/payment', id]);
   }
 
   ngOnDestroy() {
