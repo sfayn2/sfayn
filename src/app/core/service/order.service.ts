@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { 
   GET_ORDER,
   CREATE_ORDER,
+  UPDATE_ORDER,
   CREATE_ORDER_ITEM
 } from '@/core/graphql';
 
@@ -40,6 +41,14 @@ export class OrderService {
         id
       }
      })
+  }
+
+  paid(order) {
+    const status = 1; //@Todo PAID lets use enum
+    this.apollo.mutate({
+      mutation: UPDATE_ORDER,
+      variables: { order, status },
+      }).subscribe()
   }
 
 }

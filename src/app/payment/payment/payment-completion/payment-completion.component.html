@@ -6,6 +6,9 @@
       Please complete your payment in order process your order!
     </div>
     <div class="payment-completion__method">
-      <app-payment-paypal></app-payment-paypal>
+      <app-payment-paypal 
+        [amount]="totalPayment"
+        [order]="orderId"
+      ></app-payment-paypal>
     </div>
 </div>

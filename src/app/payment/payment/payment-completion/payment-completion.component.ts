@@ -10,6 +10,9 @@ export class PaymentCompletionComponent implements OnInit {
   @Input('amount')
   totalPayment: number = 0;
 
+  @Input('order')
+  orderId: string;
+
 
   constructor(
   ) { }

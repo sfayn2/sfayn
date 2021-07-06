@@ -59,3 +59,18 @@ query GetOrder($id: ID!) {
   }
 }
 `;
+
+export const UPDATE_ORDER = gql`
+  mutation UpdateOrder(
+    $order: ID!, 
+    $status: ID!, 
+    ) {
+    shoporderstatus (input: { order: $order, status: $status }) {
+      ok
+      shoporder {
+        id
+        status
+      }
+    }
+}
+`;

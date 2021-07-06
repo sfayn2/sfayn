@@ -15,6 +15,7 @@ export class PaymentMainComponent implements OnInit {
   subscription = new Subscription();
   totalPayment: number = 0;
   paymentStatus: string;
+  orderId: string;
 
   constructor(
     private orderService: OrderService,
@@ -23,8 +24,9 @@ export class PaymentMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(routeParams => {
+      this.orderId = routeParams.id;
       this.subscription.add(
-        this.getOrder(routeParams.id)
+        this.getOrder(this.orderId)
       )
     });
   }
