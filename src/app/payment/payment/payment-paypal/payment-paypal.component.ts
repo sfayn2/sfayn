@@ -67,10 +67,10 @@ export class PaymentPaypalComponent implements OnInit {
       onApprove: function(data, actions) {
         return actions.order.capture().then(function(details) {
           // Show a success message to the buyer
-          console.log('paypal Orderid', orderId)
-          orderService.paid(orderId);
-          console.log(details)
-          console.log('Transaction completed by ' + details.payer.name.given_name + '!');
+          if (details.status == 'COMPLETED') {
+            orderService.paid(orderId);
+            console.log('Transaction completed by ' + details.payer.name.given_name + '!');
+          }
         });
       }
 
