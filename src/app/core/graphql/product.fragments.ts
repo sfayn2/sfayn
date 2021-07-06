@@ -110,6 +110,9 @@ export const GET_ALL_CARTS = gql`
     allShopcart(createdBy_Id: $id  ) {
       edges {
         node {
+          cart2orderitem {
+            id
+          }
           id
           quantity
           totalPrice

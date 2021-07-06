@@ -14,7 +14,7 @@ import {
 export class CartService {
 
   objSrc$ = new BehaviorSubject({
-    cartObj: null,
+    obj: null,
     totalAmount: 0,
     typeNameId: []
   });

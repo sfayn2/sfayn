@@ -39,7 +39,7 @@ export class CheckoutPlaceorderComponent implements OnInit, OnDestroy {
         this.totalAmount = res.totalAmount;
 
         // get selected items
-        this.items = res.cartObj.filter(
+        this.items = res.obj.filter(
           res => res.node.checked
         ).map(res => res.node.id)
 

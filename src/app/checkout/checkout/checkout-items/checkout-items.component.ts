@@ -20,7 +20,7 @@ export class CheckoutItemsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.cartService.obj$.subscribe(res => {
-      this.cartObj = res.cartObj;
+      this.cartObj = res.obj;
       console.log('checkout-items', this.cartObj)
     })
   }

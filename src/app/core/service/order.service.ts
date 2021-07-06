@@ -6,7 +6,8 @@ import {
   GET_ORDER,
   CREATE_ORDER,
   UPDATE_ORDER,
-  CREATE_ORDER_ITEM
+  CREATE_ORDER_ITEM,
+  GET_ALL_CARTS
 } from '@/core/graphql';
 
 @Injectable({
@@ -45,9 +46,13 @@ export class OrderService {
 
   paid(order) {
     const status = 1; //@Todo PAID lets use enum
+    const user = 'VXNlck5vZGU6MQ=='; //@Todo 
     this.apollo.mutate({
       mutation: UPDATE_ORDER,
       variables: { order, status },
+      refetchQueries: [
+        { query: GET_ALL_CARTS, variables: { id: user } } 
+      ]
       }).subscribe()
   }
 
