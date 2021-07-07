@@ -6,6 +6,8 @@ import {
   ProductListComponent,
   ProductDetailComponent,
   ProductSearchComponent,
+  ProductCategoryComponent,
+  ProductMainComponent
 } from '@/product/product';
 import {
   ProductRoutingModule
@@ -18,7 +20,9 @@ import { CoreModule } from '@/core';
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    ProductMainComponent,
+    ProductCategoryComponent
   ],
   imports: [
     CommonModule,
