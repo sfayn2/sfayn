@@ -1,8 +1,8 @@
-<div class='products-list'>
+<div class='product-list'>
   <ng-container *ngFor="let product of products">
     <ng-container *ngFor="let variants of product.node.product2variants.edges">
-      <div *ngIf="variants.node.default" routerLink="/products/detail/{{variants.node.id}}" class="products-list__items mat-elevation-z0">
-        <div class='products-list__side-padding'>
+      <div *ngIf="variants.node.default" routerLink="/product/detail/{{variants.node.id}}" class="product-list__items mat-elevation-z0">
+        <div class='product-list__side-padding'>
           <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
           <div>${{variants.node.price}}</div>
         </div>
@@ -13,10 +13,10 @@
           <img *ngIf="!variants.node.imgUrl && img.node.coverPhoto" [src]="img.node.imgUrl" [alt]="product.node.title">
         </ng-container>
 
-        <div class='products-list__bottom'>
-          <div class="mat-small products-list__bottom__fav" ><mat-icon>favorite_border</mat-icon></div>
-          <div class="mat-small products-list__bottom__star" ><mat-icon>star_border</mat-icon></div>
-          <div class="mat-small products-list__bottom__sold">0 Sold</div>
+        <div class='product-list__bottom'>
+          <div class="mat-small product-list__bottom__fav" ><mat-icon>favorite_border</mat-icon></div>
+          <div class="mat-small product-list__bottom__star" ><mat-icon>star_border</mat-icon></div>
+          <div class="mat-small product-list__bottom__sold">0 Sold</div>
         </div> 
       </div>
     </ng-container>

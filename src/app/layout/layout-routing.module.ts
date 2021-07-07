@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LayoutMainComponent,
     children: [
       { path: 'customers', loadChildren: () => import('../customers/customers.module').then(m => m.CustomersModule) },
-      { path: 'products', loadChildren: () => import('../products/products.module').then(m => m.ProductsModule) },
+      { path: '', loadChildren: () => import('../product/product.module').then(m => m.ProductModule) },
       { path: '', loadChildren: () => import('../checkout/checkout.module').then(m => m.CheckoutModule) },
       { path: '', loadChildren: () => import('../payment/payment.module').then(m => m.PaymentModule) },
 

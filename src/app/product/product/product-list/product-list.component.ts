@@ -6,11 +6,11 @@ import {
 } from '@/core/service';
 
 @Component({
-  selector: 'app-products-list',
-  templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss']
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
-export class ProductsListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   products: any ;
   loading: boolean = true;

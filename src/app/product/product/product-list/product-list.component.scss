@@ -1,6 +1,6 @@
 
 
-.products-list {
+.product-list {
     display: grid;
     /*grid-template-columns: repeat(auto-fit, minmax(190px, 190px)); */
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -49,11 +49,11 @@
 }
 
 
-.products-list > a {
+.product-list > a {
   text-decoration: none;
 }
 
-.products-list > a:hover {
+.product-list > a:hover {
   text-decoration: underline;
 }
 

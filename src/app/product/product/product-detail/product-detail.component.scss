@@ -1,6 +1,6 @@
 /* pdgrid --> products -detail grid */
 
-.products-detail-grid {
+.product-detail-grid {
     display:grid;
     grid-template-columns:  1fr 2fr;
     grid-template-areas: "img title"
@@ -8,16 +8,16 @@
     grid-gap: 1rem; 
 }
 
-.products-detail-grid-items > div {
+.product-detail-grid-items > div {
     display: flex;
     flex-flow: row wrap;
     padding-bottom: 1.5rem;
     
 }
 
-.products-detail-title {
+.product-detail-title {
     grid-area: title;
-    @extend .products-detail-grid-items;
+    @extend .product-detail-grid-items;
     div {
         flex:0 1 auto;
         div:last-child  {
@@ -26,15 +26,15 @@
     }
 }
 
-.products-detail-desc {
+.product-detail-desc {
     grid-area: desc;
     padding:1rem;
 }
 
-.products-detail-img {
+.product-detail-img {
     grid-area: img;
     padding:1rem;
-    @extend .products-detail-grid-items;
+    @extend .product-detail-grid-items;
     align-items: center;
     justify-content: center;
     img {
@@ -46,7 +46,7 @@
 } 
 
 
-.products-detail-img-slide {
+.product-detail-img-slide {
     img {
         object-fit: cover;
         margin: .2rem;
@@ -56,7 +56,7 @@
     }
  }
 
-.products-detail-container  {
+.product-detail-container  {
     background-color: white;
     padding: 0.5rem;
     margin: 1rem;

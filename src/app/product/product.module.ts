@@ -3,30 +3,30 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@/shared';
 import { 
-  ProductsListComponent,
-  ProductsDetailComponent,
-  ProductsSearchComponent,
-} from '@/products/products';
+  ProductListComponent,
+  ProductDetailComponent,
+  ProductSearchComponent,
+} from '@/product/product';
 import {
-  ProductsRoutingModule
-} from './products-routing.module'
+  ProductRoutingModule
+} from './product-routing.module'
 import { CoreModule } from '@/core';
 
 
 
 @NgModule({
   declarations: [
-    ProductsListComponent,
-    ProductsDetailComponent,
-    ProductsSearchComponent
+    ProductListComponent,
+    ProductDetailComponent,
+    ProductSearchComponent
   ],
   imports: [
     CommonModule,
-    ProductsRoutingModule,
+    ProductRoutingModule,
     SharedModule,
     CoreModule,
     FormsModule,
     //ReactiveFormsModule
   ]
 })
-export class ProductsModule { }
+export class ProductModule { }

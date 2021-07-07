@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 //import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '@core/graphql';
 
 @Component({
-  selector: 'app-products-search',
-  templateUrl: './products-search.component.html',
-  styleUrls: ['./products-search.component.scss']
+  selector: 'app-product-search',
+  templateUrl: './product-search.component.html',
+  styleUrls: ['./product-search.component.scss']
 })
-export class ProductsSearchComponent implements OnInit {
+export class ProductSearchComponent implements OnInit {
 
   listOfCategoryCount: any[] = [];
   private _subscription1: Subscription;

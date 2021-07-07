@@ -7,11 +7,11 @@ import {
 } from '@/core/service';
 
 @Component({
-  selector: 'app-products-detail',
-  templateUrl: './products-detail.component.html',
-  styleUrls: ['./products-detail.component.scss']
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss']
 })
-export class ProductsDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit {
 
   product: any;
   mainPicture: string;
@@ -26,7 +26,7 @@ export class ProductsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.siteService.setNav2({
-      component: 'ProductsDetailComponent',
+      component: 'ProductDetailComponent',
     })
     this.route.params.subscribe(routeParams => {
       this.mainPicture = null; //reset every call
