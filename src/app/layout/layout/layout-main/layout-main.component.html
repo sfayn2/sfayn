@@ -16,7 +16,7 @@
         <div class="layout-main__header__btn__search"><button mat-icon-button ><mat-icon>search</mat-icon></button></div>
         <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
         <div class="layout-main__header__btn__btn">
-          <button mat-icon-button [routerLink]="['', { outlets: { primary: 'cart/list', amount: 'cart/amount' }}]" >
+          <button mat-icon-button [routerLink]="['', { outlets: { primary: 'cart', amount: 'cart/amount' }}]" >
             <mat-icon [matBadge]="cartCount" [matBadgeHidden]="!cartCount" matBadgeColor="accent" matBadgeSize="small">shopping_cart</mat-icon>
           </button>
         </div>

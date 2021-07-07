@@ -4,17 +4,19 @@ import { SharedModule } from '@/shared';
 import { 
   CartListComponent,
   CartAmountComponent,
+  CartMainComponent
 } from '@/cart/cart';
 import {
   CartRoutingModule
-} from './cart-routing.module'
+} from './cart-routing.module';
 
 
 
 @NgModule({
   declarations: [
     CartListComponent,
-    CartAmountComponent
+    CartAmountComponent,
+    CartMainComponent
   ],
   imports: [
     CommonModule,
