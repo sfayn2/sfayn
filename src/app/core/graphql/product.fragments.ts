@@ -132,3 +132,17 @@ export const GET_ALL_CARTS = gql`
   ${parent2imageInfo}
   ${productVariantNode}
 `
+
+export const GET_PRODUCT_CATEGORY = gql`
+  query GetProductCategoryByLevel($level: String!) {
+    allProductcategory(level: $level) {
+      edges {
+        node {
+          id
+          name
+          level
+        }
+      }
+    }
+  }
+`;

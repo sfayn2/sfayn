@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { 
   GET_ALL_PRODUCTS,
   GET_PRODUCT_DETAIL,
+  GET_PRODUCT_CATEGORY
 } from '@/core/graphql';
 
 
@@ -35,6 +36,13 @@ export class ProductService {
         //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
         fragmentName: "ProductVariantDetail", 
       });
+    }
+
+    allProductCategoryQuery(level) {
+      return this.apollo.watchQuery<any>({
+        query: GET_PRODUCT_CATEGORY,
+        variables: { level },
+      })
     }
 
 }

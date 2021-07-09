@@ -1,0 +1,17 @@
+
+.product-main {
+  font-size: 0.875rem; // 14px
+  padding: 2rem; /* need to give space for left & right side of the sku grid */
+  background-color:#ecebeb;
+  display: grid;
+  gap: 2rem;
+
+  &__category {
+    display: grid;
+  }
+
+  &__list {
+    display:grid;
+  }
+}
+
