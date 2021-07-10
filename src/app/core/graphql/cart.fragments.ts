@@ -1,5 +1,8 @@
 
 import gql from 'graphql-tag';
+import {
+  parent2imageInfo
+} from '@/core/graphql/product.fragments';
 
 export const ADD_CART = gql`
   mutation AddCart($user: ID!, $sku: ID!, $qty: ID!) {
@@ -33,4 +36,41 @@ export const UPDATE_CART = gql`
       }    
     }
   }
+`
+
+export const GET_ALL_CARTS = gql`
+  query ShopCartPerUserResolver($id: ID!) {
+    allShopcart(createdBy_Id: $id  ) {
+      edges {
+        node {
+          cart2orderitem {
+            id
+          }
+          id
+          quantity
+          totalPrice
+          checked @client
+          productVariant {
+            id
+            sku
+            options
+            quantity
+            price
+            default
+            imgUrl
+            productVariant {
+              id
+              name
+            }
+            parentSn {
+              id
+              title
+              ...parent2imageInfo
+            }
+          }
+        }
+      }
+    }
+  }
+  ${parent2imageInfo}
 `

@@ -53,6 +53,42 @@ export const categoryInfo = gql`
   }
 `;
 
+//export const GET_ALL_PRODUCTS = gql`
+//query GetAllProducts {
+//  allProductparents {
+//    edges {
+//      node {
+//        id
+//        parentSn
+//        title
+//        goodsDesc
+//        ...categoryInfo
+//        ...productVariantNode
+//        product2variants {
+//          edges {
+//            node {
+//              ...productVariantNode
+//              parentSn {
+//                id
+//                goodsDesc
+//                title
+//                ...parent2imageInfo
+//                ...product2variantsInfo
+//              }  
+//            }
+//          }
+//        }
+//        ...parent2imageInfo
+//      }
+//    }
+//  }
+// }
+// ${parent2imageInfo}
+// ${product2variantsInfo}
+// ${categoryInfo}
+// ${productVariantNode}
+//`;
+
 export const GET_ALL_PRODUCTS = gql`
 query GetAllProducts {
   allProductparents {
@@ -63,16 +99,42 @@ query GetAllProducts {
         title
         goodsDesc
         ...categoryInfo
-        product2variants {
+        product2variantitem {
           edges {
             node {
-              ...productVariantNode
+              id
+              sku
+              options
+              quantity
+              price
+              default
+              imgUrl
+              productVariant {
+                id
+                name
+              }
               parentSn {
                 id
                 goodsDesc
                 title
                 ...parent2imageInfo
-                ...product2variantsInfo
+                product2variantitem {
+                  edges {
+                    node {
+                      id
+                      sku
+                      options
+                      quantity
+                      price
+                      default
+                      imgUrl
+                      productVariant {
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
               }  
             }
           }
@@ -83,55 +145,102 @@ query GetAllProducts {
   }
  }
  ${parent2imageInfo}
- ${product2variantsInfo}
  ${categoryInfo}
- ${productVariantNode}
 `;
 
+//export const GET_PRODUCT_DETAIL = gql`
+//  fragment ProductVariantDetail on ProductVariantNode {
+//    id
+//    sku
+//    options
+//    quantity
+//    price
+//    default
+//    imgUrl
+//    productVariant {
+//      id
+//      name
+//    }
+//    parentSn {
+//      id
+//      goodsDesc
+//      title
+//      ...parent2imageInfo
+//      ...product2variantsInfo
+//    }  
+//  }
+// ${parent2imageInfo}
+// ${product2variantsInfo}
+//`;
+//
 export const GET_PRODUCT_DETAIL = gql`
-  fragment ProductVariantDetail on ProductVariantNode {
-    ...productVariantNode
+  fragment ProductVariantItemDetail on ProductVariantItemNode {
+    id
+    sku
+    options
+    quantity
+    price
+    default
+    imgUrl
+    productVariant {
+      id
+      name
+    }
     parentSn {
       id
       goodsDesc
       title
       ...parent2imageInfo
-      ...product2variantsInfo
-    }  
-  }
- ${parent2imageInfo}
- ${product2variantsInfo}
- ${productVariantNode}
-`;
-
-
-export const GET_ALL_CARTS = gql`
-  query ShopCartPerUserResolver($id: ID!) {
-    allShopcart(createdBy_Id: $id  ) {
-      edges {
-        node {
-          cart2orderitem {
+      product2variantitem {
+        edges {
+          node {
             id
-          }
-          id
-          quantity
-          totalPrice
-          checked @client
-          productVariant {
-            ...productVariantNode
-            parentSn {
+            sku
+            options
+            quantity
+            price
+            default
+            imgUrl
+            productVariant {
               id
-              title
-              ...parent2imageInfo
+              name
             }
           }
         }
       }
-    }
+    }  
   }
   ${parent2imageInfo}
-  ${productVariantNode}
-`
+`;
+
+//export const GET_ALL_CARTS = gql`
+//  query ShopCartPerUserResolver($id: ID!) {
+//    allShopcart(createdBy_Id: $id  ) {
+//      edges {
+//        node {
+//          cart2orderitem {
+//            id
+//          }
+//          id
+//          quantity
+//          totalPrice
+//          checked @client
+//          productVariant {
+//            ...productVariantNode
+//            parentSn {
+//              id
+//              title
+//              ...parent2imageInfo
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//  ${parent2imageInfo}
+//  ${productVariantNode}
+//`
+//
 
 export const GET_PRODUCT_CATEGORY = gql`
   query GetProductCategoryByLevel($level: String!) {

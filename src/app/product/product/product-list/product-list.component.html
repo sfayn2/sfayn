@@ -6,7 +6,7 @@
 
   <div class="product-list__items">
     <ng-container *ngFor="let product of products">
-      <ng-container *ngFor="let variants of product.node.product2variants.edges">
+      <ng-container *ngFor="let variants of product.node.product2variantitem.edges">
         <div *ngIf="variants.node.default" routerLink="/product/detail/{{variants.node.id}}" class="product-list__items__items mat-elevation-z0">
           <div class='product-list__items__side-padding'>
             <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>

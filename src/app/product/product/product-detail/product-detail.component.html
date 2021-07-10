@@ -35,14 +35,14 @@
           <div class="mat-display-1" style="margin-bottom:0"> {{product.price | currency}} </div>
 
           <div class='mat-body'>  
-            <div>{{product.name}}:</div>
+            <div>{{product.productVariant.name}}:</div>
             <div>
               <mat-button-toggle-group>
                 <mat-button-toggle 
-                  [routerLink]="['', { outlets: { primary: ['products', 'detail', variants.node.id], amount: null }}]"
+                  [routerLink]="['', { outlets: { primary: ['product', 'detail', variants.node.id], amount: null }}]"
                   [checked]="product.options == variants.node.options" 
                   [value]="variants.node.options" 
-                  *ngFor="let variants of product.parentSn.product2variants.edges">
+                  *ngFor="let variants of product.parentSn.product2variantitem.edges">
                     {{variants.node.options}} 
                 </mat-button-toggle>
               </mat-button-toggle-group> 

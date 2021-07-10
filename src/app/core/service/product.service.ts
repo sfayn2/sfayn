@@ -5,7 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { 
   GET_ALL_PRODUCTS,
   GET_PRODUCT_DETAIL,
-  GET_PRODUCT_CATEGORY
+  GET_PRODUCT_CATEGORY,
 } from '@/core/graphql';
 
 
@@ -29,12 +29,21 @@ export class ProductService {
       })
     }
 
+    //getProductDetail(id) {
+    //  return this.apollo.client.readFragment({
+    //    id: `ProductVariantNode:${id}`,
+    //    fragment: GET_PRODUCT_DETAIL,
+    //    //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
+    //    fragmentName: "ProductVariantDetail", 
+    //  });
+    //}
+
     getProductDetail(id) {
       return this.apollo.client.readFragment({
-        id: `ProductVariantNode:${id}`,
+        id: `ProductVariantItemNode:${id}`,
         fragment: GET_PRODUCT_DETAIL,
         //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902
-        fragmentName: "ProductVariantDetail", 
+        fragmentName: "ProductVariantItemDetail", 
       });
     }
 

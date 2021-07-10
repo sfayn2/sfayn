@@ -45,6 +45,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.productService.allProductsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
+        console.log('layout-main', data);
         console.log(data.allProductparents.edges)
         this.productService.objSrc$.next({ 
           ...this.productService.objSrc$.getValue(), 
