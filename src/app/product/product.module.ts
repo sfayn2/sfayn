@@ -7,7 +7,8 @@ import {
   ProductDetailComponent,
   ProductSearchComponent,
   ProductCategoryComponent,
-  ProductMainComponent
+  ProductMainComponent,
+  ProductBannerComponent
 } from '@/product/product';
 import {
   ProductRoutingModule
@@ -22,7 +23,8 @@ import { CoreModule } from '@/core';
     ProductDetailComponent,
     ProductSearchComponent,
     ProductMainComponent,
-    ProductCategoryComponent
+    ProductCategoryComponent,
+    ProductBannerComponent
   ],
   imports: [
     CommonModule,
