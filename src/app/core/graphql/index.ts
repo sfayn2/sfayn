@@ -4,5 +4,6 @@ export * from './payment.fragments';
 export * from './cart.fragments';
 export * from './order.fragments';
 export * from './site.fragments';
+export * from './promotional.fragments';
 export * from './schema.graphql';
 export * from './types';

@@ -1,5 +1,46 @@
 
 .product-banner {
   display: grid;
+  //align-items: center;
+  //grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
 
+  &__img, &__btn {
+    grid-row: 1 / 4;
+  }
+
+  &__img {
+    //display: grid;
+    grid-column: 1 / 6;
+  }
+
+
+  &__btn {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13px, 1fr));
+    width:100px; // @Todo distorted when adding more banner??
+    grid-column: 3 / 4 ;
+    grid-row: 3 / 4;
+    justify-self: center;
+    z-index: 1;
+    padding-bottom: 1rem;
+
+    &__nav {
+      display: grid;
+      background-color:white;
+      cursor:pointer;
+      border-radius: 12px; 
+      height:10px;
+      width:10px;
+      //border:2px solid white;
+    }
+
+  }
+
+}
+
+img {
+  height:340px;
+  width:100%;
+  object-fit: cover;
 }

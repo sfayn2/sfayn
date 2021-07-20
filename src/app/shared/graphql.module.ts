@@ -41,6 +41,18 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
           },
         }
       },
+      PromotionalBannerNode: {
+        fields: {
+          imgUpload(name) {
+            return name ? `${environment.mediaUrl}${name}`: name;
+          },
+          //default(_, { readField }) {
+          //  console.log('imgUpload', readField('imgUpload'))
+          //  console.log('imgUrl', readField('imgUrl'))
+          //  return 'imgUpladddd'
+          //},
+        }
+      }
     }
   })
 

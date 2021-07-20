@@ -1,4 +1,14 @@
 <div class="product-banner">
-    <!-- TODO-->
-  <img style="height:350px;width:100%;object-fit: cover;" src="https://icms-image.slatic.net/images/ims-web/58ccc64d-5683-4cb3-9d66-b714af61f482.jpg"/>
+  <div class="product-banner__img">
+    <img [src]="displayBanner" />
+  </div>
+  <div class="product-banner__btn">
+    <ng-container *ngFor="let p of promotionalBanner">
+        <span *ngIf="p.node.imgUpload;else get_by_imgurl" class="product-banner__btn__nav" (mouseover)="setBanner(p.node.imgUpload)"></span>
+
+        <ng-template #get_by_imgurl>
+          <span *ngIf="p.node.imgUrl" class="product-banner__btn__nav" (mouseover)="setBanner(p.node.imgUrl)"></span>
+        </ng-template>
+    </ng-container>    
+  </div>
 </div>
