@@ -15,7 +15,8 @@
 
     &__btn {
       display: grid;
-      grid-template-columns: 40px 1fr 1fr 40px;
+      gap: .5rem;
+      grid-template-columns: 40px auto 1fr auto auto;
 
       &__menu {
         justify-self:left;    
@@ -26,11 +27,30 @@
       }
       
       &__search {
-        justify-self:right;    
+        justify-self:center;    
+        display: grid;
+
+        &__box, &__btn {
+          grid-row: 1 ;
+        }
+
+        &__box {
+          display: grid;
+          grid-column: 1 / 4;
+        }
+
+        &__btn {
+          display: grid;
+          grid-column: 3 / 4;
+        }
       }
 
       &__btn {
         justify-self:right;    
+      }
+      &__link {
+        justify-self:right;    
+        font-size:.90rem;
       }
     }
 
@@ -81,4 +101,12 @@ mat-sidenav {
 
 .mat-drawer-container {
   background-color:#ecebeb; 
+}
+
+.searchbox {
+  border: none;
+  outline: none;
+  width:566px;
+  padding: .8rem;
+  background-color: #a3c8da;
 }
