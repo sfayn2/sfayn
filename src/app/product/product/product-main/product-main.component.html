@@ -1,5 +1,9 @@
 <div class="product-main">
   <app-product-banner class="product-main__banner"></app-product-banner>
   <app-product-category class="product-main__category"></app-product-category>
-  <app-product-list class="product-main__list"></app-product-list>
+  <app-product-list 
+    class="product-main__list"
+    [products]="productList"
+    title="Product List"
+  ></app-product-list>
 </div>
