@@ -13,7 +13,7 @@
     &__items {
       display: grid;
       /*grid-template-columns: repeat(auto-fit, minmax(190px, 190px)); */
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       grid-gap: .5rem;
       background-color:#ecebeb;
 

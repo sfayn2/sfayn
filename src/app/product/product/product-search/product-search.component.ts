@@ -1,35 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '@/core/service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-//import { PRODUCTS_SEARCH_CATEGORY_QUERY } from '@core/graphql';
+import {
+  ProductService
+} from '@/core/service';
 
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.component.html',
   styleUrls: ['./product-search.component.scss']
 })
-export class ProductSearchComponent implements OnInit {
+export class ProductSearchComponent implements OnInit, OnDestroy {
 
-  listOfCategoryCount: any[] = [];
-  private _subscription1: Subscription;
-  private _subscription2: Subscription;
+  subscription: Subscription;
+  productList: any;
 
-  constructor(){}
+  constructor(
+    private productService: ProductService
+  ){}
 
   ngOnInit(): void {
+    this.subscription = this.productService.obj$.subscribe(res => {
+      this.productList = res.obj;
+    })
   }
-
-  searchCategory(id: number, catName: string) {
- ////   let qry = {
-  //      query: PRODUCTS_SEARCH_CATEGORY_QUERY,
-    //    variables: { "catId" : id }
-    //};
-//        this._subscription1 = this.productService.getProd(qry).subscribe(res => this.productService.sharedProdObjSrc$.next(res.filter(r=>r.length>0)));
-}
 
   ngOnDestroy() {
-    this._subscription1.unsubscribe();
-    this._subscription2.unsubscribe();
+    this.subscription.unsubscribe();
   }
+
 
 }

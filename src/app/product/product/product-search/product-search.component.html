@@ -1,1 +1,70 @@
-<p>product-search works!</p>
+<div class="product-search">
+  <div class="product-search__search">
+    <div class="product-search__search__options">
+      <div>
+          <strong>Categories</strong>
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          Writing Boards &amp; Board Stands
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          Decoration
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          Notebooks & Papers
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          Writing & Connections
+      </div>
+    </div>
+    <div class="product-search__search__line"></div>
+    <div class="product-search__search__price">
+        <div class="product-search__search__price__label"><strong>Price Range</strong></div>
+        <div class="product-search__search__price__min">
+            <mat-form-field appearance="fill" style="width:80px;">
+                <mat-label>Min</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div class="product-search__search__price__dash">-</div>
+        <div class="product-search__search__price__max">
+            <mat-form-field appearance="fill" style="width:80px;">
+                <mat-label>Max</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div class="produc-search__search__price__btn">
+          <button mat-raised-button color="accent">Apply</button>
+        </div>
+    </div>
+    <div class="product-search__search__line"></div>
+    <div class="product-search__search__options">
+      <div>
+          <strong>Brand</strong>
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          BrandA
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          BrandB
+      </div>
+      <div>
+          <mat-checkbox></mat-checkbox>
+          BrandC
+      </div>
+    </div>
+    <div class="product-search__search__line"></div>
+  </div>
+  <div class="product-search__list">
+    <app-product-list 
+        [products]="productList"
+        title="Product Search Results"
+    ></app-product-list>
+  </div>
+</div>
