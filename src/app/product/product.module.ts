@@ -32,7 +32,7 @@ import { CoreModule } from '@/core';
     SharedModule,
     CoreModule,
     FormsModule,
-    //ReactiveFormsModule
+    ReactiveFormsModule
   ]
 })
 export class ProductModule { }

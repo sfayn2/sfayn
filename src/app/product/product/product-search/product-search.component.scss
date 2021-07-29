@@ -17,11 +17,6 @@
       border-bottom: 1px solid rgba(0,0,0,.09);
     }
 
-    &__options {
-      display:grid;
-      gap: 1rem;
-    }
-
     &__price {
       display:grid;
       gap:1rem;
@@ -30,7 +25,6 @@
                            "min   dash  max"
                            "btn   btn   btn";
       //border:1px solid red;
-      padding:0;
 
       &__label {
         display:grid;
@@ -40,21 +34,24 @@
       &__min {
         display: grid;
         grid-area: min;
-        padding:0;
       }
 
       &__dash {
         display: grid;
         grid-area: dash;
+        align-items: center;
       }
+      
       &__max {
         display: grid;
         grid-area: max;
       }
+
       &__btn {
         display: grid;
         grid-area: btn;
       }
+
     }
   }
 

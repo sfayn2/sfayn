@@ -1,26 +1,15 @@
 <div class="product-search">
   <div class="product-search__search">
-    <div class="product-search__search__options">
-      <div>
-          <strong>Categories</strong>
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          Writing Boards &amp; Board Stands
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          Decoration
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          Notebooks & Papers
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          Writing & Connections
-      </div>
+    <div>
+        <h4>Categories</h4>
+        <ng-container *ngFor="let category of categories">
+            <p><mat-checkbox [(ngModel)]="category.checked">
+              {{category.name}}
+            </mat-checkbox>
+            </p>
+        </ng-container>
     </div>
+    
     <div class="product-search__search__line"></div>
     <div class="product-search__search__price">
         <div class="product-search__search__price__label"><strong>Price Range</strong></div>
@@ -42,22 +31,14 @@
         </div>
     </div>
     <div class="product-search__search__line"></div>
-    <div class="product-search__search__options">
-      <div>
-          <strong>Brand</strong>
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          BrandA
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          BrandB
-      </div>
-      <div>
-          <mat-checkbox></mat-checkbox>
-          BrandC
-      </div>
+    <div>
+        <h4>Brands</h4>
+        <ng-container *ngFor="let brand of brands">
+            <p><mat-checkbox [(ngModel)]="brand.checked">
+              {{brand.name}}
+            </mat-checkbox>
+            </p>
+        </ng-container>
     </div>
     <div class="product-search__search__line"></div>
   </div>

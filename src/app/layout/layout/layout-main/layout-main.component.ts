@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {Location} from '@angular/common';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import {
   SiteService,
   ProductService,
@@ -21,15 +22,19 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
   cartCount: number = 0 ;
   cartObj: any;
   subscriptions = new Subscription();
+  searchValue: string;
 
   constructor(
     private siteService: SiteService,
     private productService: ProductService,
     private cartService: CartService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    // @Todo need to clear input search
+    //this.searchValue = "";
     this.subscriptions.add(this.loadNav());
     this.subscriptions.add(this.loadProducts());
   }
@@ -45,8 +50,6 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.productService.allProductsQuery()
       .valueChanges
       .subscribe(({data, loading}) => {
-        console.log('layout-main', data);
-        console.log(data.allProductparents.edges)
         this.productService.objSrc$.next({ 
           ...this.productService.objSrc$.getValue(), 
           obj: data.allProductparents.edges
@@ -81,6 +84,13 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
         //this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
+  }
+
+  goSearch() {
+    this.router.navigate(
+      [{ outlets: {primary: 'product/search', amount: null }}],
+      { queryParams: { keyword: this.searchValue }  }
+    )
   }
 
   ngOnDestroy() {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@/shared';
+import { FormsModule } from '@angular/forms';
 import { 
   LayoutMainComponent,
 } from '@/layout/layout';
@@ -17,7 +18,8 @@ import {
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class LayoutModule { }
