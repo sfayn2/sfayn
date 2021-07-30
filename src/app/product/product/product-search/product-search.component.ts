@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import {
   ProductService,
   SiteService
@@ -25,7 +26,8 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private siteService: SiteService
+    private siteService: SiteService,
+    private route: ActivatedRoute
   ){}
 
   ngOnInit(): void {
@@ -34,8 +36,8 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       component: 'ProductSearchComponent',
     })
 
-    this.subscription = this.productService.obj$.subscribe(res => {
-      this.productList = res.obj;
+    this.route.queryParams.subscribe(params => {
+      this.searchProduct(params.keyword);
     })
 
     // @Todo
@@ -57,6 +59,15 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  searchProduct(keyword) {
+    this.subscription = this.productService.searchProductsQuery(keyword)
+      .valueChanges
+      .subscribe(({data, loading}) => {
+        this.productList = data.allProductparents.edges;
+    });
+
   }
 
 

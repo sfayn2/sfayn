@@ -28,6 +28,14 @@ export class ProductService {
         query: GET_ALL_PRODUCTS
       })
     }
+    
+    searchProductsQuery(keyword) {
+      return this.apollo.watchQuery<any>({
+        query: GET_ALL_PRODUCTS,
+        variables: { keyword },
+      })
+    }
+
 
     //getProductDetail(id) {
     //  return this.apollo.client.readFragment({

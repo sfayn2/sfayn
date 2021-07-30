@@ -90,8 +90,8 @@ export const categoryInfo = gql`
 //`;
 
 export const GET_ALL_PRODUCTS = gql`
-query GetAllProducts {
-  allProductparents {
+query GetAllProducts($keyword: String) {
+  allProductparents(keyword: $keyword) {
     edges {
       node {
         id
