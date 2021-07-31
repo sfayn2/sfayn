@@ -59,4 +59,11 @@
     display:grid;
   }
 
+  &__spinner {
+    display:grid;
+    justify-self: center;
+    height: 50%;
+    align-items: center;
+  }
+
 }

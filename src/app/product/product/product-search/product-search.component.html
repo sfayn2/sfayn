@@ -42,7 +42,12 @@
     </div>
     <div class="product-search__search__line"></div>
   </div>
-  <div class="product-search__list">
+  
+  <div *ngIf="loading" class="product-search__spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading" class="product-search__list">
     <app-product-list 
         [products]="productList"
         title="Product Search Results"

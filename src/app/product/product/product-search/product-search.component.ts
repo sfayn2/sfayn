@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import {
   ProductService,
@@ -23,6 +24,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   productList: any;
   categories: Items[];
   brands: Items[];
+  loading: boolean = true;
 
   constructor(
     private productService: ProductService,
@@ -37,6 +39,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     })
 
     this.route.queryParams.subscribe(params => {
+      this.loading = true;
       this.searchProduct(params.keyword);
     })
 
@@ -64,11 +67,12 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   searchProduct(keyword) {
     this.subscription = this.productService.searchProductsQuery(keyword)
       .valueChanges
+      .pipe(delay(500))
       .subscribe(({data, loading}) => {
         this.productList = data.allProductparents.edges;
+        this.loading = loading;
     });
 
   }
-
 
 }
