@@ -51,13 +51,6 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       this.searchProduct(params);
     })
 
-    // @Todo
-    this.brands = [
-      { id: 1, name: 'Brand A', checked: false },
-      { id: 2, name: 'Brand B', checked: false },
-      { id: 3, name: 'Brand C', checked: false },
-    ]
-
   }
 
   ngOnDestroy() {
@@ -69,17 +62,15 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data, loading}) => {
         this.productList = data.allProductparents.edges;
-        console.log(data.allProductparents.edges)
-
-        this.genCategoryFilters(this.productList);
-        this.genBrandFilters(this.productList);
-
+        this.generateCategoryFilter(this.productList);
+        this.generateBrandFilter(this.productList);
 
     });
 
   }
 
-  genBrandFilters(data) {
+  // generated Brand filter list
+  generateBrandFilter(data) {
     this.brands = [];
     const goodsBrands = data.filter(
       res => res.node.goodsBrand != undefined).map(res => res.node.goodsBrand
@@ -93,7 +84,8 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  genCategoryFilters(data) {
+  // generate category filter list
+  generateCategoryFilter(data) {
     // get category parent ID
     const categoryIDs = data.map(
       res => res.node.category.parent.id
