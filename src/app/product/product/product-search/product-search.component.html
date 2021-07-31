@@ -16,18 +16,28 @@
         <div class="product-search__search__price__min">
             <mat-form-field appearance="fill" style="width:80px;">
                 <mat-label>Min</mat-label>
-                <input matInput>
+                <input 
+                  type="number" 
+                  matInput 
+                  [(ngModel)]="minPrice">
             </mat-form-field>
         </div>
         <div class="product-search__search__price__dash">-</div>
         <div class="product-search__search__price__max">
             <mat-form-field appearance="fill" style="width:80px;">
                 <mat-label>Max</mat-label>
-                <input matInput>
+                <input 
+                  type="number" 
+                  matInput 
+                  [(ngModel)]="maxPrice">
             </mat-form-field>
         </div>
-        <div class="produc-search__search__price__btn">
-          <button mat-raised-button color="accent">Apply</button>
+        <div class="product-search__search__price__btn">
+          <button 
+            mat-raised-button 
+            color="accent" 
+            [disabled]="(!minPrice || !maxPrice) || (minPrice >= maxPrice)"
+            (click)="filterByPrice()">Apply</button>
         </div>
     </div>
     <div class="product-search__search__line"></div>

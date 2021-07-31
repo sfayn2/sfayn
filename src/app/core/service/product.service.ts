@@ -30,9 +30,19 @@ export class ProductService {
     }
     
     searchProductsQuery(keyword) {
+
+      let variables = { 
+        keyword: keyword, 
+      }
+
+      if ("minprice" in keyword) {
+        variables["minprice"] = keyword.minprice; 
+        variables["maxprice"] = keyword.maxprice; 
+      }
+
       return this.apollo.watchQuery<any>({
         query: GET_ALL_PRODUCTS,
-        variables: { keyword },
+        variables: variables 
       })
     }
 

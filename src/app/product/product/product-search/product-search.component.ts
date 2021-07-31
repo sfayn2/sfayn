@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ProductService,
   SiteService
@@ -25,11 +25,16 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   categories: Items[];
   brands: Items[];
   loading: boolean = true;
+  keyword: string;
+
+  minPrice: number;
+  maxPrice: number;
 
   constructor(
     private productService: ProductService,
     private siteService: SiteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ){}
 
   ngOnInit(): void {
@@ -40,7 +45,10 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe(params => {
       this.loading = true;
-      this.searchProduct(params.keyword);
+      this.keyword = params.keyword;
+      //this.minPrice = null;
+      //this.maxPrice = null;
+      this.searchProduct(params);
     })
 
     // @Todo
@@ -73,6 +81,14 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
         this.loading = loading;
     });
 
+  }
+
+  filterByPrice() {
+    // @Todo how product/search is hardcoded
+    this.router.navigate(
+      [{ outlets: {primary: 'product/search', amount: null }}],
+      { queryParams: { keyword: this.keyword, minprice: this.minPrice, maxprice: this.maxPrice }  }
+    )
   }
 
 }
