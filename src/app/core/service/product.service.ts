@@ -5,7 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { 
   GET_ALL_PRODUCTS,
   GET_PRODUCT_DETAIL,
-  GET_PRODUCT_CATEGORY,
+  GET_ALL_CATEGORY,
 } from '@/core/graphql';
 
 
@@ -65,11 +65,19 @@ export class ProductService {
       });
     }
 
-    allProductCategoryQuery(level) {
+    allCategoryQuery(level) {
       return this.apollo.watchQuery<any>({
-        query: GET_PRODUCT_CATEGORY,
+        query: GET_ALL_CATEGORY,
         variables: { level },
       })
     }
+
+    getCategoryQuery(id) {
+      return this.apollo.watchQuery<any>({
+        query: GET_ALL_CATEGORY,
+        variables: { id },
+      })
+    }
+
 
 }

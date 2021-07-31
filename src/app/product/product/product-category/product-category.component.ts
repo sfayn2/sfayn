@@ -21,7 +21,7 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   loadCategory(level) {
-    this.productService.allProductCategoryQuery(level)
+    this.productService.allCategoryQuery(level)
       .valueChanges
       .subscribe(({data, loading}) => {
         this.category = data.allProductcategory.edges.slice(0, 16);

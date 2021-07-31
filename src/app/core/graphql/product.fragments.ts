@@ -49,6 +49,11 @@ export const categoryInfo = gql`
       id
       name
       level
+      parent {
+        id
+        name
+        level
+      }
     }
   }
 `;
@@ -213,45 +218,29 @@ export const GET_PRODUCT_DETAIL = gql`
   ${parent2imageInfo}
 `;
 
-//export const GET_ALL_CARTS = gql`
-//  query ShopCartPerUserResolver($id: ID!) {
-//    allShopcart(createdBy_Id: $id  ) {
-//      edges {
-//        node {
-//          cart2orderitem {
-//            id
-//          }
-//          id
-//          quantity
-//          totalPrice
-//          checked @client
-//          productVariant {
-//            ...productVariantNode
-//            parentSn {
-//              id
-//              title
-//              ...parent2imageInfo
-//            }
-//          }
-//        }
-//      }
-//    }
-//  }
-//  ${parent2imageInfo}
-//  ${productVariantNode}
-//`
-//
 
-export const GET_PRODUCT_CATEGORY = gql`
-  query GetProductCategoryByLevel($level: String!) {
-    allProductcategory(level: $level) {
-      edges {
-        node {
-          id
-          name
-          level
-        }
+export const GET_ALL_CATEGORY = gql`
+query GetALLCategory($id: [ID], $level: String) {
+  allProductcategory(id: $id, level: $level) {
+    edges {
+      node {
+        productcategorySet {
+          edges {
+            node {
+              id
+              name
+              parent {
+                id
+              }
+            }
+          }
+        }          
+        id
+        name
+        level
       }
     }
   }
+}
 `;
+
