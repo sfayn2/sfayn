@@ -71,17 +71,33 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
         this.productList = data.allProductparents.edges;
         console.log(data.allProductparents.edges)
 
-        // get category parent ID
-        const categoryIDs = this.productList.map(
-          res => res.node.category.parent.id
-        );
-        this.getRelatedCategory(categoryIDs);
+        this.genCategoryFilters(this.productList);
+        this.genBrandFilters(this.productList);
+
 
     });
 
   }
 
-  getRelatedCategory(categoryIDs) {
+  genBrandFilters(data) {
+    this.brands = [];
+    const goodsBrands = data.filter(
+      res => res.node.goodsBrand != undefined).map(res => res.node.goodsBrand
+    );
+    goodsBrands.forEach((res, index) => {
+      this.brands.push({
+        id: index, // @Todo
+        name: res,
+        checked: false
+      })
+    });
+  }
+
+  genCategoryFilters(data) {
+    // get category parent ID
+    const categoryIDs = data.map(
+      res => res.node.category.parent.id
+    );
     this.productService.getCategoryQuery(categoryIDs)
     .valueChanges
     .subscribe(({data, loading})=> {

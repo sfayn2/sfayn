@@ -103,6 +103,7 @@ query GetAllProducts($keyword: String, $minprice: Float, $maxprice: Float) {
         parentSn
         title
         goodsDesc
+        goodsBrand
         ...categoryInfo
         product2variantitem(price_Gte: $minprice, price_Lte: $maxprice) {
           edges {
