@@ -71,45 +71,58 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   // generated Brand filter list
   generateBrandFilter(data) {
-    this.brands = [];
-    const goodsBrands = data.filter(
-      res => res.node.goodsBrand != undefined).map(res => res.node.goodsBrand
-    );
-    goodsBrands.forEach((res, index) => {
-      this.brands.push({
-        id: index, // @Todo
-        name: res,
-        checked: false
-      })
-    });
+    if (data.length > 0) {
+      this.brands = [];
+      const goodsBrands = data.filter(
+        res => res.node.goodsBrand != undefined).map(res => res.node.goodsBrand
+      );
+      goodsBrands.forEach((res, index) => {
+        this.brands.push({
+          id: index, // @Todo
+          name: res,
+          checked: false
+        })
+      });
+    }
   }
 
   // generate category filter list
   generateCategoryFilter(data) {
+
     // get category parent ID
     const categoryIDs = data.map(
       res => res.node.category.parent.id
     );
-    this.productService.getCategoryQuery(categoryIDs)
-    .valueChanges
-    .subscribe(({data, loading})=> {
-      const relatedCategories = data.allProductcategory.edges.map(
-          res => res.node.productcategorySet.edges.map(
-            res2 => {
-              return {
-                id: res2.node.id,
-                name: res2.node.name,
-                checked: false
+
+    if (categoryIDs.length > 0) {
+      this.productService.getCategoryQuery(categoryIDs)
+      .valueChanges
+      .subscribe(({data, loading})=> {
+        const relatedCategories = data.allProductcategory.edges.map(
+            res => res.node.productcategorySet.edges.map(
+              res2 => {
+                return {
+                  id: res2.node.id,
+                  name: res2.node.name,
+                  checked: false
+                }
               }
-            }
-          )
-      )
-      this.categories = [];
-      relatedCategories.forEach(res => {
-        this.categories.push(...res)
+            )
+        )
+        this.categories = [];
+        relatedCategories.forEach(res => {
+          this.categories.push(...res)
+        })
+      
+        this.loading = loading;
+    
       })
-      this.loading = loading;
-    })
+
+    } else {
+      // no data?
+      this.loading = false;
+    }
+
   }
 
   filterByPrice() {
