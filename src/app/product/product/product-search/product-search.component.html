@@ -3,7 +3,7 @@
     <div>
         <h4>Categories</h4>
         <ng-container *ngFor="let category of categories">
-            <p><mat-checkbox [(ngModel)]="category.checked">
+            <p><mat-checkbox [(ngModel)]="category.checked" (change)="filterBy()">
               {{category.name}}
             </mat-checkbox>
             </p>
@@ -37,7 +37,7 @@
             mat-raised-button 
             color="accent" 
             [disabled]="(!minPrice || !maxPrice) || (minPrice >= maxPrice)"
-            (click)="filterByPrice()">Apply</button>
+            (click)="filterBy()">Apply</button>
         </div>
     </div>
     <div class="product-search__search__line"></div>

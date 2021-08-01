@@ -13,6 +13,13 @@ export interface Items {
   checked: boolean;
 }
 
+
+//export interface FilterParams {
+//  keyword: string;
+//  minprice: number;
+//  maxprice: number;
+//}
+
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.component.html',
@@ -25,10 +32,11 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   categories: Items[];
   brands: Items[];
   loading: boolean = true;
-  keyword: string;
 
+  keyword: string;
   minPrice: number;
   maxPrice: number;
+  type: string;
 
   constructor(
     private productService: ProductService,
@@ -45,9 +53,9 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe(params => {
       this.loading = true;
+      console.log(params)
       this.keyword = params.keyword;
-      //this.minPrice = null;
-      //this.maxPrice = null;
+      this.type = params.type;
       this.searchProduct(params);
     })
 
@@ -62,8 +70,13 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data, loading}) => {
         this.productList = data.allProductparents.edges;
-        this.generateCategoryFilter(this.productList);
-        this.generateBrandFilter(this.productList);
+
+        if (this.type != 'filterBy') { // dont reload Category/Brand filter
+          this.generateCategoryFilter(this.productList);
+          this.generateBrandFilter(this.productList);
+        } else {
+          this.loading = loading;
+        }
 
     });
 
@@ -125,18 +138,42 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   }
 
-  filterByPrice() {
-    // @Todo how product/search is hardcoded
+  navTo(queryParams) {
     this.router.navigate(
       [{ outlets: {primary: 'product/search', amount: null }}],
-      { 
-        queryParams: { 
-          keyword: this.keyword, 
-          minprice: this.minPrice, 
-          maxprice: this.maxPrice 
-        }  
-      }
+      { queryParams }
     )
   }
+
+  filterBy() {
+
+    const queryParams = {
+      keyword: this.keyword,
+      type: 'filterBy'
+    };
+
+
+    if (this.minPrice && this.maxPrice) {
+      queryParams['minprice'] = this.minPrice;
+      queryParams['maxprice'] = this.maxPrice;
+    } 
+
+    const temp = [];
+    this.categories.forEach(res => {
+      if (res.checked) {
+        temp.push(res.id)
+      }
+    })
+    if (temp) {
+      queryParams['category'] = temp.join(); // convert to a list otherwise it will generate multiple query params categories
+    }
+
+    this.navTo(
+      queryParams
+    );
+
+  }
+
+
 
 }
