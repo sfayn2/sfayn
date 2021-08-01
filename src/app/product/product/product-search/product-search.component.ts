@@ -53,25 +53,21 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe(params => {
       this.loading = true;
-      console.log(params)
       this.keyword = params.keyword;
       this.type = params.type;
-      this.searchProduct(params);
+      this.search(params);
     })
 
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
-  searchProduct(keyword) {
+  search(keyword) {
     this.subscription = this.productService.searchProductsQuery(keyword)
       .valueChanges
       .subscribe(({data, loading}) => {
         this.productList = data.allProductparents.edges;
 
-        if (this.type != 'filterBy') { // dont reload Category/Brand filter
+        if (this.type != 'filter') { // dont reload Category/Brand filter
           this.generateCategoryFilter(this.productList);
           this.generateBrandFilter(this.productList);
         } else {
@@ -145,28 +141,46 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     )
   }
 
-  filterBy() {
+  buildQueryParams(obj, field, name) {
+    const tmp = [];
+    obj.forEach(res => {
+      if (res.checked) {
+        tmp.push(res[field])
+      }
+    })
+    if (tmp.length > 0) {
+      // convert to a list otherwise it will generate multiple query params categories
+      return { 
+        [name]: tmp.join()
+      }
+    }
 
-    const queryParams = {
+    return {};
+
+  }
+
+
+  filter() {
+
+    let queryParams = {
       keyword: this.keyword,
-      type: 'filterBy'
+      type: 'filter'
     };
-
 
     if (this.minPrice && this.maxPrice) {
       queryParams['minprice'] = this.minPrice;
       queryParams['maxprice'] = this.maxPrice;
     } 
 
-    const temp = [];
-    this.categories.forEach(res => {
-      if (res.checked) {
-        temp.push(res.id)
-      }
-    })
-    if (temp) {
-      queryParams['category'] = temp.join(); // convert to a list otherwise it will generate multiple query params categories
-    }
+    queryParams = { 
+      ...queryParams, 
+      ...this.buildQueryParams(
+        this.categories, 'id', 'category'
+      ),
+      ...this.buildQueryParams(
+        this.brands, 'name', 'brand'
+      ),
+    };
 
     this.navTo(
       queryParams
@@ -174,6 +188,8 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   }
 
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
