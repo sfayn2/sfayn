@@ -4,10 +4,31 @@
 
     display: grid;
     padding: 2rem;
+    gap:1rem;
     
     &__header {
       display:grid;
       color: gray;
+    }
+
+    &__sort {
+      display: grid;
+      align-items:center;
+      &__results {
+        display: grid;
+        justify-self: left;
+        grid-row: 1;
+      }
+      &__by {
+        display:grid;
+        justify-self: right;
+        grid-row: 1;
+      }
+    }
+
+    &__line {
+      display: grid;
+      border-bottom: 1px solid rgba(0,0,0,.09);
     }
 
     &__items {

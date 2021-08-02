@@ -37,6 +37,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   minPrice: number;
   maxPrice: number;
   type: string;
+  sortValue: string;
 
   constructor(
     private productService: ProductService,
@@ -172,6 +173,10 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       queryParams['maxprice'] = this.maxPrice;
     } 
 
+    if (this.sortValue) {
+      queryParams['sort'] = this.sortValue;
+    }
+
     queryParams = { 
       ...queryParams, 
       ...this.buildQueryParams(
@@ -186,6 +191,11 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       queryParams
     );
 
+  }
+
+  getSortValue(e) {
+    this.sortValue = e;
+    this.filter();
   }
 
   ngOnDestroy() {

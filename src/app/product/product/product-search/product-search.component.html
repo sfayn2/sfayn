@@ -60,7 +60,8 @@
   <div *ngIf="!loading" class="product-search__list">
     <app-product-list 
         [products]="productList"
-        title="Product Search Results"
+        [sort]="true"
+        (sortEvent)="getSortValue($event)"
     ></app-product-list>
   </div>
 </div>

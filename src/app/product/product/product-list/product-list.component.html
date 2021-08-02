@@ -1,8 +1,27 @@
 <div class='product-list'>
 
-  <div class="product-list__header mat-title">
+  <div *ngIf="title" class="product-list__header mat-title">
     {{title}}
   </div>
+
+  <ng-container *ngIf="sort">
+    <div class="product-list__sort">
+      <div class="product-list__sort__results">
+        {{results}} items found
+      </div>
+      <div class="product-list__sort__by">
+        <mat-form-field appearance="fill">
+          <mat-label>Sort By:</mat-label>
+          <mat-select (selectionChange)="onSortChange($event)">
+            <mat-option *ngFor="let s of sortItems" [value]="s.value">
+              {{s.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="product-list__line"></div>
+  </ng-container>
 
   <div class="product-list__items">
     <ng-container *ngFor="let product of products">
