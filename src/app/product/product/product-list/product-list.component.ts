@@ -14,8 +14,8 @@ export class ProductListComponent implements OnInit {
 
   results: number;
   sortItems: SortItems[] = [
-    {value: 'price', viewValue: 'Price low to high'},
-    {value: '-price', viewValue: 'Price high to low'},
+    {value: 'min_price', viewValue: 'Price low to high'},
+    {value: '-min_price', viewValue: 'Price high to low'},
   ];
 
   @Input() products: any;

@@ -32,7 +32,11 @@ export class ProductService {
     searchProductsQuery(keyword) {
 
       let variables = { 
-        keyword: keyword, 
+        keyword,
+      }
+
+      if ("orderBy" in keyword) {
+        variables["orderBy"] = keyword.orderBy; 
       }
 
       if ("minprice" in keyword) {
@@ -42,7 +46,7 @@ export class ProductService {
 
       return this.apollo.watchQuery<any>({
         query: GET_ALL_PRODUCTS,
-        variables: variables 
+        variables: variables,
       })
     }
 

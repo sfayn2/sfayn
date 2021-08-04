@@ -144,7 +144,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   buildQueryParams(obj, field, name) {
     const tmp = [];
-    obj.forEach(res => {
+    obj?.forEach(res => {
       if (res.checked) {
         tmp.push(res[field])
       }
@@ -174,7 +174,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     } 
 
     if (this.sortValue) {
-      queryParams['sort'] = this.sortValue;
+      queryParams['orderBy'] = this.sortValue;
     }
 
     queryParams = { 

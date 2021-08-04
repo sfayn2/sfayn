@@ -29,7 +29,7 @@
         <div *ngIf="variants.node.default" routerLink="/product/detail/{{variants.node.id}}" class="product-list__items__items mat-elevation-z0">
           <div class='product-list__items__side-padding'>
             <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
-            <div>${{variants.node.price}}</div>
+            <div>${{product.node.minPrice}}</div>
           </div>
 
           <img *ngIf="variants.node.imgUrl" [src]="variants.node.imgUrl" [alt]="product.node.title">

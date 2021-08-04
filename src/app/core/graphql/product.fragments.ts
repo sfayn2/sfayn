@@ -95,8 +95,18 @@ export const categoryInfo = gql`
 //`;
 
 export const GET_ALL_PRODUCTS = gql`
-query GetAllProducts($keyword: String, $minprice: Float, $maxprice: Float) {
-  allProductparents(keyword: $keyword) {
+query GetAllProducts(
+  $keyword: String, 
+  $orderBy: String, 
+  $minprice: Float, 
+  $maxprice: Float
+) {
+  allProductparents(
+    keyword: $keyword, 
+    minPrice_Gte: $minprice, 
+    minPrice_Lte: $maxprice, 
+    orderBy: $orderBy
+  ) {
     edges {
       node {
         id
@@ -104,8 +114,10 @@ query GetAllProducts($keyword: String, $minprice: Float, $maxprice: Float) {
         title
         goodsDesc
         goodsBrand
+        minPrice
+        maxPrice
         ...categoryInfo
-        product2variantitem(price_Gte: $minprice, price_Lte: $maxprice) {
+        product2variantitem {
           edges {
             node {
               id
