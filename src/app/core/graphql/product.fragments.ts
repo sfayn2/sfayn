@@ -42,6 +42,7 @@ export const parentSnInfo = gql`
   fragment parentSnInfo on ProductVariantItemNode {
     parentSn {
       id
+      goodsBrand
       goodsDesc
       title
       ...parent2imageInfo
