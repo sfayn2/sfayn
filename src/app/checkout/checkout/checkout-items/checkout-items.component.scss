@@ -15,13 +15,18 @@
       display: grid;
       width: 100%;
       padding: 0.5rem;
-      grid-template-columns: 90px 2fr .5fr .5fr .5fr;
-      grid-template-areas: 'img products unit qty subtotal';
+      grid-template-columns: 90px 1.5fr 100px 100px 100px 100px;
+      grid-template-areas: 'img products variants unit qty subtotal';
       align-items: center;
 
       &__img {
         grid-area: img;
         justify-self: left;
+      }
+
+      &__variants {
+        grid-area: variants;
+      //  color: lightslategray;
       }
 
       &__products {

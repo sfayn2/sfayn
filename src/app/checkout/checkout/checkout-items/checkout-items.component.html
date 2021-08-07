@@ -4,22 +4,24 @@
     <div class="checkout-items__header">
       <div class="checkout-items__header__img u-headers--gray" ></div>
       <div class="checkout-items__header__name u-headers--gray">Product Orders</div>
+      <div class="checkout-items__header__name u-headers--gray">Variants</div>
       <div class="checkout-items__header__unit u-headers--gray">Unit Price</div>
       <div class="checkout-items__header__qty u-headers--gray">Quantity</div>
       <div class="checkout-items__header__subtotal u-headers--gray">SubTotal</div>
     </div>
     <div class="checkout-items__header">
       <div 
-        class="checkout-items__header__img" 
-        *ngFor="let img of item.node.productVariant.parentSn.parent2image.edges">
+        class="checkout-items__header__img" >
         <img 
-          *ngIf="img.node.coverPhoto"
           class="u-img--90px"
-          [src]="img.node.imgUrl"
+          [src]="item.node.productVariant.imgUrl"
         />
       </div>
       <div class="checkout-items__header__name">
-        <span class="mat-body">{{item.node.productVariant.parentSn.title}}</span>
+        <span class="mat-body">{{item.node.productVariant.parentSn.title | slice:0:70}}...</span>
+      </div>
+      <div class="checkout-items__header__variants">
+        <span class="mat-body">{{item.node.productVariant.productVariant.name}}:{{item.node.productVariant.options}}</span>
       </div>
       <div class="checkout-items__header__unit">
         <span class="mat-body-1">{{item.node.productVariant.price | currency}}</span>
@@ -34,19 +36,19 @@
 
     <div class="checkout-items__horizontal"></div>
 
-    <div class="checkout-items__fees mat-caption">
+    <div class="checkout-items__fees">
       <div class="checkout-items__fees__msg-input">
         <form class="frm" >
         <mat-form-field class="frm-full-width">
           <mat-label>Message</mat-label>
           <input matInput #message maxlength="256">
-          <mat-hint align="start"><strong>(Optional) Leave a message to seller</strong> </mat-hint>
+          <mat-hint align="start">(Optional) Leave a message to seller </mat-hint>
           <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
         </form>
       </div>
       <div class="checkout-items__fees__ship-opt">
-          <strong>Shipping Option:</strong>
+          Shipping Option:
       </div>
       <div class="checkout-items__fees__ship">
           ---
