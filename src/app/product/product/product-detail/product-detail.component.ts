@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   SiteService,
   ProductService,
@@ -15,10 +15,12 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
   mainPicture: string;
+  selectVariant: Boolean = false;
   quantity: number = 1; //default
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private siteService: SiteService,
     private productService: ProductService,
     private cartService: CartService
@@ -28,8 +30,10 @@ export class ProductDetailComponent implements OnInit {
     this.siteService.setNav2({
       component: 'ProductDetailComponent',
     })
+
+    //this.mainPicture = null;
+
     this.route.params.subscribe(routeParams => {
-      this.mainPicture = null; //reset every call
       this.product = this.productService.getProductDetail(routeParams.id);
     });
   }
@@ -38,17 +42,18 @@ export class ProductDetailComponent implements OnInit {
     this.mainPicture = img;
   }  
 
-  isProdColor(c1, c2) {
-    if (c1 == c2) { 
-      return true;
-    } else {
-      return false;    
-    }
-  }
-
   addCart(sku, qty) {
     // need to refetch query after mutation. not smart enough
     this.cartService.addCart(sku, qty)
   }
+
+  goSelectVariant(id, img) {
+    this.router.navigate(
+      [{ outlets: {primary: `product/detail/${id}`, amount: null }}]
+    )
+    this.mainPicture = img; // change main pic display
+    this.selectVariant = true;
+  }
+
 
 }

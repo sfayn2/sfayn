@@ -2,18 +2,10 @@
 <div class="product-detail-container"> <!-- TODO: styling app-container only use for detail -->
     <section class="product-detail-grid mat-subheading-2" *ngIf="product"> <!-- START section -->
       <div class="product-detail-img">
-
         <!-- main image -->
-        <img *ngIf="mainPicture; else getVariantsDefaultImg" [src]="mainPicture" />
+        <img *ngIf="mainPicture; else getImgCoverPhoto" [src]="mainPicture" />
 
-        <ng-template #getVariantsDefaultImg>
-          <img 
-            *ngIf="product.imgUrl; else getImageCoverPhoto" 
-            [src]="product.imgUrl"
-          >
-        </ng-template>    
-
-        <ng-template #getImageCoverPhoto>
+        <ng-template #getImgCoverPhoto>
           <ng-container
             *ngFor="let p of product.parentSn.parent2image.edges" >
             <img 
@@ -35,15 +27,21 @@
       </div>
       <div class="product-detail-title" >
           <div class="mat-title" style="margin-bottom:0" >{{product.parentSn.title}}</div>
-          <div class="mat-display-1" style="margin-bottom:0"> {{product.price | currency}} </div>
+          <div class="mat-display-1" style="margin-bottom:0"> 
+            <ng-container *ngIf="selectVariant">
+              {{product.price | currency }}
+            </ng-container>
+            <ng-container *ngIf="!selectVariant">
+              {{product.parentSn.priceMin | currency}}~{{product.parentSn.priceMax | currency}} 
+            </ng-container>
+          </div>
 
           <div class='mat-body'>  
             <div>{{product.productVariant.name}}:</div>
             <div>
               <mat-button-toggle-group>
                 <mat-button-toggle 
-                  [routerLink]="['', { outlets: { primary: ['product', 'detail', variants.node.id], amount: null }}]"
-                  [checked]="product.options == variants.node.options" 
+                  (click)="goSelectVariant(variants.node.id, variants.node.imgUrl)"
                   [value]="variants.node.options" 
                   *ngFor="let variants of product.parentSn.product2variantitem.edges">
                     {{variants.node.options}} 
@@ -62,13 +60,13 @@
             <div>quantity:</div>
             <div>
               <mat-form-field>
-                <input matInput type="number" [(ngModel)]="quantity" /> 
+                <input [disabled]="!selectVariant" matInput type="number" [(ngModel)]="quantity" /> 
               </mat-form-field>
             </div> 
           </div> 
   
         <div>
-           <button mat-raised-button color="accent" (click)="addCart(product.sku, quantity)">Add to Cart</button>
+           <button [disabled]="!selectVariant" mat-raised-button color="accent" (click)="addCart(product.sku, quantity)">Add to Cart</button>
         </div>    
   
       </div> 

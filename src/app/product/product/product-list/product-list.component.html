@@ -28,7 +28,7 @@
         <div routerLink="/product/detail/{{variants.node.id}}" class="product-list__items__items mat-elevation-z0">
           <div class='product-list__items__side-padding'>
             <div matTooltip="{{variants.node.parentSn.title}}" class="mat-body" >{{variants.node.parentSn.title | slice:0:40}}...</div>
-            <div class="priceRange">${{variants.node.parentSn.priceRange}}</div>
+            <div class="priceRange">{{variants.node.parentSn.priceMin | currency}}~{{variants.node.parentSn.priceMax | currency}}</div>
           </div>
 
           <!-- get coverphoto -->

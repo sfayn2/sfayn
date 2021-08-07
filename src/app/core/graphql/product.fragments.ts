@@ -45,7 +45,8 @@ export const parentSnInfo = gql`
       goodsBrand
       goodsDesc
       title
-      priceRange
+      priceMin
+      priceMax
       ...parent2imageInfo
       ...categoryInfo
       product2variantitem {
@@ -53,6 +54,7 @@ export const parentSnInfo = gql`
           node {
             id
             options
+            imgUrl
           }
         }
       }
