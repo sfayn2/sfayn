@@ -14,8 +14,8 @@ export class ProductListComponent implements OnInit {
 
   results: number;
   sortItems: SortItems[] = [
-    {value: 'min_price', viewValue: 'Price low to high'},
-    {value: '-min_price', viewValue: 'Price high to low'},
+    {value: 'price', viewValue: 'Price low to high'},
+    {value: '-price', viewValue: 'Price high to low'},
   ];
 
   @Input() products: any;
@@ -28,7 +28,9 @@ export class ProductListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.results = this.products.length;
+    if (this.sort) {
+      this.results = this.products?.length;
+    }
   }
 
   onSortChange(e) {

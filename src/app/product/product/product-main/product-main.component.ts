@@ -20,7 +20,7 @@ export class ProductMainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.productService.obj$.subscribe(res => {
-      this.productList = res.obj;
+      this.productList = res.obj?.filter(res => res.node.default);
     })
   }
 

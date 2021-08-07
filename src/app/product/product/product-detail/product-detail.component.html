@@ -6,12 +6,6 @@
         <!-- main image -->
         <img *ngIf="mainPicture" [src]="mainPicture" />
 
-        <ng-container>
-          <img 
-            *ngIf="!mainPicture && product.imgUrl" 
-            [src]="product.imgUrl" />
-        </ng-container>
-
         <ng-container 
           *ngFor="let p of product.parentSn.parent2image.edges" >
           <img 

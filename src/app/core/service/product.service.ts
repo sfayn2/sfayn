@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 import { 
   GET_ALL_PRODUCTS,
@@ -33,6 +34,7 @@ export class ProductService {
 
       let variables = { 
         keyword,
+        default: true // only show single variant in product list
       }
 
       if ("orderBy" in keyword) {
@@ -50,7 +52,6 @@ export class ProductService {
       })
     }
 
-
     //getProductDetail(id) {
     //  return this.apollo.client.readFragment({
     //    id: `ProductVariantNode:${id}`,
@@ -61,7 +62,7 @@ export class ProductService {
     //}
 
     getProductDetail(id) {
-      return this.apollo.client.readFragment({
+      return this.apollo.client.cache.readFragment({
         id: `ProductVariantItemNode:${id}`,
         fragment: GET_PRODUCT_DETAIL,
         //What is the proper way to use multiple fragments in a readFragment https://github.com/apollographql/apollo-client/issues/2902

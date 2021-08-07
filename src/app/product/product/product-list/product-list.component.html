@@ -24,19 +24,23 @@
   </ng-container>
 
   <div class="product-list__items">
-    <ng-container *ngFor="let product of products">
-      <ng-container *ngFor="let variants of product.node.product2variantitem.edges">
-        <div *ngIf="variants.node.default" routerLink="/product/detail/{{variants.node.id}}" class="product-list__items__items mat-elevation-z0">
+    <ng-container *ngFor="let variants of products">
+        <div routerLink="/product/detail/{{variants.node.id}}" class="product-list__items__items mat-elevation-z0">
           <div class='product-list__items__side-padding'>
-            <div matTooltip="{{product.node.title}}" class="mat-body" >{{product.node.title | slice:0:40}}...</div>
-            <div>${{product.node.minPrice}}</div>
+            <div matTooltip="{{variants.node.parentSn.title}}" class="mat-body" >{{variants.node.parentSn.title | slice:0:40}}...</div>
+            <div>${{variants.node.price}}</div>
           </div>
 
-          <img *ngIf="variants.node.imgUrl" [src]="variants.node.imgUrl" [alt]="product.node.title">
-            
-          <ng-container *ngFor="let img of product.node.parent2image.edges">
-            <img *ngIf="!variants.node.imgUrl && img.node.coverPhoto" [src]="img.node.imgUrl" [alt]="product.node.title">
+          <!-- get coverphoto -->
+          <ng-container *ngFor="let img of variants.node.parentSn.parent2image.edges">
+            <!-- TODO should be able to support imgURL and uploaded img-->
+            <img *ngIf="img.node.coverPhoto; getVariantsDefaultImg" [src]="img.node.imgUrl" [alt]="variants.node.parentSn.title">
           </ng-container>
+
+          <ng-template #getVariantsDefaultImg>
+            <img *ngIf="variants.node.imgUrl" [src]="variants.node.imgUrl" [alt]="variants.node.parentSn.title">
+          </ng-template>
+            
 
           <div class='product-list__items__bottom'>
             <div class="mat-small product-list__items__bottom__fav" ><mat-icon>favorite_border</mat-icon></div>
@@ -44,7 +48,6 @@
             <div class="mat-small product-list__items__bottom__sold">0 Sold</div>
           </div> 
         </div>
-      </ng-container>
     </ng-container>
   </div>
 </div>

@@ -66,7 +66,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     this.subscription = this.productService.searchProductsQuery(keyword)
       .valueChanges
       .subscribe(({data, loading}) => {
-        this.productList = data.allProductparents.edges;
+        this.productList = data.allProductvariantitems.edges;
 
         if (this.type != 'filter') { // dont reload Category/Brand filter
           this.generateCategoryFilter(this.productList);
@@ -84,7 +84,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     if (data.length > 0) {
       this.brands = [];
       const goodsBrands = data.filter(
-        res => res.node.goodsBrand != undefined).map(res => res.node.goodsBrand
+        res => res.node.parentSn.goodsBrand != undefined).map(res => res.node.parentSn.goodsBrand
       );
       goodsBrands.forEach((res, index) => {
         this.brands.push({
@@ -101,7 +101,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
     // get category parent ID
     const categoryIDs = data.map(
-      res => res.node.category.parent.id
+      res => res.node.parentSn.category.parent.id
     );
 
     if (categoryIDs.length > 0) {

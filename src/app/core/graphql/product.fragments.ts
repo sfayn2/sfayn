@@ -1,7 +1,6 @@
 
 import gql from 'graphql-tag';
 
-
 export const parent2imageInfo = gql`
   fragment parent2imageInfo on ProductParentNode {
     parent2image {
@@ -14,33 +13,6 @@ export const parent2imageInfo = gql`
       }
     }
   }
-`;
-
-
-export const productVariantNode = gql`
-  fragment productVariantNode on ProductVariantNode {
-    id
-    sku
-    name
-    options
-    quantity
-    price
-    default
-    imgUrl
-  }
-`;
-
-export const product2variantsInfo = gql`
-  fragment product2variantsInfo on ProductParentNode {
-    product2variants {
-      edges {
-        node {
-          ...productVariantNode
-        }
-      }
-    }
-  }
-  ${productVariantNode}
 `;
 
 export const categoryInfo = gql`
@@ -58,139 +30,70 @@ export const categoryInfo = gql`
   }
 `;
 
-//export const GET_ALL_PRODUCTS = gql`
-//query GetAllProducts {
-//  allProductparents {
-//    edges {
-//      node {
-//        id
-//        parentSn
-//        title
-//        goodsDesc
-//        ...categoryInfo
-//        ...productVariantNode
-//        product2variants {
-//          edges {
-//            node {
-//              ...productVariantNode
-//              parentSn {
-//                id
-//                goodsDesc
-//                title
-//                ...parent2imageInfo
-//                ...product2variantsInfo
-//              }  
-//            }
-//          }
-//        }
-//        ...parent2imageInfo
-//      }
-//    }
-//  }
-// }
-// ${parent2imageInfo}
-// ${product2variantsInfo}
-// ${categoryInfo}
-// ${productVariantNode}
-//`;
+export const productVariantInfo = gql`
+  fragment productVariantInfo on ProductVariantItemNode {
+    productVariant {
+      id
+      name
+    }
+  }
+`
+export const parentSnInfo = gql`
+  fragment parentSnInfo on ProductVariantItemNode {
+    parentSn {
+      id
+      goodsDesc
+      title
+      ...parent2imageInfo
+      ...categoryInfo
+      product2variantitem {
+        edges {
+          node {
+            id
+            options
+          }
+        }
+      }
+    }
+  }
+${parent2imageInfo}
+${categoryInfo}
+`;
 
 export const GET_ALL_PRODUCTS = gql`
 query GetAllProducts(
   $keyword: String, 
   $orderBy: String, 
   $minprice: Float, 
-  $maxprice: Float
+  $maxprice: Float,
+  $default: Boolean
 ) {
-  allProductparents(
-    keyword: $keyword, 
-    minPrice_Gte: $minprice, 
-    minPrice_Lte: $maxprice, 
-    orderBy: $orderBy
+  allProductvariantitems(
+    orderBy: $orderBy, 
+    keyword: $keyword,
+    price_Gte: $minprice,
+    price_Lte: $maxprice,
+    default: $default
   ) {
     edges {
       node {
         id
-        parentSn
-        title
-        goodsDesc
-        goodsBrand
-        minPrice
-        maxPrice
-        ...categoryInfo
-        product2variantitem {
-          edges {
-            node {
-              id
-              sku
-              options
-              quantity
-              price
-              default
-              imgUrl
-              productVariant {
-                id
-                name
-              }
-              parentSn {
-                id
-                goodsDesc
-                title
-                ...parent2imageInfo
-                product2variantitem {
-                  edges {
-                    node {
-                      id
-                      sku
-                      options
-                      quantity
-                      price
-                      default
-                      imgUrl
-                      productVariant {
-                        id
-                        name
-                      }
-                    }
-                  }
-                }
-              }  
-            }
-          }
-        }
-        ...parent2imageInfo
+        sku
+        options
+        quantity
+        price
+        default
+        imgUrl
+        ...productVariantInfo
+        ...parentSnInfo
       }
     }
   }
- }
- ${parent2imageInfo}
- ${categoryInfo}
-`;
+}
+${parentSnInfo}
+${productVariantInfo}
+`
 
-//export const GET_PRODUCT_DETAIL = gql`
-//  fragment ProductVariantDetail on ProductVariantNode {
-//    id
-//    sku
-//    options
-//    quantity
-//    price
-//    default
-//    imgUrl
-//    productVariant {
-//      id
-//      name
-//    }
-//    parentSn {
-//      id
-//      goodsDesc
-//      title
-//      ...parent2imageInfo
-//      ...product2variantsInfo
-//    }  
-//  }
-// ${parent2imageInfo}
-// ${product2variantsInfo}
-//`;
-//
 export const GET_PRODUCT_DETAIL = gql`
   fragment ProductVariantItemDetail on ProductVariantItemNode {
     id
@@ -200,35 +103,11 @@ export const GET_PRODUCT_DETAIL = gql`
     price
     default
     imgUrl
-    productVariant {
-      id
-      name
-    }
-    parentSn {
-      id
-      goodsDesc
-      title
-      ...parent2imageInfo
-      product2variantitem {
-        edges {
-          node {
-            id
-            sku
-            options
-            quantity
-            price
-            default
-            imgUrl
-            productVariant {
-              id
-              name
-            }
-          }
-        }
-      }
-    }  
+    ...productVariantInfo
+    ...parentSnInfo
   }
-  ${parent2imageInfo}
+  ${parentSnInfo}
+  ${productVariantInfo}
 `;
 
 
