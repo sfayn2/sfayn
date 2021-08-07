@@ -45,6 +45,7 @@ export const parentSnInfo = gql`
       goodsBrand
       goodsDesc
       title
+      priceRange
       ...parent2imageInfo
       ...categoryInfo
       product2variantitem {
