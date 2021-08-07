@@ -6,7 +6,7 @@
     </div>
     <div class='cart-list__details mat-body u-headers--gray' >
       <div class='cart-list__details__product'>Product</div>
-      <div class='cart-list__details__color'>Color</div>
+      <div class='cart-list__details__color'>Variants</div>
       <div class='cart-list__details__uprice'>Unit Price</div>
       <div class='cart-list__details__quantity'>Quantity</div>
       <div class='cart-list__details__totalprice'>Total Price</div>
@@ -21,15 +21,13 @@
           <mat-checkbox [checked]='sc.node.checked' (change)='checkProduct($event, sc.node.id)'></mat-checkbox>
       </div>
       <div class='cart-list__img' >
-        <ng-container *ngFor="let img of sc.node.productVariant.parentSn.parent2image.edges">
-          <img class="u-img--90px" *ngIf="img.node.coverPhoto" [src]='img.node.imgUrl'/>
-        </ng-container>
+        <img class="u-img--90px" [src]='sc.node.productVariant.imgUrl'/>
       </div>
       <div class='cart-list__details'>
         <div class='cart-list__details__product'>
             <div fxFlex class='mat-body'> {{sc.node.productVariant.parentSn.title}} </div>
         </div>
-        <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.productVariant.color}}</span>
+        <div class='cart-list__details__color'><span class='mat-body'>{{sc.node.productVariant.productVariant.name}}: {{sc.node.productVariant.options}}</span>
           
         </div>
         <div class='mat-body-1 cart-list__details__uprice mat-body'>{{sc.node.productVariant.price | currency}}</div>
