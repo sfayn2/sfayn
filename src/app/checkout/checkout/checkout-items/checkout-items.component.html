@@ -39,9 +39,9 @@
     <div class="checkout-items__fees">
       <div class="checkout-items__fees__msg-input">
         <form class="frm" >
-        <mat-form-field class="frm-full-width">
+        <mat-form-field class="frm-full-width" appearance="fill">
           <mat-label>Message</mat-label>
-          <input matInput #message maxlength="256">
+          <textarea matInput #message maxlength="256"></textarea>
           <mat-hint align="start">(Optional) Leave a message to seller </mat-hint>
           <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
@@ -58,13 +58,15 @@
       </div>
     </div>
 
+    <div class="checkout-items__horizontal"></div>
+
     <div class="checkout-items__ordertotal">
       <div class="checkout-items__ordertotal__label">
           Order Total:
       </div>
       <div class="checkout-items__ordertotal__total">
           <!--@Todo include extra fees -->
-          <div class="mat-title" style="margin:0">{{item.node.totalPrice | currency }}</div>
+          <div class="mat-headline" style="margin:0">{{item.node.totalPrice | currency }}</div>
       </div>
     </div>
   </div>

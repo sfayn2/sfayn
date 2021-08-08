@@ -15,7 +15,7 @@
       display: grid;
       width: 100%;
       padding: 0.5rem;
-      grid-template-columns: 90px 1.5fr 100px 100px 100px 100px;
+      grid-template-columns: 90px 3fr 1fr 1fr 1fr 1fr;
       grid-template-areas: 'img products variants unit qty subtotal';
       align-items: center;
 
@@ -66,7 +66,6 @@
       display: grid;
       gap: .5rem;
       grid-template-columns: 2fr auto 1fr 1fr;
-      background-color: #fdfafa;
       align-items: center;
 
       &__msg-input {

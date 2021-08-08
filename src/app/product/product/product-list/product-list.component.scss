@@ -38,7 +38,6 @@
       // @Todo item width is resized based on the remaining space??
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); 
       gap: .5rem;
-      background-color:#ecebeb;
 
       &__bottom {
         padding-top:.5rem;
