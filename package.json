@@ -29,6 +29,7 @@
     "graphql-tools": "^7.0.5",
     "hammerjs": "^2.0.8",
     "normalize-url": "^4.5.1",
+    "path-parse": "^1.0.7",
     "postcss": "^7.0.36",
     "rxjs": "~6.6.0",
     "socket.io-parser": "^3.3.2",
