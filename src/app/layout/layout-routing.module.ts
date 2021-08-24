@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutMainComponent } from '@/layout/layout';
+import { AuthGuard } from '@/core/guard';
 
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('../payment/payment.module').then(m => m.PaymentModule) },
 
       // @todo workaround set path: '' caused auxiliary outlet not working?? 
-      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule) },
+      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule), canLoad: [AuthGuard] },
     ]
 }
 ];

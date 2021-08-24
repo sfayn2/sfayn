@@ -5,5 +5,6 @@ export * from './cart.fragments';
 export * from './order.fragments';
 export * from './site.fragments';
 export * from './promotional.fragments';
+export * from './auth.fragments';
 export * from './schema.graphql';
 export * from './types';

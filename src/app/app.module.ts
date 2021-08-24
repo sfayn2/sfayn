@@ -9,11 +9,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //t
 import { LayoutModule } from '@/layout';
 import { CoreModule } from '@/core';
 import { SharedModule } from '@/shared';
+import { LoginComponent } from './login';
 
 @NgModule({
   declarations: [
     AppComponent,
-    //LoginComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

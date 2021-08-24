@@ -19,11 +19,11 @@ export class LoginComponent implements OnInit {
 
     hide: boolean = true;
 
-    private _subscription: Subscription;
+    private subscription: Subscription;
 
     constructor(public dialogRef: MatDialogRef<LoginComponent>,
                 private authService: AuthService,
-                private _snackBar: MatSnackBar,
+                private snackBar: MatSnackBar,
                 private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -34,30 +34,41 @@ export class LoginComponent implements OnInit {
   }
 
   logIn() {
-    this._subscription = this.authService.login(this.loginForm.value.username, this.loginForm.value.password)
-            .subscribe(res => {
-                console.log(res.data.tokenAuth)
-                localStorage.setItem("tokenAuth", res.data.tokenAuth.token)
-                localStorage.setItem("currentUser", this.loginForm.value.username)
-                this.dialogRef.close();
-                this.alerts("Successfully login!", "Login");
-            }, (err) => {
-                localStorage.removeItem("tokenAuth")
-                localStorage.removeItem("currentUser")
-                this.alerts("Please, enter valid credentials!", "Login");
-            }
+    this.subscription = this.authService.login(
+      this.loginForm.value.username, 
+      this.loginForm.value.password
+    ).subscribe(res => {
+        console.log(res.data.tokenAuth)
+        localStorage.setItem("token", res.data.tokenAuth.token)
+        localStorage.setItem("currentUser", this.loginForm.value.username)
+
+        this.authService.objSrc$.next({
+          ...this.authService.objSrc$.getValue(), 
+          token: res.data.tokenAuth.token,
+          user: this.loginForm.value.username
+        })
+
+        this.dialogRef.close();
+        this.alerts("Successfully login!", "Login");
+
+    }, (err) => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("currentUser")
+        console.log('login error', err)
+        this.alerts("Please, enter valid credentials!", "Login");
+    }
     );
   }
 
   alerts(msg: string, action: string) {
-    this._snackBar.open(msg, action, {
+    this.snackBar.open(msg, action, {
         duration: 2000,
     });
   }
 
   ngOnDestroy() {
-    if (this._subscription) {
-        this._subscription.unsubscribe();
+    if (this.subscription) {
+        this.subscription.unsubscribe();
     }
   }
 

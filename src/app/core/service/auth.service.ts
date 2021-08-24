@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { 
-  VERIFY_TOKEN_MUTATION, 
-  TOKEN_AUTH_MUTATION 
+  VERIFY_TOKEN,
+  TOKEN_AUTH,
+  WRITE_AUTH
 } from '@/core/graphql';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -11,28 +12,47 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthService {
 
-  authObjSrc$ = new BehaviorSubject(null);
-  authObj$ = this.authObjSrc$.asObservable();
+  objSrc$ = new BehaviorSubject({
+    obj: null,
+    token: null,
+    user: null
+  });
 
-  constructor(private _apollo: Apollo) { }
+  obj$ = this.objSrc$.asObservable();
 
-  lStorage(key) {
-    return localStorage.getItem(key);
-  }
+  constructor(private apollo: Apollo) { }
 
   logout() {
     localStorage.removeItem("tokenAuth");
     localStorage.removeItem("currentUser");
- }
+  }
 
-  login(arg_user, arg_pass): Observable<any> {
-    return this._apollo.mutate({
-        mutation: TOKEN_AUTH_MUTATION,
-        variables: {
-            username: arg_user,
-            password: arg_pass
-        }
-        })
+  verifyToken(token) {
+    return this.apollo.mutate({
+      mutation: VERIFY_TOKEN,
+      variables: {
+        token
+      }
+    })
+  }
+
+  authQuery() {
+    return this.apollo.watchQuery<any>({
+      query: WRITE_AUTH,
+      variables: {
+        id: 1
+      }
+    })
+  }
+
+  login(user, pass): Observable<any> {
+    return this.apollo.mutate({
+      mutation: TOKEN_AUTH,
+      variables: {
+        username: user,
+        password: pass
+      }
+    })
         /*  .subscribe((res) => { 
             console.log(res) 
             this.authObjSrc$.next(res);

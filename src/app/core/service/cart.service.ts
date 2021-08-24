@@ -80,16 +80,17 @@ export class CartService {
     }).subscribe()
   }
 
-  addCart(sku, qty) {
+  addCart(sku, qty)  {
     // why not evict instead of refetchQueries for new record? 
     const user = 'VXNlck5vZGU6MQ=='; //@Todo
-    this.apollo.mutate({
+    return this.apollo.mutate({
       mutation: ADD_CART,
       variables: { user, sku, qty },
       refetchQueries: [
         { query: GET_ALL_CARTS, variables: { id: user } } 
-      ]
-    }).subscribe()
+      ],
+      errorPolicy: 'all' // @Todo how to set globally??
+    })
   }
 
   
