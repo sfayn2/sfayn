@@ -1,6 +1,11 @@
 <form [formGroup]="loginForm" (ngSubmit)="logIn()">
   <div class="login-container">
-    <div mat-dialog-title>Login</div>
+    <div class="login-container__title" mat-dialog-title>
+      <h2 class="login-container__title__label">Login</h2>
+      <button class="login-container__title__close" mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
     <div class="login-container__google" >
       <button mat-button color="primary" >Continue with Google</button>
     </div>
