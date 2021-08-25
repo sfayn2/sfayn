@@ -52,8 +52,8 @@ export class AuthGuard implements CanLoad {
     // if not login
     // https://stackoverflow.com/questions/48955831/angular-canactivate-with-login-dialog
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '350px',
-      height: '400px',
+      width: '400px',
+      height: '657px',
     });
 
     return dialogRef.afterClosed().toPromise().then(result =>{

@@ -1,18 +1,36 @@
-<div class="login-container" fxLayout="column" style="width:100%">
-
-    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
-        <h2 fxLayoutAlign="start center" mat-dialog-title>Login</h2>
-        <div fxLayout="column" fxLayoutAlign="start center" mat-dialog-content >
-          <mat-form-field>
-                <input matInput placeholder="Enter your username" formControlName="username">
-          </mat-form-field>
-          <mat-form-field>
-                <input matInput type="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'"  formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" mat-dialog-actions>
-          <button type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid" style="width:100%">Login</button>
-        </div>
-    </form>    
-</div>
+<form [formGroup]="loginForm" (ngSubmit)="logIn()">
+  <div class="login-container">
+    <div mat-dialog-title>Login</div>
+    <div class="login-container__google" >
+      <button mat-button color="primary" >Continue with Google</button>
+    </div>
+    <div class="login-container__facebook"  >
+      <button mat-button color="primary">Continue with Facebook</button>
+    </div>
+    <div class="login-container__line">
+      <div class="login-container__line__left"></div>
+      <div class="login-container__line__or mat-small">or</div>
+      <div class="login-container__line__right"></div>
+    </div>
+    <div class="login-container__input" mat-dialog-content >
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [type]="hide ? 'password' : 'text'"  formControlName="password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-hint>
+          <a href="javascript:alert('coming soon!')">Forgot Password?</a>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="login-container__actions" mat-dialog-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid" style="width:100%">Login</button>
+    </div>
+    <div class="login-container__signup" mat-dialog-content >
+      <a href="javascript:alert('coming soon!')">Sign up for new account</a>
+    </div>
+  </div>
+</form>    

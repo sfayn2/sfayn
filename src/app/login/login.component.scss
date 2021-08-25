@@ -1,14 +1,60 @@
 
+.login-container {
+  width:100%;
+  display: grid;
+  gap:1.5rem;
+
+  &__google {
+    width:100%;
+  }
+
+  &__facebook {
+    width:100%;
+  }
+
+  &__signup {
+    justify-self: center;
+  }
+
+
+  &__line {
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    align-items: center;
+
+    &__left {
+      background-color:  rgba(0,0,0,.09);
+      height:1px;
+    }
+
+    &__or {
+      padding: 0.5rem;
+      justify-self: center;
+    }
+
+    &__right {
+      background-color:  rgba(0,0,0,.09);
+      height:1px;
+    }
+  }
+
+
+}
+
 mat-form-field, input {
    width:100%;
 }
 
-form {
-    padding:5px;
-}
+//form {
+//  padding:12px;
+//}
 
 
 
-mat-dialog-actions {
-    padding-top:10px;
+//mat-dialog-actions {
+//    padding-top:10px;
+//}
+
+.mat-dialog-title {
+  margin: 0;    
 }
