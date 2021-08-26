@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="logIn()">
+<form [formGroup]="loginForm" (ngSubmit)="logIn()" (keydown.enter)="$event.preventDefault()">
   <div class="login-container">
     <div class="login-container__title" mat-dialog-title>
       <h2 class="login-container__title__label">Login</h2>
@@ -6,11 +6,17 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
+    <mat-divider></mat-divider>
     <div class="login-container__google" >
-      <button mat-button color="primary" >Continue with Google</button>
+      <button mat-button color="accent" style="display:grid;gap:2rem" >
+        <mat-icon><img src="assets/google-logo.svg"/></mat-icon>
+        <span>Continue with Google</span>
+      </button>
     </div>
     <div class="login-container__facebook"  >
-      <button mat-button color="primary">Continue with Facebook</button>
+      <button mat-button color="accent">
+        <mat-icon><img src="assets/facebook-logo.svg"/></mat-icon>
+        Continue with Facebook</button>
     </div>
     <div class="login-container__line">
       <div class="login-container__line__left"></div>
@@ -34,6 +40,7 @@
     <div class="login-container__actions" mat-dialog-actions>
       <button type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid" style="width:100%">Login</button>
     </div>
+    <mat-divider></mat-divider>
     <div class="login-container__signup" mat-dialog-content >
       <a href="javascript:alert('coming soon!')">Sign up for new account</a>
     </div>

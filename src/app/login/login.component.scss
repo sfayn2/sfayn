@@ -3,13 +3,14 @@
   width:100%;
   display: grid;
   gap:1.2rem;
-  padding:12px;
+  padding:0px 12px 5px;
 
   &__title {
     display: grid;
     grid-template-columns: 1fr 1fr;
     &__label {
       justify-self: left;
+      margin: 12px 0;
     }
     &__close {
       justify-self: right;
@@ -58,10 +59,16 @@ mat-form-field, input {
 }
 
 //form {
-//  padding:12px;
+//  padding:0;
 //}
 
-
+.mat-button {
+  color:black;
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid;
+  border-radius: 24px;
+}
 
 //mat-dialog-actions {
 //    padding-top:10px;
