@@ -2,6 +2,7 @@ $defaultColor: #3a4a52; // @Todo make sure to the color in main css
 $secondaryColor: white;
 
 .layout-main {
+//  animation: fadein 2s;
   background-color: #f5f5f5;
   margin:0;
   display: grid;
@@ -144,4 +145,7 @@ mat-sidenav {
   background-color: inherit;
 }
 
-
+//@keyframes fadein {
+//  from { opacity: 0; }
+//  to   { opacity: 1; }
+//}

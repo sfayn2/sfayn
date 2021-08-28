@@ -1,5 +1,6 @@
 
 .product-banner {
+  animation: fadein 3s;
   display: grid;
   //align-items: center;
   //grid-template-columns: repeat(5, 1fr);
@@ -45,4 +46,9 @@ img {
   height:340px;
   width:100%;
   object-fit: cover;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

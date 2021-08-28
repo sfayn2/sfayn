@@ -3,6 +3,8 @@
 }
 
 .product-list {
+  
+  animation: fadein 2s;
 
     display: grid;
     padding: 2rem;
@@ -91,4 +93,9 @@
 
 mat-icon {
   font-size:16px;
+}
+
+@keyframes fadein { 
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
