@@ -43,6 +43,7 @@
         width: 450px;
         height: 55vh;
     }
+  animation: fadein 2s;
 } 
 
 
@@ -65,4 +66,9 @@
 mat-form-field {
     width: 150px; 
     text-align: center;
+}
+
+@keyframes fadein { 
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
