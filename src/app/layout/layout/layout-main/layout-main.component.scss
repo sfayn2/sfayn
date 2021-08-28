@@ -1,3 +1,5 @@
+$defaultColor: #3a4a52; // @Todo make sure to the color in main css
+$secondaryColor: white;
 
 .layout-main {
   background-color: #f5f5f5;
@@ -15,7 +17,7 @@
     &__btn {
       display: grid;
       gap: .5rem;
-      grid-template-columns: 40px auto 1fr auto auto;
+      grid-template-columns: 40px auto auto 45px 40px;
 
       &__menu {
         justify-self:left;    
@@ -26,7 +28,7 @@
       }
       
       &__search {
-        justify-self:center;    
+        justify-self:right;    
         display: grid;
 
         &__box, &__btn {
@@ -42,6 +44,11 @@
           display: grid;
           grid-column: 3 / 4;
         }
+
+        &__btn mat-icon {
+          color: $defaultColor;
+          font-size:1rem;
+        }
       }
 
       &__btn {
@@ -49,7 +56,7 @@
       }
       &__link {
         justify-self:right;    
-        font-size:.90rem;
+        font-size:1rem;
       }
     }
 
@@ -106,7 +113,28 @@ mat-sidenav {
 .searchbox {
   border: none;
   outline: none;
-  width:566px;
-  padding: .8rem;
-  background-color: #a3c8da;
+  padding: .8rem 2rem .8rem;
+  border-radius: 24px;
+  text-overflow: ellipsis;
+}
+
+input {
+  width: 120px;
+  background-color: $defaultColor; 
+  transition: width .2s ease-in-out;
+  //transition: background-color .3s ease-in-out;
+}
+
+input:focus {
+  width:400px;
+  background-color: $defaultColor; 
+  background-color: $secondaryColor;
+}
+
+input::placeholder {
+  color: $secondaryColor;
+}
+
+input:focus::placeholder {
+  color: $defaultColor; 
 }

@@ -27,27 +27,28 @@
         <!-- left menu -->
 
         <!-- right menu -->
-        <div class="layout-main__header__btn__search">
+        <div class="layout-main__header__btn__search" >
           <div class="layout-main__header__btn__search__box">
             <input 
               type="text" 
               class="searchbox" 
-              placeholder="Search" 
+              placeholder="Search for products you need" 
               [(ngModel)]="searchValue" 
               (keydown.enter)="searchValue ? goSearch(): $event.preventDefault()"/>
           </div>
           <div class="layout-main__header__btn__search__btn">
-            <button 
-              mat-icon-button 
-              (click)="goSearch()" 
-              [disabled]="!searchValue">
-              <mat-icon>search</mat-icon>
-            </button>
+              <button 
+                *ngIf="searchValue" 
+                matSuffix 
+                mat-icon-button 
+                aria-label="Clear" 
+                (click)="searchValue=''">
+                  <mat-icon>close</mat-icon>
+              </button>
           </div>
         </div>
         <!-- https://stackoverflow.com/questions/42554091/routerlink-syntax-when-targeting-multiple-router-outlets-primary-aux -->
         <div class="layout-main__header__btn__btn">
-          <!--<button mat-icon-button ><mat-icon>search</mat-icon></button>--> <!--@Todo display depend on device size?-->
           <button 
             mat-icon-button 
             [routerLink]="['', { outlets: { primary: 'cart', amount: 'cart/amount' }}]" >
@@ -60,9 +61,7 @@
           </button>
         </div>
         <div class="layout-main__header__btn__link">
-          <button mat-icon-button >
-            <mat-icon>account_circle</mat-icon>
-          </button>
+          <button mat-icon-button ><mat-icon>account_circle</mat-icon></button>
         </div>
         <!-- right menu -->
 

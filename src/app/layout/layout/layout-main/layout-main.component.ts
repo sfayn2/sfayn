@@ -43,7 +43,7 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.siteService.navQuery()
       .valueChanges
       .pipe(map(res => res.data.Nav ))
-      .subscribe(res => this.menu$ = res)
+      .subscribe(res => this.menu$ = res);
   }
 
   loadProducts() {
@@ -80,8 +80,6 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
 
         this.cartCount =  obj.length;
         this.loading = loading;
-
-        //this.subscriptions.add(this.loadCartsByWarehouse())
 
     });
   }
