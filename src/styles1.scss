@@ -80,3 +80,9 @@ a:hover {
 .mat-raised-button {
   height: 55px;
 }
+
+// show vertical scroll bar when mat dialog is open?
+.cdk-global-overlay-wrapper {
+  pointer-events: auto;
+  overflow-y: auto; 
+}

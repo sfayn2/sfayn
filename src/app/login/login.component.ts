@@ -4,11 +4,12 @@ import { AuthService } from '@/core/service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
@@ -24,9 +25,14 @@ export class LoginComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<LoginComponent>,
                 private authService: AuthService,
                 private snackBar: MatSnackBar,
+                @Inject(DOCUMENT) private document: Document,
                 private fb: FormBuilder) { }
 
   ngOnInit() {
+
+    // hide main scroll bar and use mat dialg back drop scroll bar
+    this.document.documentElement.style.overflow = 'hidden'
+
   }
 
   onNoClick(): void {
@@ -67,6 +73,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    // display back original main page scroll bar
+    this.document.documentElement.style.overflow = 'auto'
+
     if (this.subscription) {
         this.subscription.unsubscribe();
     }
