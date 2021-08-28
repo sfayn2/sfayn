@@ -17,7 +17,7 @@ $secondaryColor: white;
     &__btn {
       display: grid;
       gap: .5rem;
-      grid-template-columns: 40px auto auto 45px 40px;
+      grid-template-columns: 40px auto auto 60px 40px;
 
       &__menu {
         justify-self:left;    
@@ -31,8 +31,15 @@ $secondaryColor: white;
         justify-self:right;    
         display: grid;
 
-        &__box, &__btn {
+        &__box, &__btn, &__icon {
           grid-row: 1 ;
+        }
+
+        &__icon {
+          display: grid;
+          grid-column: 1 / 2;
+          color: $defaultColor;
+          //font-size:5rem;
         }
 
         &__box {
@@ -85,6 +92,35 @@ $secondaryColor: white;
     grid-area: footer;
   }
 
+  & .searchbox {
+    border: none;
+    outline: none;
+    padding: .8rem 2rem .8rem;
+    border-radius: 24px;
+    text-overflow: ellipsis;
+  }
+
+  & input {
+    width: 120px;
+    background-color: $defaultColor; 
+    transition: width .2s ease-in-out;
+    //transition: background-color .3s ease-in-out;
+  }
+
+  & input:focus {
+    width:400px;
+    background-color: $defaultColor; 
+    background-color: $secondaryColor;
+  }
+
+  & input::placeholder {
+    color: $secondaryColor;
+  }
+
+  & input:focus::placeholder {
+    color: $defaultColor; 
+  }
+
 }
 
 .layout-main--navbar {
@@ -109,32 +145,3 @@ mat-sidenav {
 }
 
 
-
-.searchbox {
-  border: none;
-  outline: none;
-  padding: .8rem 2rem .8rem;
-  border-radius: 24px;
-  text-overflow: ellipsis;
-}
-
-input {
-  width: 120px;
-  background-color: $defaultColor; 
-  transition: width .2s ease-in-out;
-  //transition: background-color .3s ease-in-out;
-}
-
-input:focus {
-  width:400px;
-  background-color: $defaultColor; 
-  background-color: $secondaryColor;
-}
-
-input::placeholder {
-  color: $secondaryColor;
-}
-
-input:focus::placeholder {
-  color: $defaultColor; 
-}
