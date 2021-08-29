@@ -8,7 +8,7 @@ import { setContext } from '@apollo/client/link/context';
 
 import { 
   typeDefs,
-  WRITE_NAV,
+  GET_NAV,
 } from '@/core/graphql';
 import { environment } from '../../environments/environment'; // @Todo: to alias the dir. path
 import {
@@ -89,13 +89,16 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
   })
 
   cache.writeQuery({
-    query: WRITE_NAV,
+    query: GET_NAV,
     data: { // Contains the data to write
       Nav: {
         id: 1,
         menu: true,
         arrow_back: false,
         side_bar: true,
+        login: false,
+        user: 'Anonymous',
+        token: '',
         component: "AppComponent",
         __typename: "Nav" 
       },

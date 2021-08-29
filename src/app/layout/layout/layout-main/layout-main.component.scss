@@ -55,7 +55,7 @@ $secondaryColor: white;
 
         &__btn mat-icon {
           color: $defaultColor;
-          font-size:1rem;
+          //font-size:1rem;
         }
       }
 
@@ -110,7 +110,6 @@ $secondaryColor: white;
 
   & input:focus {
     width:400px;
-    background-color: $defaultColor; 
     background-color: $secondaryColor;
   }
 

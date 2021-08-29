@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
+import {
+  SiteService
+} from '@/core/service';
 
 @Component({
   selector: 'app-login',
@@ -13,20 +16,23 @@ import { DOCUMENT } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
 
-    loginForm = this.fb.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required]
-    })
+  loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+  })
 
-    hide: boolean = true;
+  hide: boolean = true;
 
-    private subscription: Subscription;
+  private subscription: Subscription;
 
-    constructor(public dialogRef: MatDialogRef<LoginComponent>,
-                private authService: AuthService,
-                private snackBar: MatSnackBar,
-                @Inject(DOCUMENT) private document: Document,
-                private fb: FormBuilder) { }
+  constructor(
+    public dialogRef: MatDialogRef<LoginComponent>,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    @Inject(DOCUMENT) private document: Document,
+    private siteService: SiteService,
+    private fb: FormBuilder) { 
+    }
 
   ngOnInit() {
 
@@ -54,6 +60,12 @@ export class LoginComponent implements OnInit {
           user: this.loginForm.value.username
         })
 
+        this.siteService.setUserSession(
+          true,
+          this.loginForm.value.username,
+          res.data.tokenAuth.token
+        )
+
         this.dialogRef.close();
         this.alerts("Successfully login!", "Login");
 
@@ -61,6 +73,11 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem("token")
         localStorage.removeItem("currentUser")
         console.log('login error', err)
+        this.siteService.setUserSession(
+          false,
+          'Anonymous',
+          ''
+        )
         this.alerts("Please, enter valid credentials!", "Login");
     }
     );

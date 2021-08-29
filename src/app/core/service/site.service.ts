@@ -14,7 +14,7 @@ export class SiteService {
 
   navQuery() {
     return this.apollo.watchQuery<any>({
-      query: WRITE_NAV,
+      query: GET_NAV,
       variables: {
         id: 1
       }
@@ -45,7 +45,7 @@ export class SiteService {
 
     this.apollo.client.writeFragment({
       id: 'Nav:1',
-      fragment: GET_NAV,
+      fragment: WRITE_NAV,
       data: { 
           side_bar,
           menu,
@@ -53,6 +53,18 @@ export class SiteService {
           component,
           __typename }, 
       })
+  }
+
+  setUserSession(login, user, token) {
+    this.apollo.client.writeFragment({
+      id: 'Nav:1',
+      fragment: WRITE_NAV,
+      data: { 
+        login,
+        user,
+        token
+      }
+    })
   }
 
 }

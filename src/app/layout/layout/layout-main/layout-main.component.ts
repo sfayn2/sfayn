@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import {Location} from '@angular/common';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
 import {
   SiteService,
   ProductService,
@@ -29,8 +30,11 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private cartService: CartService,
     private location: Location,
-    private router: Router
-  ) { }
+    private router: Router,
+    public matIconRegistry: MatIconRegistry,
+  ) {
+    matIconRegistry.registerFontClassAlias ('fas');
+   }
 
   ngOnInit(): void {
     // @Todo need to clear input search
@@ -88,6 +92,14 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
     this.router.navigate(
       [{ outlets: {primary: 'product/search', amount: null }}],
       { queryParams: { keyword: this.searchValue }  }
+    )
+  }
+
+  logout() {
+    this.siteService.setUserSession(
+      false,
+      'Anonymous',
+      ''
     )
   }
 

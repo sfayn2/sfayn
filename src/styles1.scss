@@ -23,6 +23,8 @@ $theme: mat.define-light-theme($primary, $accent, $warn);
 // that you are using.
 @include mat.all-component-themes($theme);
 
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
 
 *, *:before, *:after {
   box-sizing: border-box; 
