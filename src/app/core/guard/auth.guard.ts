@@ -10,7 +10,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanLoad {
+export class AuthGuard implements CanLoad, CanActivate {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,

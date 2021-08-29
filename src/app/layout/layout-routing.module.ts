@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('../payment/payment.module').then(m => m.PaymentModule) },
 
       // @todo workaround set path: '' caused auxiliary outlet not working?? 
-      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule), canLoad: [AuthGuard] },
+      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule), canLoad: [AuthGuard], canActivate:[AuthGuard] },
     ]
 }
 ];
