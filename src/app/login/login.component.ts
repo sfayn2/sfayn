@@ -50,15 +50,12 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.username, 
       this.loginForm.value.password
     ).subscribe(res => {
-        console.log(res.data.tokenAuth)
-        localStorage.setItem("token", res.data.tokenAuth.token)
-        localStorage.setItem("currentUser", this.loginForm.value.username)
 
-        this.authService.objSrc$.next({
-          ...this.authService.objSrc$.getValue(), 
-          token: res.data.tokenAuth.token,
-          user: this.loginForm.value.username
-        })
+        //this.authService.objSrc$.next({
+        //  ...this.authService.objSrc$.getValue(), 
+        //  token: res.data.tokenAuth.token,
+        //  user: this.loginForm.value.username
+        //})
 
         this.siteService.setUserSession(
           true,
@@ -66,13 +63,10 @@ export class LoginComponent implements OnInit {
           res.data.tokenAuth.token
         )
 
-        this.dialogRef.close();
+        this.dialogRef.close({ data: 'success' });
         this.alerts("Successfully login!", "Login");
 
     }, (err) => {
-        localStorage.removeItem("token")
-        localStorage.removeItem("currentUser")
-        console.log('login error', err)
         this.siteService.setUserSession(
           false,
           'Anonymous',

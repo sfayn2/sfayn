@@ -45,7 +45,9 @@ export class AuthGuard implements CanLoad {
 
   canLoad() { // @Todo require canActivate also
 
-    if (localStorage.getItem("token")) {
+    let session = JSON.parse(localStorage.getItem('apollo-cache-persist'))
+
+    if (session['Nav:1'].login) {
       return true;
     }
 
@@ -55,8 +57,8 @@ export class AuthGuard implements CanLoad {
       width: '400px',
     });
 
-    return dialogRef.afterClosed().toPromise().then(result =>{
-      if (localStorage.getItem("token")) {
+    return dialogRef.afterClosed().toPromise().then(({data}) =>{
+      if (data == 'success') {
         return true; // @Todo make sure to verify token?
       }
       return false;

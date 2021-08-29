@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink} from 'apollo-angular/http';
 import { InMemoryCache, createHttpLink } from '@apollo/client/core';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 import { setContext } from '@apollo/client/link/context';
 //import { onError } from "apollo-link-error";
 //import { from } from "rxjs";
@@ -23,7 +24,10 @@ const httpLink2 = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const session = JSON.parse(localStorage.getItem('apollo-cache-persist'))
+
+  //const token = localStorage.getItem('token');
+  const token = session['Nav:1'].token;
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -106,6 +110,12 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
     variables: {
       id: 1
     }
+  });
+
+  // @Todo await before instantiating ApolloClient, else queries might run before the cache is persisted
+  persistCache({
+    cache,
+    storage: new LocalStorageWrapper(window.localStorage),
   });
 
   

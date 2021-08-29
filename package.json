@@ -23,6 +23,7 @@
     "@apollo/client": "^3.3.19",
     "apollo-angular": "^2.6.0",
     "apollo-link-error": "^1.1.13",
+    "apollo3-cache-persist": "^0.12.1",
     "creditcardpayments": "^1.0.3",
     "glob-parent": "^5.1.2",
     "graphql": "^15.5.0",

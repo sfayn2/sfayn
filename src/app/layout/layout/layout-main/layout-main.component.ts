@@ -96,11 +96,17 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+
     this.siteService.setUserSession(
       false,
       'Anonymous',
       ''
     )
+
+    this.router.navigate(
+      [{ outlets: {primary: 'product', amount: null }}],
+    )
+
   }
 
   ngOnDestroy() {
