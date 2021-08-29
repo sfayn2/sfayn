@@ -15,36 +15,8 @@ export class AuthGuard implements CanLoad {
     private dialog: MatDialog,
     private authService: AuthService,
   ) {}
-  //canActivate(
-  //  next: ActivatedRouteSnapshot,
-  //  state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-  //  console.log('check localStorage', localStorage.getItem("currentUser"))
-  //  
-  //   if (localStorage.getItem("currentUser")) { // if login
-  //          return true;
-  //   }
-
-  //  // if not login
-  //  // https://stackoverflow.com/questions/48955831/angular-canactivate-with-login-dialog
-  //  const dialogRef = this.dialog.open(LoginComponent, {
-  //    width: '400px',
-  //    height: '500px',
-  //  });
-
-  //  return dialogRef.afterClosed().toPromise().then(result =>{
-  //     if (localStorage.getItem("currentUser")) {
-  //         return true;
-  //     } else {
-  //         return false;
-  //     }
-  // });
-
-
-  //}
-
-  canLoad() { // @Todo require canActivate also
-
+  loginRequired() {
     let session = JSON.parse(localStorage.getItem('apollo-cache-persist'))
 
     if (session['Nav:1'].login) {
@@ -64,6 +36,15 @@ export class AuthGuard implements CanLoad {
       return false;
     });
 
+
+  }
+
+  canActivate() {
+    return this.loginRequired();
+  }
+
+  canLoad() { // @Todo require canActivate also
+    return this.loginRequired();
   }
 
   
