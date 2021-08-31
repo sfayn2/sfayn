@@ -1,31 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { LoginComponent } from '../../login';
 import { 
   VERIFY_TOKEN,
   TOKEN_AUTH,
   WRITE_AUTH
 } from '@/core/graphql';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  objSrc$ = new BehaviorSubject({
-    obj: null,
-    token: null,
-    user: null
-  });
-
-  obj$ = this.objSrc$.asObservable();
-
-  constructor(private apollo: Apollo) { }
-
-  logout() {
-    localStorage.removeItem("tokenAuth");
-    localStorage.removeItem("currentUser");
-  }
+  constructor(
+    private dialog: MatDialog,
+    private apollo: Apollo
+  ) { }
 
   verifyToken(token) {
     return this.apollo.mutate({
@@ -34,6 +26,23 @@ export class AuthService {
         token
       }
     })
+  }
+
+  openLoginDialog() {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '400px',
+    });
+
+    return dialogRef;
+
+  }
+
+  isLoggedIn() {
+    let session = JSON.parse(localStorage.getItem('apollo-cache-persist'))
+    if (session['Nav:1'].login) {
+      return true;
+    }
+    return false;
   }
 
   authQuery() {
@@ -53,16 +62,6 @@ export class AuthService {
         password: pass
       }
     })
-        /*  .subscribe((res) => { 
-            console.log(res) 
-            this.authObjSrc$.next(res);
-            return res;
-        }, (err) => {
-            console.log(`there was an error ${err}`)    
-            this.authObjSrc$.next(err);
-            return err;
-        }  ); */
-
   }
 
 }

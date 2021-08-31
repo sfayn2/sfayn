@@ -9,13 +9,34 @@ const routes: Routes = [
     path: '',
     component: LayoutMainComponent,
     children: [
-      { path: 'customers', loadChildren: () => import('../customers/customers.module').then(m => m.CustomersModule) },
-      { path: '', loadChildren: () => import('../product/product.module').then(m => m.ProductModule) },
-      { path: '', loadChildren: () => import('../checkout/checkout.module').then(m => m.CheckoutModule) },
-      { path: '', loadChildren: () => import('../payment/payment.module').then(m => m.PaymentModule) },
+      { 
+        path: 'customers', 
+        loadChildren: () => import('../customers/customers.module').then(m => m.CustomersModule) 
+      },
+      { 
+        path: '', 
+        loadChildren: () => import('../product/product.module').then(m => m.ProductModule) 
+      },
+      { 
+        path: '', 
+        loadChildren: () => import('../checkout/checkout.module').then(m => m.CheckoutModule),
+        canLoad: [AuthGuard], 
+        canActivate:[AuthGuard] 
+      },
+      { 
+        path: '', 
+        loadChildren: () => import('../payment/payment.module').then(m => m.PaymentModule),
+        canLoad: [AuthGuard], 
+        canActivate:[AuthGuard] 
+      },
 
       // @todo workaround set path: '' caused auxiliary outlet not working?? 
-      { path: '', loadChildren: () => import('../cart/cart.module').then(m => m.CartModule), canLoad: [AuthGuard], canActivate:[AuthGuard] },
+      { 
+        path: '', 
+        loadChildren: () => import('../cart/cart.module').then(m => m.CartModule), 
+        canLoad: [AuthGuard], 
+        canActivate:[AuthGuard] 
+      },
     ]
 }
 ];

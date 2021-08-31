@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   SiteService,
   ProductService,
-  CartService
+  CartService,
+  AuthService
 } from '@/core/service';
 
 @Component({
@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnInit {
     private siteService: SiteService,
     private productService: ProductService,
     private cartService: CartService,
-    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -45,18 +45,12 @@ export class ProductDetailComponent implements OnInit {
   }  
 
   addCart(sku, qty) {
-    // need to refetch query after mutation. not smart enough
-    this.cartService.addCart(sku, qty).subscribe(({errors}) => {
-      // @Todo make this reusable / show login page??
-      if (errors) {
-        const error_msg = errors.map(res => res.message)
-        if (error_msg.length > 0) {
-          this.snackBar.open(error_msg[0], 'Add Cart', {
-              duration: 2000,
-          });
-        }
-      }
-    })
+    if(!this.authService.isLoggedIn()) {
+      this.authService.openLoginDialog();
+    } else {
+      // need to refetch query after mutation. not smart enough
+      this.cartService.addCart(sku, qty).subscribe();
+    }
   }
 
   goSelectVariant(id, img) {
