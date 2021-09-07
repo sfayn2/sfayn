@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ProductService
 } from '@/core/service';
@@ -13,7 +14,8 @@ export class ProductCategoryComponent implements OnInit {
   category: any;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +29,19 @@ export class ProductCategoryComponent implements OnInit {
         this.category = data.allProductcategory.edges.slice(0, 16);
         console.log(data.allProductcategory.edges)
     });
+  }
+
+  goSearch(id) {
+    // get all related level 3 categories then search
+    let queryParams = {
+      category: [id],
+      level: 1
+    };
+
+    this.router.navigate(
+      [{ outlets: {primary: 'product/search', amount: null }}],
+      { queryParams }
+    )
   }
 
 }

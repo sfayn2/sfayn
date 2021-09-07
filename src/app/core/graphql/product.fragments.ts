@@ -116,8 +116,8 @@ export const GET_PRODUCT_DETAIL = gql`
 
 
 export const GET_ALL_CATEGORY = gql`
-query GetALLCategory($id: [ID], $level: String) {
-  allProductcategory(id: $id, level: $level) {
+query GetALLCategory($id: [ID], $level: String, $parent: String) {
+  allProductcategory(id: $id, level: $level, parent: $parent) {
     edges {
       node {
         productcategorySet {
@@ -134,6 +134,7 @@ query GetALLCategory($id: [ID], $level: String) {
         id
         name
         level
+        imgUpload
       }
     }
   }

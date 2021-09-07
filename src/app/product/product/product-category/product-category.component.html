@@ -5,9 +5,11 @@
   </div>
   <div class="product-category__items">
     <ng-container *ngFor="let c of category">
-      <div class="product-category__items__items">
+      <div (click)="goSearch(c.node.id)" class="product-category__items__items">
         <div class="product-category__items__items__img">
-          <img style="width:80px;height:80px; object-fit: cover;" src="assets/empty-product.png">
+          <img *ngIf="c.node.imgUpload" [src]="c.node.imgUpload">
+          <!--<i *ngIf="!c.node.imgUpload" class="fas fa-headphones fa-3x" style="color:#999"></i>-->
+          <img *ngIf="!c.node.imgUpload" src="assets/empty-product.png">
         </div>
         <div class="product-category__items__items__name">
           {{c.node.name}}
