@@ -27,7 +27,7 @@ const authLink = setContext((_, { headers }) => {
   const session = JSON.parse(localStorage.getItem('apollo-cache-persist'))
 
   //const token = localStorage.getItem('token');
-  const token = session['Nav:1'].token;
+  const token = session ? session['Nav:1'].token : null ;
   // return the headers to the context so httpLink can read them
   return {
     headers: {
