@@ -12,7 +12,7 @@ https://sfayn2.github.io/sfayn/
 
 # Sfayn
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2 (NodeJs 16.13.0).
 
 ## Development server
 
