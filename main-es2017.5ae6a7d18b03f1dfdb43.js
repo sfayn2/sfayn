@@ -311,7 +311,7 @@ query GetOrder($id: ID!) {
   }
 `,mt=$`
   query GetALLBanners($user: ID!) {
-    allPromotionalbanner(createdBy: $user) {
+    allPromotionalbanner(createdBy: $user, orderBy: "displayOrder") {
       edges {
         node {
           id
