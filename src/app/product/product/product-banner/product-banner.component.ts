@@ -28,22 +28,11 @@ export class ProductBannerComponent implements OnInit {
     })
   }
 
-  getDisplayBanner() { //@Todo should be based on display order?
-    let imgUpload = this.promotionalBanner.map( 
-      res => res.node.imgUpload
-    ).filter( res => res.length);
+  getDisplayBanner() { 
+    let imgUpload = this.promotionalBanner[0].node.imgUpload;
+    let imgUrl = this.promotionalBanner[0].node.imgUrl;
 
-    let imgUrl = this.promotionalBanner.map( 
-      res => res.node.imgUrl
-    ).filter( res => res.length);
-
-    if (imgUpload.length) {
-      return imgUpload[0];
-    } else if(imgUrl.length) {
-      return imgUrl[0];
-    }
-
-    return null; // @Todo default img??
+    return imgUpload || imgUrl;
   }
 
 
