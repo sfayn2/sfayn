@@ -56,7 +56,8 @@ export class LayoutMainComponent implements OnInit, OnDestroy {
       .subscribe(({data, loading}) => {
         this.productService.objSrc$.next({ 
           ...this.productService.objSrc$.getValue(), 
-          obj: data.allProductvariantitems.edges
+          obj: data.allProductvariantitems.edges,
+          loading
          } 
         )
         this.subscriptions.add(this.loadCarts())

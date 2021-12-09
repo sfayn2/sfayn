@@ -18,6 +18,7 @@ export class ProductService {
 
   objSrc$ = new BehaviorSubject({
     obj: null,
+    loading: null
   });
 
   obj$ = this.objSrc$.asObservable();
