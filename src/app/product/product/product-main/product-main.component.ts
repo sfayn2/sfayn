@@ -13,6 +13,7 @@ export class ProductMainComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   productList: any;
+  loading: boolean = true;
 
   constructor(
     private productService: ProductService
@@ -21,6 +22,7 @@ export class ProductMainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.productService.obj$.subscribe(res => {
       this.productList = res.obj?.filter(res => res.node.default);
+      this.loading = res.loading;
     })
   }
 
