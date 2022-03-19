@@ -104,15 +104,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
-        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
@@ -121,7 +112,4 @@
     }
   },
   "defaultProject": "sfayn",
-  "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
-  }
 }

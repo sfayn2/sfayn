@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //this will stop all animations only use for optimization where u dont want to animate
 import { LayoutModule } from '@/layout';
 import { CoreModule } from '@/core';
@@ -27,13 +27,7 @@ import { LoginComponent } from './login';
     CoreModule,
     SharedModule
   ],
-  //entryComponents: [LoginComponent, ShippingAddressComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-    constructor() {
-
-
-   }
-
-}
+export class AppModule { }
