@@ -6,12 +6,19 @@ export const WRITE_NAV = gql`
     arrow_back
     side_bar
     menu
-    login
-    user
-    token
     component
   }
 `;
+
+// @Todo session should be in site settngs?
+export const WRITE_USER_SESSION = gql`
+  fragment myNav on Nav {
+    login
+    user
+    token
+  }
+`;
+
 
 export const GET_NAV = gql`
   query GetNav($id: Int!) {

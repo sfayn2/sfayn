@@ -3,7 +3,8 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { 
   GET_NAV, 
-  WRITE_NAV
+  WRITE_NAV,
+  WRITE_USER_SESSION
 } from '@/core/graphql';
 
 @Injectable({
@@ -58,7 +59,7 @@ export class SiteService {
   setUserSession(login, user, token) {
     this.apollo.client.writeFragment({
       id: 'Nav:1',
-      fragment: WRITE_NAV,
+      fragment: WRITE_USER_SESSION,
       data: { 
         login,
         user,
