@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '@/core/service';
 import { Subscription } from 'rxjs';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     @Inject(DOCUMENT) private document: Document,
     private siteService: SiteService,
-    private fb: FormBuilder) { 
+    private fb: UntypedFormBuilder) { 
     }
 
   ngOnInit() {

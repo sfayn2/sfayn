@@ -11,7 +11,7 @@ https://sfayn2.github.io/sfayn/
 
 # Sfayn
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0. (NodeJs 16.13.0)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10. (NodeJs 16.13.0)
 
 ## Development server
 
@@ -24,6 +24,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running Local
+
+Run `ng serve --host 0.0.0.0`
 
 ## Running unit tests
 
