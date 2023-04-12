@@ -68,8 +68,8 @@ export const GET_ALL_PRODUCTS = gql`
 query GetAllProducts(
   $keyword: String, 
   $orderBy: String, 
-  $minprice: Float, 
-  $maxprice: Float,
+  $minprice: Decimal, 
+  $maxprice: Decimal,
   $default: Boolean
 ) {
   allProductvariantitems(
