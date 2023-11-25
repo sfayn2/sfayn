@@ -17,10 +17,6 @@ export const DELETE_CART = gql`
   mutation DeleteCart($user: ID!, $sku: ID!) {
     shopcart(input: { user: $user, sku: $sku, mode: 2 }) {
       ok
-      shopcart {
-        id
-        totalPrice
-      }    
     }
   }
 `;
