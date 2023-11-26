@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^15.2.10",
     "@angular/router": "^15.2.10",
     "@apollo/client": "^3.7.5",
-    "apollo-angular": "^4.2.0",
+    "apollo-angular": "^5.0.2",
     "apollo3-cache-persist": "^0.14.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
