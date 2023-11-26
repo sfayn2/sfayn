@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
+import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink} from 'apollo-angular/http';
-import { InMemoryCache, createHttpLink } from '@apollo/client/core';
+import { InMemoryCache, createHttpLink, ApolloClientOptions } from '@apollo/client/core';
 import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 import { setContext } from '@apollo/client/link/context';
 //import { onError } from "apollo-link-error";
@@ -50,7 +50,7 @@ const authLink = setContext((_, { headers }) => {
 
 
 
-export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
+export function createApollo(httpLink: HttpLink, makeVar: MakevarService): ApolloClientOptions<any> {
 
   //@Todo: move to a separat file cache logic . ex. cache.ts?
   const cache = new InMemoryCache({
@@ -135,9 +135,8 @@ export function createApollo(httpLink: HttpLink, makeVar: MakevarService) {
 
 
 @NgModule({
-  exports: [],
+  exports: [ApolloModule],
   providers: [
-    Apollo,
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
